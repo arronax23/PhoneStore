@@ -17,5 +17,7 @@ namespace PhoneShop.DAL.Data
             IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions)
         {
         }
+
+        public DbSet<Phone> Phones { get; set; }
     }
 }
