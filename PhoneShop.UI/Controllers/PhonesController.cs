@@ -28,20 +28,23 @@ namespace PhoneShop.UI.Controllers
         [Route("api/GetAllPhones")]
         public IEnumerable<PhoneVM> GetAllPhones()
         {
-            var phones = _phonesService.GetAllPhones().Phones.Select(phone => new PhoneVM()
-            {
-                PhoneId = phone.PhoneId,
-                Brand = phone.Brand,
-                Model = phone.Model,
-                Color = (PhoneColorVM)phone.Color,
-                Camera = phone.Camera,
-                Memory = phone.Memory,
-                ImageUrl = phone.ImageUrl,
-                OS = phone.OS,
-                RAM = phone.RAM
-            });
+            //var phones = _phonesService.GetAllPhones().Phones.Select(phone => new PhoneVM()
+            //{
+            //    PhoneId = phone.PhoneId,
+            //    Brand = phone.Brand,
+            //    Model = phone.Model,
+            //    Color = (PhoneColorVM)phone.Color,
+            //    Camera = phone.Camera,
+            //    Memory = phone.Memory,
+            //    ImageUrl = phone.ImageUrl,
+            //    OS = phone.OS,
+            //    RAM = phone.RAM
+            //});
 
-            return phones;
+            var phones = _phonesService.GetAllPhones().Phones;
+            var phonesVM = _mapper.Map<IEnumerable<PhoneVM>>(phones);
+
+            return phonesVM;
         }
         [HttpGet]
         [Route("api/GetPhoneById/{id}")]
