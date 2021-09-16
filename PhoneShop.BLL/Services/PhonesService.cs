@@ -21,5 +21,13 @@ namespace PhoneShop.BLL.Services
             var response = new GetAllPhonesResponse() { Phones = applicationDbContext.Phones.AsEnumerable() };
             return response;
         }
+        public GetPhoneByIdResponse GetPhoneById(GetPhoneByIdRequest request)
+        {
+            var phone = applicationDbContext.Phones.FirstOrDefault(p => p.PhoneId == request.PhoneId);
+            if (phone == null)
+                throw new Exception("No phone was found.");
+            var response = new GetPhoneByIdResponse() { Phone = phone };
+            return response;
+        }
     }
 }

@@ -19,7 +19,7 @@ code {
 }
 
 .phone-card-img {
-  width: 150px;
+  width: 140px;
 }
 
 .MuiCardActions-root {
@@ -34,4 +34,45 @@ code {
   background: linear-gradient(#e29c9c, #bdc0db) !important;
   border: 1px solid rgba(7, 6, 6, 0.507);
   margin: 2px;
+}
+
+footer {
+  text-align: center;
+  background-color: white;
+  color: rgba(0, 0, 0, 0.54);
+  position: absolute;
+  top: 97.7%;
+  width: 100%;
+}
+
+.MuiTypography-body1 {
+  font-size: 0.75rem !important;
+}
+
+.phone-details {
+  text-align: center;
+}
+
+.phone-details-img {
+  width: 300px;
+  height: 300px;
+}
+
+.dl {
+  font-family: Roboto;
+}
+
+.definition-list-item {
+  /* background-color: rgb(21, 224, 197); */
+  background: linear-gradient(to left, #e29c9c, #bdc0db);
+  width: 300px;
+  margin: auto;
+}
+
+.definition-list-item dt {
+  font-weight: 900;
+}
+
+.definition-list-item dd {
+  font-weight: 500;
 }

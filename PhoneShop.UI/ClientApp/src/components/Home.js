@@ -1,21 +1,20 @@
-import React, { useState, useEffect } from 'react'
-import useFetchGet from '../customHooks/useFetchGet';
-import PhoneCard from './PhoneCard'
-import Grid from '@material-ui/core/Grid'
+import React from 'react'
+import Typography from '@material-ui/core/Typography'
+import{ makeStyles } from '@material-ui/styles'
+
+const useStyles = makeStyles({
+    root: {
+        textAlign: 'center'
+    }
+});
 
 function Home() {
-    // const [phones, setPhones] = useState();
-    const  {data : phones, isPending, error}  = useFetchGet('api/GetAllPhones')
-    //const list = (<ol>{phones.map(phone => (<li>{phones.name}</li>))}</ol>);
-
-      return (
+    const classes = useStyles()
+    return (
         <div>
-        <h2>Hello</h2>
-        <h3>{console.log(phones)}</h3>
-        {isPending && <div>Loading...</div>}
-        {phones && <Grid container>{phones.map(phone => <PhoneCard key={phone.phoneId} phone={phone} />)}</Grid>}
+            <Typography className={classes.root} variant="h6" color="textSecondary">Welcome! This is the PhoneShop application.</Typography>
         </div>
-      );
+    )
 }
 
 export default Home

@@ -6,6 +6,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PhoneShop.BLL.Interfaces;
+using PhoneShop.BLL.Messages;
 using PhoneShop.UI.VIewModels;
 
 namespace PhoneShop.UI.Controllers
@@ -41,6 +42,14 @@ namespace PhoneShop.UI.Controllers
             });
 
             return phones;
+        }
+        [HttpGet]
+        [Route("api/GetPhoneById/{id}")]
+        public PhoneVM GetPhoneById(int id)
+        {
+            var getPhoneByIdRequest = new GetPhoneByIdRequest() { PhoneId = id};
+            var phone = _mapper.Map<PhoneVM>(_phonesService.GetPhoneById(getPhoneByIdRequest).Phone);
+            return phone;
         }
     }
 }

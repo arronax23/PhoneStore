@@ -5,5 +5,6 @@ namespace PhoneShop.BLL.Interfaces
     public interface IPhonesService
     {
         GetAllPhonesResponse GetAllPhones();
+        GetPhoneByIdResponse GetPhoneById(GetPhoneByIdRequest request);
     }
 }

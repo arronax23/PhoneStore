@@ -7,18 +7,23 @@ import CardMedia from '@material-ui/core/CardMedia'
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
 import {makeStyles} from '@material-ui/styles'
+import { useHistory } from 'react-router'
 
 const useStyles = makeStyles({
     root: {
-        width: 200,
-        height: 150,
+        // width: 100,
+        // height: 150,
         textAlign: 'center'
     }
 });
 function PhoneCard({ phone }) {
+    const history = useHistory();
     const classes = useStyles();
+    const handleClick = () => {
+        history.push('/phonedetails/'+ phone.phoneId)
+    }
     return (
-        <Grid item xs={3} className={classes.root}>
+        <Grid item xs={2} className={classes.root}>
             <Card >
                 <CardContent>
                     <Typography color="textSecondary">
@@ -26,7 +31,7 @@ function PhoneCard({ phone }) {
                     </Typography>
                     <img className="phone-card-img" src={phone.imageUrl} />
                 </CardContent>
-                <Button>Show details</Button>
+                <Button onClick={handleClick} color="primary">Show details</Button>
             </Card>
         </Grid>
     )
