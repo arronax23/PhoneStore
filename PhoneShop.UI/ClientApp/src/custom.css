@@ -1,14 +1,37 @@
 /* Provide sufficient contrast against white background */
+
+body {
+  background-image: url("./img/phone3.jpg");
+  background-size: cover;
+}
 a {
   color: #0366d6;
 }
 
 code {
-  color: #E01A76;
+  color: #e01a76;
 }
 
 .btn-primary {
   color: #fff;
   background-color: #1b6ec2;
   border-color: #1861ac;
+}
+
+.phone-card-img {
+  width: 150px;
+}
+
+.MuiCardActions-root {
+  text-align: center;
+}
+
+.MuiCardContent-root {
+  padding: 0 !important;
+}
+
+.MuiCard-root {
+  background: linear-gradient(#e29c9c, #bdc0db) !important;
+  border: 1px solid rgba(7, 6, 6, 0.507);
+  margin: 2px;
 }

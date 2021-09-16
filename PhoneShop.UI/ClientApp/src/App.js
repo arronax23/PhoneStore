@@ -1,18 +1,13 @@
 import React, { Component, useEffect } from 'react';
+import { Route, Switch } from 'react-router-dom';
+import Home from './components/Home';
 
 import './custom.css'
 
  const App = () => {
-  fetch('api/GetAllPhones')
-  .then(resp => {
-    console.log(resp);
-    return resp.json();
-  })
-  .then(data => console.log(data))
-  .catch(err => console.log(err));
-    return (
-      <h2>Hello</h2>
-    );
+return(
+    <Route exact path="/" component={Home}/>
+)
 
 }
 export default App

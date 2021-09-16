@@ -2,29 +2,45 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using PhoneShop.DAL.Data;
-using PhoneShop.DAL.Models;
+using PhoneShop.BLL.Interfaces;
+using PhoneShop.UI.VIewModels;
 
 namespace PhoneShop.UI.Controllers
 {
-    [Route("api/[controller]")]
+    //[Route("api/[controller]")]
     [ApiController]
     public class PhonesController : ControllerBase
     {
+        private IPhonesService _phonesService;
+        private IMapper _mapper;
 
-        private ApplicationDbContext applicationDbContext;
-
-        public PhonesController(ApplicationDbContext applicationDbContext)
+        public PhonesController(IPhonesService phonesService, IMapper mapper)
         {
-            this.applicationDbContext = applicationDbContext;
+            _phonesService = phonesService;
+            _mapper = mapper;
         }
 
-        public IEnumerable<Phone> GetAllPhones()
+        [HttpGet]
+        [Route("api/GetAllPhones")]
+        public IEnumerable<PhoneVM> GetAllPhones()
         {
-            
-            return applicationDbContext.Phones.AsEnumerable();
+            var phones = _phonesService.GetAllPhones().Phones.Select(phone => new PhoneVM()
+            {
+                PhoneId = phone.PhoneId,
+                Brand = phone.Brand,
+                Model = phone.Model,
+                Color = (PhoneColorVM)phone.Color,
+                Camera = phone.Camera,
+                Memory = phone.Memory,
+                ImageUrl = phone.ImageUrl,
+                OS = phone.OS,
+                RAM = phone.RAM
+            });
+
+            return phones;
         }
     }
 }

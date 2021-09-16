@@ -11,6 +11,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PhoneShop.DAL.Data;
 using PhoneShop.DAL.Models;
+using System;
+using PhoneShop.BLL.Interfaces;
+using PhoneShop.BLL.Services;
 
 namespace PhoneShop.UI
 {
@@ -36,6 +39,8 @@ namespace PhoneShop.UI
             services.AddIdentityServer()
                 .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
 
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
             services.AddAuthentication()
                 .AddIdentityServerJwt();
 
@@ -47,6 +52,8 @@ namespace PhoneShop.UI
             {
                 configuration.RootPath = "ClientApp/build";
             });
+
+            services.AddScoped<IPhonesService, PhonesService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace PhoneShop.DAL.Models
+namespace PhoneShop.UI.VIewModels
 {
-    public enum PhoneColor { White, Black, Red, Blue, Pink }
-    public class Phone
-    { 
+    public enum PhoneColorVM { White, Black, Red, Blue, Pink }
+    public class PhoneVM
+    {
         public int PhoneId { get; set; }
         public string Brand { get; set; }
         public string Model { get; set; }
@@ -14,7 +15,7 @@ namespace PhoneShop.DAL.Models
         public int RAM { get; set; }
         public int Memory { get; set; }
         public int Camera { get; set; }
-        public PhoneColor Color  { get; set; }
-        public string ImageUrl  { get; set; }
+        public PhoneColorVM Color { get; set; }
+        public string ImageUrl { get; set; }
     }
 }
