@@ -6,5 +6,7 @@ namespace PhoneShop.BLL.Interfaces
     {
         GetAllPhonesResponse GetAllPhones();
         GetPhoneByIdResponse GetPhoneById(GetPhoneByIdRequest request);
+        void SavePhone(SavePhoneRequest request);
+        void DeletePhoneById(DeletePhoneByIdRequest request);
     }
 }

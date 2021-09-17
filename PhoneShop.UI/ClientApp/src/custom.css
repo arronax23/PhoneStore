@@ -1,7 +1,7 @@
 /* Provide sufficient contrast against white background */
 
 body {
-  background-image: url("./img/phone3.jpg");
+  background-image: url("./img/backgroundPhone.jpg");
   background-size: cover;
 }
 a {
@@ -73,6 +73,17 @@ footer {
   font-weight: 900;
 }
 
+.form {
+  text-align: center;
+  background: linear-gradient(to left, #e29c9c, #bdc0db);
+  width: 20%;
+  margin: auto;
+}
+
 .definition-list-item dd {
   font-weight: 500;
+}
+
+.login {
+  background-color: rgba(97, 92, 92, 0.596) !important;
 }

@@ -13,12 +13,18 @@ function Navbar() {
     const phoneListClicked = () => {
         history.push("/phonelist");
     }    
+
+    const addPhoneClicked = () => {
+        history.push("/addphone");
+    }    
+
     return (
         <div>
         <BottomNavigation showLabels>
-            <BottomNavigationAction label="Home" value="some1" onClick={homeClicked} />
-            <BottomNavigationAction label="Phones' list" value="some2" onClick={phoneListClicked}/>
-            <BottomNavigationAction label="Add phone" value="some3"/>
+            <BottomNavigationAction label="Home" onClick={homeClicked} />
+            <BottomNavigationAction label="Phones' list" onClick={phoneListClicked}/>
+            <BottomNavigationAction label="Add phone" onClick={addPhoneClicked}/>
+            <BottomNavigationAction className="login" label="Login" onClick={addPhoneClicked}/>
         </BottomNavigation>
         </div>
     )

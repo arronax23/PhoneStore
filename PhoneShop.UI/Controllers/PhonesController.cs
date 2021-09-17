@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PhoneShop.BLL.Interfaces;
 using PhoneShop.BLL.Messages;
+using PhoneShop.DAL.Models;
 using PhoneShop.UI.VIewModels;
 
 namespace PhoneShop.UI.Controllers
@@ -51,8 +52,25 @@ namespace PhoneShop.UI.Controllers
         public PhoneVM GetPhoneById(int id)
         {
             var getPhoneByIdRequest = new GetPhoneByIdRequest() { PhoneId = id};
-            var phone = _mapper.Map<PhoneVM>(_phonesService.GetPhoneById(getPhoneByIdRequest).Phone);
-            return phone;
+            var phoneVM = _mapper.Map<PhoneVM>(_phonesService.GetPhoneById(getPhoneByIdRequest).Phone);
+            return phoneVM;
         }
+
+        [HttpPost]
+        [Route("api/SavePhone")]
+        public IActionResult SavePhone([FromBody] PhoneVM phoneVM)
+        {
+            var phone = _mapper.Map<Phone>(phoneVM);
+            _phonesService.SavePhone(new SavePhoneRequest() { Phone = phone });
+            return Ok(phone);
+        }
+        [HttpDelete]
+        [Route("api/DeletePhoneById/{id}")]
+        public IActionResult DeletePhoneById(int id)
+        {
+            _phonesService.DeletePhoneById(new DeletePhoneByIdRequest() { PhoneId = id });
+            return Ok();
+        }
+
     }
 }

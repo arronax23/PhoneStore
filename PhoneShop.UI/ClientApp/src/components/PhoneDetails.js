@@ -1,14 +1,32 @@
 import React from 'react'
 import Typography from '@material-ui/core/Typography'
+import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import useFetchGet from './../customHooks/useFetchGet'
 
 const phoneColor = ["White","Black","Red","Blue","Pink"]
 
 function PhoneDetails() {
+    const history = useHistory();
     const { id } = useParams();
     const {data: phone, isPending, error} = useFetchGet("api/GetPhoneById/"+id);
+    const deleteClick = () => {
+        fetch('/api/DeletePhoneById/'+id, 
+        {
+            method: 'DELETE'
+        })
+        .then(resp => {
+            console.log("resp:"+resp);
+            if (!resp.ok){
+                throw new Error('Failed deleting.');
+            }
+            else {
+                history.push('/phonelist');
+            }
+        })
+        .catch(err => console.log("err:"+err.message))
+    }
     return (
         <div >
         {phone &&
@@ -38,6 +56,7 @@ function PhoneDetails() {
                         <dd>{phoneColor[phone.color]}</dd>
                     </div>
                 </dl>
+                <Button onClick={deleteClick} variant="contained" color="secondary">Delete</Button>
             </div>
         </div>}
         </div>
