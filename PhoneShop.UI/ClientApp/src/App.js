@@ -10,6 +10,7 @@ import PhoneList from './components/PhoneList'
 import Home from './components/Home'
 import PhoneDetails from './components/PhoneDetails';
 import AddPhone from './components/AddPhone';
+import Register from './components/Register';
 
 function App() {
 
@@ -29,6 +30,9 @@ function App() {
             <Route exact path="/addphone">
                 <AddPhone />
             </Route>
+            <Route exact path="/register">
+                <Register />
+            </Route>            
         </Switch>
         <Footer />
         </div>

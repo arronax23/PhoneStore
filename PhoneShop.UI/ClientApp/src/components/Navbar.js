@@ -18,13 +18,18 @@ function Navbar() {
         history.push("/addphone");
     }    
 
+    const register = () => {
+        history.push("/register");
+    }  
+
     return (
         <div>
         <BottomNavigation showLabels>
             <BottomNavigationAction label="Home" onClick={homeClicked} />
             <BottomNavigationAction label="Phones' list" onClick={phoneListClicked}/>
             <BottomNavigationAction label="Add phone" onClick={addPhoneClicked}/>
-            <BottomNavigationAction className="login" label="Login" onClick={addPhoneClicked}/>
+            <BottomNavigationAction className="login-register" label="Login" onClick={addPhoneClicked}/>
+            <BottomNavigationAction className="login-register" label="Register" onClick={register}/>
         </BottomNavigation>
         </div>
     )

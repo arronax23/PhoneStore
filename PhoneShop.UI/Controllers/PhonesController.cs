@@ -16,8 +16,8 @@ namespace PhoneShop.UI.Controllers
     [ApiController]
     public class PhonesController : ControllerBase
     {
-        private IPhonesService _phonesService;
-        private IMapper _mapper;
+        private readonly IPhonesService _phonesService;
+        private readonly IMapper _mapper;
 
         public PhonesController(IPhonesService phonesService, IMapper mapper)
         {
@@ -58,12 +58,13 @@ namespace PhoneShop.UI.Controllers
 
         [HttpPost]
         [Route("api/SavePhone")]
-        public IActionResult SavePhone([FromBody] PhoneVM phoneVM)
+        public IActionResult SavePhone(PhoneVM phoneVM)
         {
             var phone = _mapper.Map<Phone>(phoneVM);
             _phonesService.SavePhone(new SavePhoneRequest() { Phone = phone });
             return Ok(phone);
         }
+
         [HttpDelete]
         [Route("api/DeletePhoneById/{id}")]
         public IActionResult DeletePhoneById(int id)
@@ -71,6 +72,5 @@ namespace PhoneShop.UI.Controllers
             _phonesService.DeletePhoneById(new DeletePhoneByIdRequest() { PhoneId = id });
             return Ok();
         }
-
     }
 }
