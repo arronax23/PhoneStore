@@ -5,6 +5,6 @@ namespace PhoneShop.BLL.Interfaces
 {
     public interface IUsersService
     {
-        Task RegisterUser(RegisterUserRequest request);
+        Task<RegisterUserResponse> RegisterUser(RegisterUserRequest request);
     }
 }

@@ -5,7 +5,7 @@ import MenuItem from '@material-ui/core/MenuItem'
 import {makeStyles} from '@material-ui/styles'
 import {useHistory} from 'react-router'
 
-const useStyle = makeStyles({
+const useStyles = makeStyles({
     root: {
         width: '75%',
         marginBottom: 16
@@ -13,7 +13,7 @@ const useStyle = makeStyles({
 });
 
 function AddPhone() {
-    const classes = useStyle();
+    const classes = useStyles();
     const history = useHistory();
 
     const [brand, setBrand] = useState('');

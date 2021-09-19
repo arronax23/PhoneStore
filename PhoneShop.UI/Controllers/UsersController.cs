@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -27,8 +28,18 @@ namespace PhoneShop.UI.Controllers
         [Route("api/Register")]
         public async Task<IActionResult> Register(UserVM userVM)
         {
-            await _usersService.RegisterUser(new RegisterUserRequest() { Username = userVM.Username, Password = userVM.Password });
-            return Ok();
+            var response  = await _usersService.RegisterUser(new RegisterUserRequest() { Username = userVM.Username, Password = userVM.Password });
+            if (response.IsSuccesfull == true)
+                return Ok();
+            else
+            {
+                StringBuilder errorVM = new StringBuilder();
+                foreach (var error in response.Errors)
+                {
+                    errorVM.Append(error.Description+" ");
+                }
+                return Problem(errorVM.ToString());
+            }
         }
     }
 }

@@ -18,12 +18,25 @@ namespace PhoneShop.BLL.Services
             _userManager = userManager;
         }
 
-        public async Task RegisterUser(RegisterUserRequest request)
+        public async Task<RegisterUserResponse> RegisterUser(RegisterUserRequest request)
         {
             var user = new ApplicationUser() { UserName = request.Username };
             var result = await _userManager.CreateAsync(user, request.Password);
-            if (!result.Succeeded)
-                throw new Exception("Registering failed");
+
+            var response = new RegisterUserResponse();
+            
+
+            if (result.Succeeded)
+            {
+                response.IsSuccesfull = true;
+                //throw new Exception("Registering failed");
+            }
+            else
+            {
+                response.IsSuccesfull = false;
+                response.Errors = result.Errors;
+            }
+            return response;
         }
     }
 }
