@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import { makeStyles } from '@material-ui/styles';
+import { useHistory } from 'react-router';
 
 const useStyles = makeStyles({
     root: {
@@ -16,6 +17,7 @@ function Register() {
     const [password, setPassword] = useState('');
     const [error, setError] = useState();
     const classes = useStyles();
+    const history = useHistory();
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -28,13 +30,12 @@ function Register() {
         })
         .then(resp => {
             console.log(resp);
-            return resp.json();
-            // if (!resp.ok){
-            //     throw new Error('Registering user went wrong!');
-            // }
-            // else{
-            //     console.log('Succesfully registered user')
-            // }
+            if (resp.ok){
+                history.push(`/succesfulregistration/${username}`)
+            }
+            else{
+                return resp.json();
+            }
         })
         .then(data => setError(data.detail))
         .catch(err =>console.log(err.message));
