@@ -8,6 +8,6 @@ namespace PhoneShop.BLL.Messages
     public class RegisterUserResponse
     {
         public bool IsSuccesfull { get; set; }
-        public IEnumerable<IdentityError> Errors  { get; set; }
+        public List<IdentityError> Errors  { get; set; }
     }
 }

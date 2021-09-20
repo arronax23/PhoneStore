@@ -14,6 +14,8 @@ using PhoneShop.DAL.Models;
 using System;
 using PhoneShop.BLL.Interfaces;
 using PhoneShop.BLL.Services;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace PhoneShop.UI
 {
@@ -34,6 +36,7 @@ namespace PhoneShop.UI
                     Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDefaultIdentity<ApplicationUser>()
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddIdentityServer()
@@ -43,6 +46,28 @@ namespace PhoneShop.UI
 
             services.AddAuthentication()
                 .AddIdentityServerJwt();
+
+
+            services.AddAuthorization(config => 
+            {
+                config.AddPolicy("Admin", conf =>
+                {
+                    conf.RequireRole("Admin");
+                });
+                config.AddPolicy("Customer", conf =>
+                {
+                    conf.RequireRole("Customer");
+                });
+            });
+
+
+            //services.AddAuthorization(options =>
+            //{
+            //    options.AddPolicy("PolicyName", config =>
+            //    {
+            //        config.RequireUserName().RequireClaim()
+            //    });
+            //});
 
             services.AddControllersWithViews();
             services.AddRazorPages();

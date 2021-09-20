@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import TextField from '@material-ui/core/TextField'
+import MenuItem from '@material-ui/core/MenuItem'
 import Button from '@material-ui/core/Button'
 import { makeStyles } from '@material-ui/styles';
 import { useHistory } from 'react-router';
@@ -15,6 +16,7 @@ const useStyles = makeStyles({
 function Register() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [role, setRole] = useState('');
     const [error, setError] = useState();
     const classes = useStyles();
     const history = useHistory();
@@ -26,7 +28,7 @@ function Register() {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({username, password})
+            body: JSON.stringify({username, password, role})
         })
         .then(resp => {
             console.log(resp);
@@ -34,7 +36,8 @@ function Register() {
                 history.push(`/succesfulregistration/${username}`)
             }
             else{
-                return resp.json();
+                console.log('entered')
+                return resp.text();
             }
         })
         .then(data => setError(data.detail))
@@ -50,6 +53,12 @@ function Register() {
                 <div>
                     {error ? <TextField className={classes.root} error helperText={error} variant="outlined" type="text" label="Password" value={password} onChange={(e)=> setPassword(e.target.value)} />
                      : <TextField className={classes.root} variant="outlined" type="password" label="Password" value={password} onChange={(e)=> setPassword(e.target.value)} />}
+                </div>
+                <div>
+                    <TextField className={classes.root} select={true} label="Role" value={role} onChange={(e)=> setRole(e.target.value)} >
+                            <MenuItem value="Admin">Admin</MenuItem>
+                            <MenuItem value="Customer">Customer</MenuItem>
+                    </TextField>  
                 </div>
                 <div>
                 <Button type="submit" variant="contained" color="primary">Register</Button>

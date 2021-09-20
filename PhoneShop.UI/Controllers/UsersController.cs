@@ -28,7 +28,12 @@ namespace PhoneShop.UI.Controllers
         [Route("api/Register")]
         public async Task<IActionResult> Register(UserVM userVM)
         {
-            var response  = await _usersService.RegisterUser(new RegisterUserRequest() { Username = userVM.Username, Password = userVM.Password });
+            var response  = await _usersService.RegisterUser(new RegisterUserRequest()
+            {
+                Username = userVM.Username,
+                Password = userVM.Password,
+                Role = userVM.Role
+            });
             if (response.IsSuccesfull == true)
                 return Ok();
             else
