@@ -46,5 +46,21 @@ namespace PhoneShop.UI.Controllers
                 return Problem(errorVM.ToString());
             }
         }
+        [HttpPost]
+        [Route("api/Login")]
+        public async Task<IActionResult> Login(UserVM userVM)
+        {
+            var response = await _usersService.Login(new LoginRequest()
+            {
+                Username = userVM.Username,
+                Password = userVM.Password,
+                CurrentUser = User
+            });
+
+            if (response.IsSuccesfull)
+                return Ok();
+            else
+                return Problem("Logging failed");
+        }
     }
 }

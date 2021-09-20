@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PhoneShop.BLL.Interfaces;
@@ -58,6 +59,7 @@ namespace PhoneShop.UI.Controllers
 
         [HttpPost]
         [Route("api/SavePhone")]
+        [Authorize(Roles = "Admin")]
         public IActionResult SavePhone(PhoneVM phoneVM)
         {
             var phone = _mapper.Map<Phone>(phoneVM);

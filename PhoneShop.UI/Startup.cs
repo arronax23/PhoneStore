@@ -48,17 +48,17 @@ namespace PhoneShop.UI
                 .AddIdentityServerJwt();
 
 
-            services.AddAuthorization(config => 
-            {
-                config.AddPolicy("Admin", conf =>
-                {
-                    conf.RequireRole("Admin");
-                });
-                config.AddPolicy("Customer", conf =>
-                {
-                    conf.RequireRole("Customer");
-                });
-            });
+            //services.AddAuthorization(config => 
+            //{
+            //    config.AddPolicy("Admin", conf =>
+            //    {
+            //        conf.RequireRole("Admin");
+            //    });
+            //    config.AddPolicy("Customer", conf =>
+            //    {
+            //        conf.RequireRole("Customer");
+            //    });
+            //});
 
 
             //services.AddAuthorization(options =>

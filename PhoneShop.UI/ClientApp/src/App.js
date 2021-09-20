@@ -12,6 +12,7 @@ import PhoneDetails from './components/PhoneDetails';
 import AddPhone from './components/AddPhone';
 import Register from './components/Register';
 import SuccesfulRegistration from './components/SuccesfulRegistration';
+import Login from './components/Login';
 
 function App() {
 
@@ -36,7 +37,10 @@ function App() {
             </Route>  
             <Route exact path="/succesfulregistration/:user">
                 <SuccesfulRegistration />
-            </Route>                      
+            </Route>     
+            <Route exact path="/login">
+                <Login />
+            </Route>                               
         </Switch>
         <Footer />
         </div>
