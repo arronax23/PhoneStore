@@ -44,8 +44,12 @@ namespace PhoneShop.UI
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-            services.AddAuthentication()
-                .AddIdentityServerJwt();
+            services.AddAuthentication();
+                //.AddCookie("PhoneShopCookie", config => 
+                //{
+                //    config.Cookie = new Microsoft.AspNetCore.Http.CookieBuilder() { Name = "PhoneShopCookie", Expiration = TimeSpan.FromHours(2) };
+                //});
+                //.AddIdentityServerJwt();
 
 
             //services.AddAuthorization(config => 
@@ -104,7 +108,7 @@ namespace PhoneShop.UI
             app.UseRouting();
 
             app.UseAuthentication();
-            app.UseIdentityServer();
+            //app.UseIdentityServer();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {

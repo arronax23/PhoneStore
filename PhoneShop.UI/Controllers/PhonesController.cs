@@ -28,6 +28,7 @@ namespace PhoneShop.UI.Controllers
 
         [HttpGet]
         [Route("api/GetAllPhones")]
+        [Authorize(Roles = "Admin")]
         public IEnumerable<PhoneVM> GetAllPhones()
         {
             //var phones = _phonesService.GetAllPhones().Phones.Select(phone => new PhoneVM()
@@ -59,7 +60,6 @@ namespace PhoneShop.UI.Controllers
 
         [HttpPost]
         [Route("api/SavePhone")]
-        [Authorize(Roles = "Admin")]
         public IActionResult SavePhone(PhoneVM phoneVM)
         {
             var phone = _mapper.Map<Phone>(phoneVM);

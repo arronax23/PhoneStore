@@ -31,7 +31,7 @@ namespace PhoneShop.BLL.Services
             var createResult = await _userManager.CreateAsync(user, request.Password);
             var doesRoleExists = await _roleManager.RoleExistsAsync(request.Role);
             if (!doesRoleExists)
-                await _roleManager.CreateAsync(new IdentityRole() { Name = "Admin"});
+                await _roleManager.CreateAsync(new IdentityRole() { Name = request.Role });
 
             IdentityResult roleResult = new IdentityResult();
             if (createResult.Succeeded)
