@@ -2,9 +2,12 @@ import React from 'react'
 import BottomNavigation from '@material-ui/core/BottomNavigation'
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction'
 import { useHistory } from 'react-router';
+import { useSelector } from 'react-redux'
 
 function Navbar() {
     const history = useHistory();
+    const logging = useSelector(state => state.logging);
+    const username = useSelector(state => state.username)
 
     const homeClicked = () => {
         history.push("/");
@@ -30,10 +33,27 @@ function Navbar() {
         <div>
         <BottomNavigation showLabels>
             <BottomNavigationAction label="Home" onClick={homeClicked} />
+            {logging != 'NOT_LOGGED' ?
             <BottomNavigationAction label="Phones' list" onClick={phoneListClicked}/>
+            : null}     
+            {logging == 'LOGGED_AS_ADMIN' ?
             <BottomNavigationAction label="Add phone" onClick={addPhoneClicked}/>
+            : null}     
+            {logging == 'NOT_LOGGED' ?
             <BottomNavigationAction className="login-register" label="Login" onClick={login}/>
+            : null}    
+            {logging == 'NOT_LOGGED' ?
             <BottomNavigationAction className="login-register" label="Register" onClick={register}/>
+            : null}     
+            {logging == 'LOGGED_AS_ADMIN' ?
+            <BottomNavigationAction className="role" label="Role: ADMIN"  disabled/>
+            : null}    
+            {logging == 'LOGGED_AS_CUSTOMER' ?
+            <BottomNavigationAction className="role" label="Role: CUSTOMER"  disabled/>
+            : null}       
+            {username != '' ?
+            <BottomNavigationAction className="username" label={`User: ${username}`}  disabled/>
+            : null}                       
         </BottomNavigation>
         </div>
     )

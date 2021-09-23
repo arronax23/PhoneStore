@@ -5,6 +5,8 @@ import Button from '@material-ui/core/Button'
 import { makeStyles } from '@material-ui/styles';
 import { useHistory } from 'react-router';
 import { Typography } from '@material-ui/core';
+import { useDispatch } from 'react-redux'
+import { logAsAdmin, logAsCustomer, selectUsername } from './../actions'
 
 const useStyles = makeStyles({
     root: {
@@ -24,9 +26,9 @@ function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState();
-    const [role, setRole] = useState('');
     const classes = useStyles();
     const history = useHistory();
+    const dispatch = useDispatch();
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -43,9 +45,16 @@ function Login() {
                 // history.push(`/succesfulregistration/${username}`)
                 console.log('ok');
                 return resp.text()
-                .then(data => {
-                    console.log(data);
-                    setRole(data)
+                .then(role => {
+                    console.log(role);
+                    if (role == "Admin"){
+                        dispatch(logAsAdmin());
+                    }
+                    else if (role == "Customer"){
+                        dispatch(logAsCustomer());
+                    }
+                    dispatch(selectUsername(username));
+                    history.push(`/succesfulllogin/${username}`)
                 })
             }
             else{
@@ -72,9 +81,6 @@ function Login() {
                 <div>
                 <div>
                     {error && <Typography className={classes.errorMessage}>{error}</Typography>}
-                </div>
-                <div>
-                    {role && <Typography className={classes.role}>{role}</Typography>}
                 </div>
                 <Button type="submit" variant="contained" color="primary">Login</Button>
                 </div>

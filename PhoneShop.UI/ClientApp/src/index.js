@@ -3,15 +3,26 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
+import {createStore, combineReducers} from 'redux'
+import {Provider} from 'react-redux'
+import loggingReducer from './reducers/loggingReducer'
+import usernameReducer from './reducers/usernameReducer'
 //import registerServiceWorker from './registerServiceWorker';
 
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
 const rootElement = document.getElementById('root');
 
+
+
+const store = createStore(combineReducers({ logging: loggingReducer, username: usernameReducer }),window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+
+
 ReactDOM.render(
-  <BrowserRouter basename={baseUrl}>
-    <App />
-  </BrowserRouter>,
+  <Provider store={store}>
+    <BrowserRouter basename={baseUrl}>
+      <App />
+    </BrowserRouter>
+  </Provider>,
   rootElement);
 
 // Uncomment the line above that imports the registerServiceWorker function

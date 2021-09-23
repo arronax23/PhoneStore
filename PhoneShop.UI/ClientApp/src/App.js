@@ -11,11 +11,11 @@ import Home from './components/Home'
 import PhoneDetails from './components/PhoneDetails';
 import AddPhone from './components/AddPhone';
 import Register from './components/Register';
-import SuccesfulRegistration from './components/SuccesfulRegistration';
+import SuccesfullRegistration from './components/SuccesfulRegistration';
 import Login from './components/Login';
+import SuccesfullLogin from './components/SuccesfullLogin';
 
 function App() {
-
       return (      
         <div>
         <Navbar />
@@ -35,12 +35,15 @@ function App() {
             <Route exact path="/register">
                 <Register />
             </Route>  
-            <Route exact path="/succesfulregistration/:user">
-                <SuccesfulRegistration />
+            <Route exact path="/succesfullregistration/:user">
+                <SuccesfullRegistration />
             </Route>     
             <Route exact path="/login">
                 <Login />
-            </Route>                               
+            </Route>   
+            <Route exact path="/succesfulllogin/:user">
+                <SuccesfullLogin />
+            </Route>                             
         </Switch>
         <Footer />
         </div>

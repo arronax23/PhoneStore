@@ -28,7 +28,7 @@ namespace PhoneShop.UI.Controllers
 
         [HttpGet]
         [Route("api/GetAllPhones")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Customer")]
         public IEnumerable<PhoneVM> GetAllPhones()
         {
             //var phones = _phonesService.GetAllPhones().Phones.Select(phone => new PhoneVM()

@@ -33,7 +33,7 @@ function Register() {
         .then(resp => {
             console.log(resp);
             if (resp.ok){
-                history.push(`/succesfulregistration/${username}`)
+                history.push(`/succesfullregistration/${username}`)
             }
             else{
                 console.log('entered')
