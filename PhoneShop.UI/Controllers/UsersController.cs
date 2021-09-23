@@ -54,11 +54,11 @@ namespace PhoneShop.UI.Controllers
             {
                 Username = userVM.Username,
                 Password = userVM.Password,
-                CurrentUser = User
+                CurrentUser = HttpContext.User
             });
 
             if (response.IsSuccesfull)
-                return Ok();
+                return Ok(response.CurrentUserRole);
             else
                 return Problem("Logging failed");
         }

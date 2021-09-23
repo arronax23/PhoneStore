@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid'
 import PhoneCard from './PhoneCard'
 
 function PhoneList() {
-    const  {data : phones, isPending, error}  = useFetchGet('api/GetAllPhones')
+    const  {data : phones, isPending, error, httpResposne}  = useFetchGet('api/GetAllPhones')
     
     return (
        <Grid 
@@ -14,7 +14,7 @@ function PhoneList() {
             wrap="wrap"
         >
             {isPending && <div>Loading...</div>}
-            {error && <div>Error: {error}</div>}
+            {error && httpResposne && (<div>Error: {error} Http Status: {httpResposne}</div>)}
             {phones && 
             phones.map(phone => <PhoneCard key={phone.phoneId} phone={phone} />)}
         </Grid>     

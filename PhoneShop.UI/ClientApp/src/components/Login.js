@@ -14,6 +14,9 @@ const useStyles = makeStyles({
     },
     errorMessage: {
         color: 'red'
+    },
+    role: {
+        color: 'green'
     }
 });
 
@@ -21,6 +24,7 @@ function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState();
+    const [role, setRole] = useState('');
     const classes = useStyles();
     const history = useHistory();
 
@@ -38,15 +42,20 @@ function Login() {
             if (resp.ok){
                 // history.push(`/succesfulregistration/${username}`)
                 console.log('ok');
+                return resp.text()
+                .then(data => {
+                    console.log(data);
+                    setRole(data)
+                })
             }
             else{
                 console.log('entered else');
-                return resp.json();
+                return resp.json()        
+                .then(data => {
+                    console.log(data);
+                    setError(data.detail)
+                })
             }
-        })
-        .then(data => {
-            console.log(data);
-            setError(data.detail)
         })
         .catch(err =>console.log(err.message));
     }
@@ -63,6 +72,9 @@ function Login() {
                 <div>
                 <div>
                     {error && <Typography className={classes.errorMessage}>{error}</Typography>}
+                </div>
+                <div>
+                    {role && <Typography className={classes.role}>{role}</Typography>}
                 </div>
                 <Button type="submit" variant="contained" color="primary">Login</Button>
                 </div>

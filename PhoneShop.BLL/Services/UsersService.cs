@@ -4,6 +4,8 @@ using PhoneShop.BLL.Messages;
 using PhoneShop.DAL.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -56,11 +58,23 @@ namespace PhoneShop.BLL.Services
 
         public async Task<LoginResponse> Login(LoginRequest request)
         {
+            var response = new LoginResponse();
             var signInResult = await _signInManager.PasswordSignInAsync(request.Username, request.Password, false, false);
 
-            var response = new LoginResponse();
+            //var currentUser = await _userManager.GetUserAsync(request.CurrentUser);
+            //var us = request.CurrentUser.FindFirst(c => c.Type == ClaimTypes.Role);
+            //var role =  _userManager.GetRolesAsync()
+
             if (signInResult.Succeeded)
+            {
+                var currentUser = await _userManager.FindByNameAsync(request.Username);
+                var roles = await _userManager.GetRolesAsync(currentUser);
+                var role = roles.First();
+
+                response.CurrentUserRole = role;
+
                 response.IsSuccesfull = true;
+            }
             else
                 response.IsSuccesfull = false;
 
