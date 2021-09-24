@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using PhoneShop.BLL.Interfaces;
 using PhoneShop.BLL.Messages;
+using PhoneShop.DAL.Data;
 using PhoneShop.DAL.Models;
 using System;
 using System.Collections.Generic;
@@ -16,15 +17,18 @@ namespace PhoneShop.BLL.Services
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly ApplicationDbContext _applicationDbContext;
 
         public UsersService(
             UserManager<ApplicationUser> userManager,
             RoleManager<IdentityRole> roleManager,
-            SignInManager<ApplicationUser> signInManager)
+            SignInManager<ApplicationUser> signInManager,
+            ApplicationDbContext applicationDbContext)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _signInManager = signInManager;
+            _applicationDbContext = applicationDbContext;
         }
 
         public async Task<RegisterUserResponse> RegisterUser(RegisterUserRequest request)
@@ -38,12 +42,20 @@ namespace PhoneShop.BLL.Services
             IdentityResult roleResult = new IdentityResult();
             if (createResult.Succeeded)
                 roleResult = await _userManager.AddToRoleAsync(user, request.Role);
+
+            
             var response = new RegisterUserResponse();
             
             if (createResult.Succeeded && roleResult.Succeeded)
             {
+                if (request.Role == "Customer")
+                {
+                    _applicationDbContext.Customer.Add(new Customer() { User = user });
+                    _applicationDbContext.SaveChanges();
+                }
+            
+
                 response.IsSuccesfull = true;
-                //throw new Exception("Registering failed");
             }
             else
             {

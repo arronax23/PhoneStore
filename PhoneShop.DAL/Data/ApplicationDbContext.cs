@@ -18,5 +18,8 @@ namespace PhoneShop.DAL.Data
         }
 
         public DbSet<Phone> Phones { get; set; }
+        public DbSet<Customer> Customer { get; set; }
+        public DbSet<Order> Order { get; set; }
+        public DbSet<PhoneOrder> PhoneOrder { get; set; }
     }
 }

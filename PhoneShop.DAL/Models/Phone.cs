@@ -16,5 +16,7 @@ namespace PhoneShop.DAL.Models
         public int Camera { get; set; }
         public PhoneColor Color  { get; set; }
         public string ImageUrl  { get; set; }
+        public float Price  { get; set; }
+        public List<PhoneOrder> PhoneOrder { get; set; }
     }
 }

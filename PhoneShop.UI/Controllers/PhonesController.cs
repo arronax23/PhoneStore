@@ -51,6 +51,7 @@ namespace PhoneShop.UI.Controllers
         }
         [HttpGet]
         [Route("api/GetPhoneById/{id}")]
+        [Authorize(Roles = "Admin,Customer")]
         public PhoneVM GetPhoneById(int id)
         {
             var getPhoneByIdRequest = new GetPhoneByIdRequest() { PhoneId = id};
@@ -60,6 +61,7 @@ namespace PhoneShop.UI.Controllers
 
         [HttpPost]
         [Route("api/SavePhone")]
+        [Authorize(Roles = "Admin")]
         public IActionResult SavePhone(PhoneVM phoneVM)
         {
             var phone = _mapper.Map<Phone>(phoneVM);
@@ -69,6 +71,7 @@ namespace PhoneShop.UI.Controllers
 
         [HttpDelete]
         [Route("api/DeletePhoneById/{id}")]
+        [Authorize(Roles = "Admin")]
         public IActionResult DeletePhoneById(int id)
         {
             _phonesService.DeletePhoneById(new DeletePhoneByIdRequest() { PhoneId = id });
