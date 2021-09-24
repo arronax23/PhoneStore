@@ -7,21 +7,34 @@ import {createStore, combineReducers} from 'redux'
 import {Provider} from 'react-redux'
 import loggingReducer from './reducers/loggingReducer'
 import usernameReducer from './reducers/usernameReducer'
+import { persistStore, persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage' 
+import { PersistGate } from 'redux-persist/integration/react'
 //import registerServiceWorker from './registerServiceWorker';
+
 
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
 const rootElement = document.getElementById('root');
 
+const rootReducer = combineReducers({ logging: loggingReducer, username: usernameReducer });
+const persistConfig = {
+  key: 'root',
+  storage,
+}
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+let store = createStore(persistedReducer,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
+let persistor = persistStore(store)
 
-
-const store = createStore(combineReducers({ logging: loggingReducer, username: usernameReducer }),window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+// const store = createStore(),window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter basename={baseUrl}>
-      <App />
-    </BrowserRouter>
+     <PersistGate loading={null} persistor={persistor}>
+      <BrowserRouter basename={baseUrl}>
+        <App />
+      </BrowserRouter>
+    </PersistGate>
   </Provider>,
   rootElement);
 

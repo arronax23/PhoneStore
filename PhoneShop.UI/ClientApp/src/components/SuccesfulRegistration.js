@@ -10,7 +10,7 @@ const useStyles = makeStyles({
 });
 
 
-function SuccesfulRegistration() {
+function SuccesfullRegistration() {
     const classes = useStyles();
     const { user } = useParams();
     return (
@@ -20,4 +20,4 @@ function SuccesfulRegistration() {
     )
 }
 
-export default SuccesfulRegistration
+export default SuccesfullRegistration
