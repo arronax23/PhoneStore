@@ -73,8 +73,8 @@ namespace PhoneShop.UI
                 //options.LoginPath = "/Login";
             });
 
-            services.AddIdentityServer()
-                .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
+            //services.AddIdentityServer()
+            //    .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
