@@ -62,5 +62,13 @@ namespace PhoneShop.UI.Controllers
             else
                 return Problem("Logging failed");
         }
+
+        [HttpPost]
+        [Route("api/Logout")]
+        public IActionResult Logout()
+        {
+            _usersService.Logout();
+            return Ok();
+        }
     }
 }

@@ -82,5 +82,10 @@ namespace PhoneShop.BLL.Services
             //_signInManager.IsSignedIn()
             //await _signInManager.SignInAsync(user, false);
         }
+
+        public async Task Logout()
+        {
+            await _signInManager.SignOutAsync();
+        }
     }
 }

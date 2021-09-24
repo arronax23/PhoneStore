@@ -10,9 +10,21 @@ export const logAsCustomer = () => {
     }
 }
 
+export const logout = () => {
+    return {
+        type: 'LOGOUT'
+    }
+}
+
 export const selectUsername = (payload) => {
     return {
         type: 'SELECT_USERNAME',
         payload: payload
+    }
+}
+
+export const forgetUsername = () => {
+    return {
+        type: 'FORGET_USERNAME'
     }
 }

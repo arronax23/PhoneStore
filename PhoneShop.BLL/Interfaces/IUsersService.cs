@@ -7,5 +7,6 @@ namespace PhoneShop.BLL.Interfaces
     {
         Task<RegisterUserResponse> RegisterUser(RegisterUserRequest request);
         Task<LoginResponse> Login(LoginRequest request);
+        Task Logout();
     }
 }

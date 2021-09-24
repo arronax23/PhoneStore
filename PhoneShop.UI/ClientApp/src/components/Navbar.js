@@ -28,6 +28,9 @@ function Navbar() {
     const login = () => {
         history.push("/login");
     }  
+    const logout = () => {
+        history.push("/logout");
+    }  
 
     return (
         <div>
@@ -53,7 +56,10 @@ function Navbar() {
             : null}       
             {username != '' ?
             <BottomNavigationAction className="username" label={`User: ${username}`}  disabled/>
-            : null}                       
+            : null}      
+            {logging != 'NOT_LOGGED' ?
+            <BottomNavigationAction className="login-register" label="Logout" onClick={logout} />
+            : null}                    
         </BottomNavigation>
         </div>
     )

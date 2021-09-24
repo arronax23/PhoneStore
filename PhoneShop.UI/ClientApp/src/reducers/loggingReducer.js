@@ -7,7 +7,11 @@ const loggingReducer = (state = "NOT_LOGGED",action) => {
         case 'LOG_AS_CUSTOMER':
             state = "LOGGED_AS_CUSTOMER"
             return state;
-            break;         
+            break;       
+        case 'LOGOUT':
+            state = "NOT_LOGGED"
+            return state;
+            break;              
         default:
             return state;
             break;

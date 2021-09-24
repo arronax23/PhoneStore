@@ -97,3 +97,7 @@ footer {
   background-color: #ba000d !important;
   color: white !important;
 }
+
+.logout {
+  text-align: center;
+}

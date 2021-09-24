@@ -14,6 +14,7 @@ import Register from './components/Register';
 import SuccesfullRegistration from './components/SuccesfulRegistration';
 import Login from './components/Login';
 import SuccesfullLogin from './components/SuccesfullLogin';
+import Logout from './components/Logout';
 
 function App() {
       return (      
@@ -43,7 +44,10 @@ function App() {
             </Route>   
             <Route exact path="/succesfulllogin/:user">
                 <SuccesfullLogin />
-            </Route>                             
+            </Route>    
+            <Route exact path="/logout">
+                <Logout />
+            </Route>                          
         </Switch>
         <Footer />
         </div>

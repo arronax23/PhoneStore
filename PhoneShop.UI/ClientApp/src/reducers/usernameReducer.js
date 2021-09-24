@@ -3,7 +3,11 @@ const usernameReducer = (state = "",action) => {
         case 'SELECT_USERNAME':
             state = action.payload;
             return state;
-            break;        
+            break;    
+        case 'FORGET_USERNAME':
+            state = '';
+            return state;
+            break;                  
         default:
             return state;
             break;
