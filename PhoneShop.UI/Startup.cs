@@ -47,6 +47,7 @@ namespace PhoneShop.UI
 
             services.ConfigureApplicationCookie(options =>
             {
+                options.Cookie.Name = "PhoneShop.Identity.Cookie";
                 options.Events = new CookieAuthenticationEvents()
                 {
                     OnRedirectToLogin = (ctx) =>
