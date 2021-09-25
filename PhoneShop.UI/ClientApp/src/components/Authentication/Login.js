@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/styles';
 import { useHistory } from 'react-router';
 import { Typography } from '@material-ui/core';
 import { useDispatch } from 'react-redux'
-import { logAsAdmin, logAsCustomer, selectUsername } from './../actions'
+import { logAsAdmin, logAsCustomer, selectUsername } from './../../actions/index'
 
 const useStyles = makeStyles({
     root: {

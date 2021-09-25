@@ -1,22 +1,24 @@
 import React from 'react'
-import useFetchGet from './customHooks/useFetchGet';
-import PhoneCard from './components/PhoneCard'
-import Grid from '@material-ui/core/Grid'
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
+import Navbar from './components/Shared/Navbar';
+import Footer from './components/Shared/Footer';
 import './custom.css'
 import { Switch, Route } from 'react-router-dom'
-import PhoneList from './components/PhoneList'
-import Home from './components/Home'
-import PhoneDetails from './components/PhoneDetails';
-import AddPhone from './components/AddPhone';
-import Register from './components/Register';
-import SuccesfullRegistration from './components/SuccesfulRegistration';
-import Login from './components/Login';
-import SuccesfullLogin from './components/SuccesfullLogin';
-import Logout from './components/Logout';
+import PhoneList from './components/Shared/PhoneList'
+import Home from './components/Shared/Home'
+import PhoneDetails from './components/Shared/PhoneDetails';
+import AddPhone from './components/Admin/AddPhone';
+import Register from './components/Authentication/Register';
+import SuccesfullRegistration from './components/Authentication/SuccesfulRegistration';
+import Login from './components/Authentication/Login';
+import SuccesfullLogin from './components/Authentication/SuccesfullLogin';
+import Logout from './components/Authentication/Logout';
+import UpdatePhone from './components/Admin/UpdatePhone'
+import { useSelector } from 'react-redux'
 
 function App() {
+    const logging = useSelector(state => state.logging);
+    const isAdmin = logging == "LOGGED_AS_ADMIN" ? true : false;
+
       return (      
         <div>
         <Navbar />
@@ -28,11 +30,14 @@ function App() {
                 <PhoneList />
             </Route>
             <Route exact path="/phonedetails/:id">
-                <PhoneDetails />
+                <PhoneDetails isAdmin={isAdmin} />
             </Route>
             <Route exact path="/addphone">
                 <AddPhone />
             </Route>
+            <Route exact path="/updatephone/:id">
+                <UpdatePhone />
+            </Route>            
             <Route exact path="/register">
                 <Register />
             </Route>  

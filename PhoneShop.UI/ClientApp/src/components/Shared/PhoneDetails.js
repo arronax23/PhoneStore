@@ -3,14 +3,15 @@ import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
 import { useParams, useHistory } from 'react-router-dom'
-import useFetchGet from './../customHooks/useFetchGet'
+import useFetchGet from '../../customHooks/useFetchGet'
 
 const phoneColor = ["White","Black","Red","Blue","Pink"]
 
-function PhoneDetails() {
+function PhoneDetails({ isAdmin }) {
     const history = useHistory();
     const { id } = useParams();
     const {data: phone, isPending, error} = useFetchGet("api/GetPhoneById/"+id);
+
     const deleteClick = () => {
         fetch('/api/DeletePhoneById/'+id, 
         {
@@ -27,6 +28,15 @@ function PhoneDetails() {
         })
         .catch(err => console.log("err:"+err.message))
     }
+
+    const updateClick = () => {
+        history.push('/updatephone/'+id);
+    }
+
+    const addToShoppingCardClick = () => {
+        
+    }
+
     return (
         <div >
         {phone &&
@@ -55,8 +65,23 @@ function PhoneDetails() {
                         <dt>Color</dt>
                         <dd>{phoneColor[phone.color]}</dd>
                     </div>
+                    <div className="definition-list-item">
+                        <dt>Price</dt>
+                        <dd>{phone.price}&nbsp;$</dd>
+                    </div>
                 </dl>
-                <Button onClick={deleteClick} variant="contained" color="secondary">Delete</Button>
+                {/* Admin */}
+                {isAdmin && 
+                <div>
+                    <Button onClick={updateClick} variant="contained" color="primary">Update</Button>
+                    <Button onClick={deleteClick} variant="contained" color="secondary">Delete</Button>
+                </div>}
+                {/* Customer */}
+                {!isAdmin && 
+                <div>
+                    <Button onClick={addToShoppingCardClick} variant="contained" color="secondary">Add to shopping card</Button>
+                </div>}                
+                
             </div>
         </div>}
         </div>

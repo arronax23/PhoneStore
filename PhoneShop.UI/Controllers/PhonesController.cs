@@ -77,5 +77,15 @@ namespace PhoneShop.UI.Controllers
             _phonesService.DeletePhoneById(new DeletePhoneByIdRequest() { PhoneId = id });
             return Ok();
         }
+
+        [HttpPut]
+        [Route("api/UpdatePhone")]
+        [Authorize(Roles = "Admin")]
+        public IActionResult UpdatePhone(PhoneVM phoneVM)
+        {
+            var phone = _mapper.Map<Phone>(phoneVM);
+            _phonesService.UpdatePhone(new UpdatePhoneRequest() { Phone = phone });
+            return Ok();
+        }
     }
 }

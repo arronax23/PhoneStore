@@ -44,5 +44,12 @@ namespace PhoneShop.BLL.Services
             _applicationDbContext.Phones.Remove(phoneToBeRemoved);
             _applicationDbContext.SaveChanges();
         }
+
+        public void UpdatePhone(UpdatePhoneRequest request)
+        {
+            _applicationDbContext.Phones.Update(request.Phone);
+            _applicationDbContext.SaveChanges();
+   
+        }
     }
 }

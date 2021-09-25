@@ -1,9 +1,9 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import MenuItem from '@material-ui/core/MenuItem'
 import {makeStyles} from '@material-ui/styles'
-import {useHistory} from 'react-router'
+import {useHistory, useParams} from 'react-router'
 
 const useStyles = makeStyles({
     root: {
@@ -12,10 +12,12 @@ const useStyles = makeStyles({
     }
 });
 
-function AddPhone() {
+function UpdatePhone() {
     const classes = useStyles();
+    const { id } = useParams();
     const history = useHistory();
-
+    
+    const [phoneId, setPhoneId] = useState('')
     const [brand, setBrand] = useState('');
     const [model, setModel] = useState('');
     const [imageUrl, setImageUrl] = useState('');
@@ -24,16 +26,35 @@ function AddPhone() {
     const [memory, setMemory] = useState(0);
     const [os, setOs] = useState('');
     const [color, setColor] = useState(0);
+    const [price, setPrice] = useState(0);
+    
+    const [error, setError] = useState('');
 
-    const [error, setError] = useState();
+    useEffect(()=> {  
+        fetch("api/GetPhoneById/"+id)
+        .then(resp => resp.json())
+        .then(phone => {
+            setPhoneId(phone.phoneId);
+            setBrand(phone.brand);
+            setModel(phone.model);
+            setImageUrl(phone.imageUrl);
+            setRam(phone.ram);
+            setCamera(phone.camera);
+            setMemory(phone.memory);
+            setOs(phone.os);
+            setColor(phone.color);
+            setPrice(phone.price);
+        })
+    },[id]);
+
 
     const onSubmit = (e) => {
         e.preventDefault();
-        const phone = {brand, model, imageUrl, ram: parseInt(ram),camera: parseInt(camera),memory: parseInt(memory), os, color: parseInt(color)};
+        const phone = {phoneId: parseInt(phoneId),brand, model, imageUrl, ram: parseInt(ram),camera: parseInt(camera),memory: parseInt(memory), os, color: parseInt(color),price: parseInt(price)};
         console.log(phone);
-        fetch('api/SavePhone', 
+        fetch('api/UpdatePhone', 
             {
-                method: 'POST',
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -45,7 +66,7 @@ function AddPhone() {
                 throw new Error("Something went wrong!");
             }
             else{
-                history.push('/phonelist');
+                history.push('/phonedetails/'+id);
             }
         })
         .catch(err => {
@@ -69,11 +90,12 @@ function AddPhone() {
                         <MenuItem value={2}>Red</MenuItem>
                         <MenuItem value={3}>Blue</MenuItem>
                         <MenuItem value={4}>Pink</MenuItem>
-                    </TextField>                         
-                <Button type="submit" variant="contained" color="primary">Add phone</Button>
+                    </TextField>      
+                    <TextField className={classes.root} type="number" label="Price" value={price} onChange={(e)=> setPrice(e.target.value)} />                   
+                <Button type="submit" variant="contained" color="primary">Update phone</Button>
             </form>           
         </div>
     )
 }
 
-export default AddPhone
+export default UpdatePhone

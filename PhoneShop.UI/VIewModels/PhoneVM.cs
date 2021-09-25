@@ -17,5 +17,6 @@ namespace PhoneShop.UI.VIewModels
         public int Camera { get; set; }
         public PhoneColorVM Color { get; set; }
         public string ImageUrl { get; set; }
+        public float Price { get; set; }
     }
 }

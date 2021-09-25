@@ -1,5 +1,5 @@
 import React from 'react'
-import useFetchGet from '../customHooks/useFetchGet'
+import useFetchGet from '../../customHooks/useFetchGet'
 import Grid from '@material-ui/core/Grid'
 import PhoneCard from './PhoneCard'
 

@@ -37,14 +37,11 @@ namespace PhoneShop.UI
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddDefaultIdentity<ApplicationUser>(options => 
-            {
-                options.ClaimsIdentity.UserIdClaimType = ClaimTypes.NameIdentifier;
-            })
+            services.AddDefaultIdentity<ApplicationUser>()
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-
+            
             services.ConfigureApplicationCookie(options =>
             {
                 options.Cookie.Name = "PhoneShop.Identity.Cookie";
