@@ -14,6 +14,7 @@ import SuccesfullLogin from './components/Authentication/SuccesfullLogin';
 import Logout from './components/Authentication/Logout';
 import UpdatePhone from './components/Admin/UpdatePhone'
 import { useSelector } from 'react-redux'
+import Orders from './components/Customer/Orders';
 
 function App() {
     const logging = useSelector(state => state.logging);
@@ -35,6 +36,9 @@ function App() {
             <Route exact path="/addphone">
                 <AddPhone />
             </Route>
+            <Route exact path="/orders">
+                <Orders />
+            </Route>            
             <Route exact path="/updatephone/:id">
                 <UpdatePhone />
             </Route>            

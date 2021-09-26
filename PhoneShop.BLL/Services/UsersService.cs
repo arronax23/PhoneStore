@@ -50,7 +50,7 @@ namespace PhoneShop.BLL.Services
             {
                 if (request.Role == "Customer")
                 {
-                    _applicationDbContext.Customer.Add(new Customer() { User = user });
+                    _applicationDbContext.Customers.Add(new Customer() { User = user });
                     _applicationDbContext.SaveChanges();
                 }
             
@@ -98,6 +98,15 @@ namespace PhoneShop.BLL.Services
         public async Task Logout()
         {
             await _signInManager.SignOutAsync();
+        }
+
+        public async Task<GetCustomerIdByUsernameResponse> GetCustomerIdByUsername(GetCustomerIdByUsernameRequest request)
+        {
+            var currentUser = await _userManager.FindByNameAsync(request.Username);
+            var customerId = _applicationDbContext.Customers.SingleOrDefault(c => c.UserId == currentUser.Id).CustomerId;
+
+            var response = new GetCustomerIdByUsernameResponse() { CustomerId = customerId };
+            return response;
         }
     }
 }

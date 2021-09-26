@@ -115,6 +115,7 @@ namespace PhoneShop.UI
 
             services.AddScoped<IPhonesService, PhonesService>();
             services.AddScoped<IUsersService, UsersService>();
+            services.AddScoped<IOrdersService, OrdersService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

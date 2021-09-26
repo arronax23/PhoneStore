@@ -70,5 +70,13 @@ namespace PhoneShop.UI.Controllers
             _usersService.Logout();
             return Ok();
         }
+
+        [HttpGet]
+        [Route("api/GetCustomerIdByUsername/{username}")]
+        public async Task<IActionResult> GetCustomerIdByUsername(string username)
+        {
+            var response = await _usersService.GetCustomerIdByUsername(new GetCustomerIdByUsernameRequest() { Username = username });
+            return Ok(response.CustomerId);
+        }
     }
 }

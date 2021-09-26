@@ -8,5 +8,6 @@ namespace PhoneShop.DAL.Models
 {
     public class ApplicationUser : IdentityUser
     {
+        public Customer Customer { get; set; }
     }
 }

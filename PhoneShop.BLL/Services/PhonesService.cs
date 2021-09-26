@@ -1,6 +1,7 @@
 ﻿using PhoneShop.BLL.Interfaces;
 using PhoneShop.BLL.Messages;
 using PhoneShop.DAL.Data;
+using PhoneShop.DAL.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,7 @@ namespace PhoneShop.BLL.Services
         }
         public GetPhoneByIdResponse GetPhoneById(GetPhoneByIdRequest request)
         {
-            var phone = _applicationDbContext.Phones.FirstOrDefault(p => p.PhoneId == request.PhoneId);
+            var phone = _applicationDbContext.Phones.SingleOrDefault(p => p.PhoneId == request.PhoneId);
             if (phone == null)
                 throw new Exception("No phone was found.");
             var response = new GetPhoneByIdResponse() { Phone = phone };
@@ -37,7 +38,7 @@ namespace PhoneShop.BLL.Services
 
         public void DeletePhoneById(DeletePhoneByIdRequest request)
         {
-            var phoneToBeRemoved = _applicationDbContext.Phones.FirstOrDefault(p => p.PhoneId == request.PhoneId);
+            var phoneToBeRemoved = _applicationDbContext.Phones.SingleOrDefault(p => p.PhoneId == request.PhoneId);
             if (phoneToBeRemoved == null)
                 throw new Exception("No phone was found.");
 
@@ -50,6 +51,51 @@ namespace PhoneShop.BLL.Services
             _applicationDbContext.Phones.Update(request.Phone);
             _applicationDbContext.SaveChanges();
    
+        }
+
+        public void AddPhoneToShoppingCard(AddPhoneToShoppingCardRequest request)
+        {
+            var customer = _applicationDbContext.Customers.SingleOrDefault(c => c.CustomerId == request.CustomerId);
+            if (customer == null)
+                throw new Exception("No customer was found.");
+            var phone = _applicationDbContext.Phones.SingleOrDefault(p => p.PhoneId == request.PhoneId);
+            if (phone == null)
+                throw new Exception("No phone was found.");
+
+            var currentOrder = _applicationDbContext.Orders.
+                Where(o => o.Status == OrderStatus.Open).
+                OrderByDescending(o => o.CreatedDate).
+                FirstOrDefault();
+
+            if (currentOrder == null)
+            {
+                var phoneOrder = new PhoneOrder() { Phone = phone };
+                currentOrder = new Order()
+                {
+                    Customer = customer,
+                    PhoneOrder = new List<PhoneOrder>() { phoneOrder },
+                    CreatedDate = DateTime.Now,
+                    ModifiedDate = DateTime.Now
+                };
+
+                var orderStatuWorkflow = new OrderStatusWorkflow()
+                {
+                    Order = currentOrder,
+                    Status = OrderStatus.Open,
+                    WorkflowDate = DateTime.Now
+                };
+
+                _applicationDbContext.Orders.Add(currentOrder);
+                _applicationDbContext.OrderStatusWorkflows.Add(orderStatuWorkflow);
+            }
+            else
+            {
+                var phoneOrder = new PhoneOrder() { Phone = phone };
+                currentOrder.PhoneOrder.Add(phoneOrder);
+                currentOrder.ModifiedDate = DateTime.Now;
+            }
+
+            _applicationDbContext.SaveChanges();
         }
     }
 }

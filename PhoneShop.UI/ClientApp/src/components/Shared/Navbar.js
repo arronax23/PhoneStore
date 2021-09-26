@@ -32,6 +32,10 @@ function Navbar() {
         history.push("/logout");
     }  
 
+    const orders = () => {
+        history.push("/orders");
+    } 
+
     return (
         <div>
         <BottomNavigation showLabels>
@@ -41,7 +45,10 @@ function Navbar() {
             : null}     
             {logging == 'LOGGED_AS_ADMIN' ?
             <BottomNavigationAction label="Add phone" onClick={addPhoneClicked}/>
-            : null}     
+            : null}    
+            {logging == 'LOGGED_AS_CUSTOMER' ?
+            <BottomNavigationAction  label="Orders" onClick={orders}/>
+            : null}  
             {logging == 'NOT_LOGGED' ?
             <BottomNavigationAction className="login-register" label="Login" onClick={login}/>
             : null}    

@@ -87,5 +87,14 @@ namespace PhoneShop.UI.Controllers
             _phonesService.UpdatePhone(new UpdatePhoneRequest() { Phone = phone });
             return Ok();
         }
+
+        [HttpPost]
+        [Route("api/AddPhoneToShoppingCard")]
+        [Authorize(Roles = "Customer")]
+        public IActionResult AddPhoneToShoppingCard(AddPhoneToShoppingCardVM addPhoneToShoppingCardVM)
+        {
+            //_phonesService.AddPhoneToShoppingCard(new UpdatePhoneRequest() { Phone = phone });
+            return Ok();
+        }
     }
 }
