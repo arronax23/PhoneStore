@@ -9,5 +9,6 @@ namespace PhoneShop.BLL.Interfaces
         void SavePhone(SavePhoneRequest request);
         void DeletePhoneById(DeletePhoneByIdRequest request);
         void UpdatePhone(UpdatePhoneRequest request);
+        void AddPhoneToShoppingCard(AddPhoneToShoppingCardRequest request);
     }
 }

@@ -4,16 +4,19 @@ import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
 import { useParams, useHistory } from 'react-router-dom'
 import useFetchGet from '../../customHooks/useFetchGet'
+import { useSelector } from 'react-redux'
+import { ContactSupportOutlined } from '@material-ui/icons'
 
 const phoneColor = ["White","Black","Red","Blue","Pink"]
 
 function PhoneDetails({ isAdmin }) {
     const history = useHistory();
     const { id } = useParams();
+    const username = useSelector(state => state.username);
     const {data: phone, isPending, error} = useFetchGet("api/GetPhoneById/"+id);
 
     const deleteClick = () => {
-        fetch('/api/DeletePhoneById/'+id, 
+        fetch('api/DeletePhoneById/'+id, 
         {
             method: 'DELETE'
         })
@@ -34,7 +37,25 @@ function PhoneDetails({ isAdmin }) {
     }
 
     const addToShoppingCardClick = () => {
-        
+        fetch('api/GetCustomerIdByUsername/'+username)
+        .then(response => response.text())
+        .then(customerId => {
+            fetch('api/AddPhoneToShoppingCard',{
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body : JSON.stringify({customerId: parseInt(customerId), phoneId: parseInt(id)})
+            })
+            .then(response => {
+                if (response.ok){
+                    console.log('everything ok');
+                }
+                else{
+                    console.log('something went wrong')
+                }
+            })
+        });
     }
 
     return (

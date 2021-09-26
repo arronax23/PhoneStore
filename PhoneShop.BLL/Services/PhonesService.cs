@@ -1,4 +1,5 @@
-﻿using PhoneShop.BLL.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using PhoneShop.BLL.Interfaces;
 using PhoneShop.BLL.Messages;
 using PhoneShop.DAL.Data;
 using PhoneShop.DAL.Models;
@@ -62,10 +63,11 @@ namespace PhoneShop.BLL.Services
             if (phone == null)
                 throw new Exception("No phone was found.");
 
-            var currentOrder = _applicationDbContext.Orders.
-                Where(o => o.Status == OrderStatus.Open).
-                OrderByDescending(o => o.CreatedDate).
-                FirstOrDefault();
+            var currentOrder = _applicationDbContext.Orders
+                .Include(o => o.PhoneOrder)
+                .Where(o => o.Status == OrderStatus.Open)
+                .OrderByDescending(o => o.CreatedDate)
+                .FirstOrDefault();
 
             if (currentOrder == null)
             {
@@ -78,7 +80,7 @@ namespace PhoneShop.BLL.Services
                     ModifiedDate = DateTime.Now
                 };
 
-                var orderStatuWorkflow = new OrderStatusWorkflow()
+                var orderStatusWorkflow = new OrderStatusWorkflow()
                 {
                     Order = currentOrder,
                     Status = OrderStatus.Open,
@@ -86,7 +88,7 @@ namespace PhoneShop.BLL.Services
                 };
 
                 _applicationDbContext.Orders.Add(currentOrder);
-                _applicationDbContext.OrderStatusWorkflows.Add(orderStatuWorkflow);
+                _applicationDbContext.OrderStatusWorkflows.Add(orderStatusWorkflow);
             }
             else
             {

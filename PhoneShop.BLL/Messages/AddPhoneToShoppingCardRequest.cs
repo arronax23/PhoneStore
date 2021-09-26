@@ -1,4 +1,4 @@
-﻿namespace PhoneShop.BLL.Services
+﻿namespace PhoneShop.BLL.Messages
 {
     public class AddPhoneToShoppingCardRequest
     {

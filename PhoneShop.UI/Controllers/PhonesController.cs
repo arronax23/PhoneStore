@@ -93,7 +93,11 @@ namespace PhoneShop.UI.Controllers
         [Authorize(Roles = "Customer")]
         public IActionResult AddPhoneToShoppingCard(AddPhoneToShoppingCardVM addPhoneToShoppingCardVM)
         {
-            //_phonesService.AddPhoneToShoppingCard(new UpdatePhoneRequest() { Phone = phone });
+            _phonesService.AddPhoneToShoppingCard(new AddPhoneToShoppingCardRequest() 
+            { 
+                CustomerId = addPhoneToShoppingCardVM.CustomerId,
+                PhoneId = addPhoneToShoppingCardVM.PhoneId
+            });
             return Ok();
         }
     }
