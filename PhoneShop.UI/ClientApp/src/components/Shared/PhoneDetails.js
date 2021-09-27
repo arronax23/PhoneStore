@@ -14,6 +14,7 @@ function PhoneDetails() {
     const isAdmin = logging == "LOGGED_AS_ADMIN" ? true : false;
     const [refreshButton, setRefreshButton] = useState(0);
     const [isInShoppingCart,setIsInShoppingCart] = useState(false);
+    const [customerId, setCustomerId] = useState(0);
     const history = useHistory();
     const { id } = useParams();
     const username = useSelector(state => state.username);
@@ -24,6 +25,7 @@ function PhoneDetails() {
         fetch('api/GetCustomerIdByUsername/'+username)
         .then(response => response.text())
         .then(customerId => {
+            setCustomerId(customerId);
             fetch(`api/IsPhoneInShoppingCart/?customerId=${customerId}&phoneId=${id}`)
             .then(resp => resp.json())
             .then(data => {
@@ -54,29 +56,40 @@ function PhoneDetails() {
     }
 
     const addToShoppingCartClick = () => {
-        fetch('api/GetCustomerIdByUsername/'+username)
-        .then(response => response.text())
-        .then(customerId => {
-            fetch('api/AddPhoneToShoppingCart',{
-                method: 'POST',
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body : JSON.stringify({customerId: parseInt(customerId), phoneId: parseInt(id)})
-            })
-            .then(response => {
-                if (response.ok){
-                    console.log('everything ok');
-                    setRefreshButton((state) => ++state);
-                }
-                else{
-                    console.log('something went wrong')
-                }
-            })
+        fetch('api/AddPhoneToShoppingCart',{
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body : JSON.stringify({customerId: parseInt(customerId), phoneId: parseInt(id)})
+        })
+        .then(response => {
+            if (response.ok){
+                console.log('everything ok');
+                setRefreshButton((state) => ++state);
+            }
+            else{
+                console.log('something went wrong')
+            }
         });
     }
     const removeFromShoppingCartClick = () => {
-
+        fetch('api/RemovePhoneFromShoppingCart',{
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body : JSON.stringify({customerId: parseInt(customerId), phoneId: parseInt(id)})
+        })
+        .then(response => {
+            if (response.ok){
+                console.log('everything ok');
+                setRefreshButton((state) => ++state);
+            }
+            else{
+                console.log('something went wrong')
+            }
+        });
     }
 
     return (

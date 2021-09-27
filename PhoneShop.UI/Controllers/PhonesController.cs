@@ -120,7 +120,7 @@ namespace PhoneShop.UI.Controllers
                 CustomerId = removePhoneFromShoppingCartVM.CustomerId,
                 PhoneId = removePhoneFromShoppingCartVM.PhoneId
             });
-            return Ok;
+            return Ok();
         }
     }
 

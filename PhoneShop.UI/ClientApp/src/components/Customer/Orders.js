@@ -8,8 +8,18 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import { useSelector } from 'react-redux'
+import { makeStyles } from '@material-ui/styles'
+
+const useStyles = makeStyles({
+  tableContainer: {
+    width: '90%',
+    margin: 'auto',
+    marginTop: 10
+  }
+})
 
 function Orders() {
+    const classes = useStyles();  
     const username = useSelector(state => state.username);
     const [customerId, setCustomerId] = useState(0);
     const orderStatus = ["Open", "Closed", "Paid","Delivered"]
@@ -38,7 +48,7 @@ function Orders() {
     },[]);
 
     return (
-        <TableContainer component={Paper}>
+        <TableContainer className={classes.tableContainer} component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>

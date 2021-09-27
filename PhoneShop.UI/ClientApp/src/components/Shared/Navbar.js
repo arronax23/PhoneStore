@@ -41,7 +41,7 @@ function Navbar() {
         <BottomNavigation showLabels>
             <BottomNavigationAction label="Home" onClick={homeClicked} />
             {logging != 'NOT_LOGGED' ?
-            <BottomNavigationAction label="Phones' list" onClick={phoneListClicked}/>
+            <BottomNavigationAction label="Phones" onClick={phoneListClicked}/>
             : null}     
             {logging == 'LOGGED_AS_ADMIN' ?
             <BottomNavigationAction label="Add phone" onClick={addPhoneClicked}/>
