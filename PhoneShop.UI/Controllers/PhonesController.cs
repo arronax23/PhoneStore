@@ -89,16 +89,40 @@ namespace PhoneShop.UI.Controllers
         }
 
         [HttpPost]
-        [Route("api/AddPhoneToShoppingCard")]
+        [Route("api/AddPhoneToShoppingCart")]
         [Authorize(Roles = "Customer")]
-        public IActionResult AddPhoneToShoppingCard(AddPhoneToShoppingCardVM addPhoneToShoppingCardVM)
+        public IActionResult AddPhoneToShoppingCart(AddPhoneToShoppingCardVM addPhoneToShoppingCardVM)
         {
-            _phonesService.AddPhoneToShoppingCard(new AddPhoneToShoppingCardRequest() 
+            _phonesService.AddPhoneToShoppingCart(new AddPhoneToShoppingCardRequest() 
             { 
                 CustomerId = addPhoneToShoppingCardVM.CustomerId,
                 PhoneId = addPhoneToShoppingCardVM.PhoneId
             });
             return Ok();
         }
+
+        [HttpGet]
+        [Route("api/IsPhoneInShoppingCart")]
+        [Authorize(Roles = "Customer")]
+        public IActionResult IsPhoneInShoppingCart(int customerId, int phoneId)
+        {
+            var response = _phonesService.IsPhoneInShoppingCart(new IsPhoneInShoppingCartRequest() { CustomerId = customerId, PhoneId = phoneId });
+            return Ok(response.IsPhoneInShoppingCart);
+        }
+
+        [HttpPost]
+        [Route("api/RemovePhoneFromShoppingCart")]
+        [Authorize(Roles = "Customer")]
+        public IActionResult RemovePhoneFromShoppingCart(RemovePhoneFromShoppingCartVM removePhoneFromShoppingCartVM)
+        {
+            _phonesService.RemovePhoneFromShoppingCart(new RemovePhoneFromShoppingCartRequest()
+            {
+                CustomerId = removePhoneFromShoppingCartVM.CustomerId,
+                PhoneId = removePhoneFromShoppingCartVM.PhoneId
+            });
+            return Ok;
+        }
     }
+
+
 }

@@ -54,7 +54,7 @@ namespace PhoneShop.BLL.Services
    
         }
 
-        public void AddPhoneToShoppingCard(AddPhoneToShoppingCardRequest request)
+        public void AddPhoneToShoppingCart(AddPhoneToShoppingCardRequest request)
         {
             var customer = _applicationDbContext.Customers.SingleOrDefault(c => c.CustomerId == request.CustomerId);
             if (customer == null)
@@ -65,9 +65,8 @@ namespace PhoneShop.BLL.Services
 
             var currentOrder = _applicationDbContext.Orders
                 .Include(o => o.PhoneOrder)
-                .Where(o => o.Status == OrderStatus.Open)
-                .OrderByDescending(o => o.CreatedDate)
-                .FirstOrDefault();
+                .Where(o => o.Status == OrderStatus.Open && o.CustomerId == request.CustomerId) //only 1 order can be open
+                .SingleOrDefault();
 
             if (currentOrder == null)
             {
@@ -99,5 +98,51 @@ namespace PhoneShop.BLL.Services
 
             _applicationDbContext.SaveChanges();
         }
+        public IsPhoneInShoppingCartResponse IsPhoneInShoppingCart(IsPhoneInShoppingCartRequest request)
+        {
+            var resposne = new IsPhoneInShoppingCartResponse();
+
+            var currentOrder = _applicationDbContext.Orders
+                .Include(o => o.PhoneOrder)
+                .Where(o => o.Status == OrderStatus.Open && o.CustomerId == request.CustomerId) //only 1 order can be open so I don't sort descending by Created Date
+                .SingleOrDefault();
+
+            if (currentOrder == null)
+            {
+                resposne.IsPhoneInShoppingCart = false;    
+            }
+            else
+            {
+                var phoneOrder = _applicationDbContext.PhoneOrders
+                    .SingleOrDefault(po => po.OrderId == currentOrder.OrderId && po.PhoneId == request.PhoneId);
+
+                if (phoneOrder == null)
+                    resposne.IsPhoneInShoppingCart = false;
+                else
+                    resposne.IsPhoneInShoppingCart = true;
+            }
+
+            return resposne;
+        }
+
+        public void RemovePhoneFromShoppingCart(RemovePhoneFromShoppingCartRequest request)
+        {
+            var currentOrder = _applicationDbContext.Orders
+            .Include(o => o.PhoneOrder)
+            .Where(o => o.Status == OrderStatus.Open && o.CustomerId == request.CustomerId) //only 1 order can be open
+            .SingleOrDefault();
+
+            if (currentOrder == null)
+                throw new Exception("No order was found");
+
+            var phoneOrder = currentOrder.PhoneOrder.SingleOrDefault(po => po.PhoneId == request.PhoneId);
+
+            if (phoneOrder == null)
+                throw new Exception("No phone was found in open order");
+
+            _applicationDbContext.PhoneOrders.Remove(phoneOrder);
+            _applicationDbContext.SaveChanges();
+        }
+
     }
 }

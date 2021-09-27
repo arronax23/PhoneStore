@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
@@ -9,12 +9,29 @@ import { ContactSupportOutlined } from '@material-ui/icons'
 
 const phoneColor = ["White","Black","Red","Blue","Pink"]
 
-function PhoneDetails({ isAdmin }) {
+function PhoneDetails() {
+    const logging = useSelector(state => state.logging);
+    const isAdmin = logging == "LOGGED_AS_ADMIN" ? true : false;
+    const [refreshButton, setRefreshButton] = useState(0);
+    const [isInShoppingCart,setIsInShoppingCart] = useState(false);
     const history = useHistory();
     const { id } = useParams();
     const username = useSelector(state => state.username);
     const {data: phone, isPending, error} = useFetchGet("api/GetPhoneById/"+id);
 
+
+    useEffect(() => {
+        fetch('api/GetCustomerIdByUsername/'+username)
+        .then(response => response.text())
+        .then(customerId => {
+            fetch(`api/IsPhoneInShoppingCart/?customerId=${customerId}&phoneId=${id}`)
+            .then(resp => resp.json())
+            .then(data => {
+                console.log(data);
+                setIsInShoppingCart(data);
+            });
+        })
+    },[refreshButton])
     const deleteClick = () => {
         fetch('api/DeletePhoneById/'+id, 
         {
@@ -36,11 +53,11 @@ function PhoneDetails({ isAdmin }) {
         history.push('/updatephone/'+id);
     }
 
-    const addToShoppingCardClick = () => {
+    const addToShoppingCartClick = () => {
         fetch('api/GetCustomerIdByUsername/'+username)
         .then(response => response.text())
         .then(customerId => {
-            fetch('api/AddPhoneToShoppingCard',{
+            fetch('api/AddPhoneToShoppingCart',{
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json"
@@ -50,12 +67,16 @@ function PhoneDetails({ isAdmin }) {
             .then(response => {
                 if (response.ok){
                     console.log('everything ok');
+                    setRefreshButton((state) => ++state);
                 }
                 else{
                     console.log('something went wrong')
                 }
             })
         });
+    }
+    const removeFromShoppingCartClick = () => {
+
     }
 
     return (
@@ -98,10 +119,14 @@ function PhoneDetails({ isAdmin }) {
                     <Button onClick={deleteClick} variant="contained" color="secondary">Delete</Button>
                 </div>}
                 {/* Customer */}
-                {!isAdmin && 
+                {!isAdmin && !isInShoppingCart && 
                 <div>
-                    <Button onClick={addToShoppingCardClick} variant="contained" color="secondary">Add to shopping card</Button>
-                </div>}                
+                    <Button onClick={addToShoppingCartClick} variant="contained" color="primary">Add to shopping cart</Button>
+                </div>}       
+                {!isAdmin && isInShoppingCart && 
+                <div>
+                    <Button onClick={removeFromShoppingCartClick} variant="contained" color="secondary">Remove from shopping cart</Button>
+                </div>}            
                 
             </div>
         </div>}

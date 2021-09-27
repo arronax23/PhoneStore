@@ -17,9 +17,6 @@ import { useSelector } from 'react-redux'
 import Orders from './components/Customer/Orders';
 
 function App() {
-    const logging = useSelector(state => state.logging);
-    const isAdmin = logging == "LOGGED_AS_ADMIN" ? true : false;
-
       return (      
         <div>
         <Navbar />
@@ -31,7 +28,7 @@ function App() {
                 <PhoneList />
             </Route>
             <Route exact path="/phonedetails/:id">
-                <PhoneDetails isAdmin={isAdmin} />
+                <PhoneDetails />
             </Route>
             <Route exact path="/addphone">
                 <AddPhone />
