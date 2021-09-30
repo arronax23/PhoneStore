@@ -54,7 +54,7 @@ namespace PhoneShop.UI.Controllers
         [Authorize(Roles = "Admin,Customer")]
         public PhoneVM GetPhoneById(int id)
         {
-            var getPhoneByIdRequest = new GetPhoneByIdRequest() { PhoneId = id};
+            var getPhoneByIdRequest = new GetPhoneByIdRequest() { PhoneId = id };
             var phoneVM = _mapper.Map<PhoneVM>(_phonesService.GetPhoneById(getPhoneByIdRequest).Phone);
             return phoneVM;
         }
@@ -93,8 +93,8 @@ namespace PhoneShop.UI.Controllers
         [Authorize(Roles = "Customer")]
         public IActionResult AddPhoneToShoppingCart(AddPhoneToShoppingCardVM addPhoneToShoppingCardVM)
         {
-            _phonesService.AddPhoneToShoppingCart(new AddPhoneToShoppingCardRequest() 
-            { 
+            _phonesService.AddPhoneToShoppingCart(new AddPhoneToShoppingCardRequest()
+            {
                 CustomerId = addPhoneToShoppingCardVM.CustomerId,
                 PhoneId = addPhoneToShoppingCardVM.PhoneId
             });
@@ -122,6 +122,18 @@ namespace PhoneShop.UI.Controllers
             });
             return Ok();
         }
+
+        [HttpGet]
+        [Route("api/GetPhonesInOrder")]
+        [Authorize(Roles = "Customer")]
+        public IEnumerable<PhoneVM> GetPhonesInOrder(int orderId)
+        {
+            var response = _phonesService.GetPhonesInOrder(new GetPhonesInOrderRequest() { OrderId = orderId });
+            var phonesVM = _mapper.Map<IEnumerable<PhoneVM>>(response.Phones);
+
+            return phonesVM;
+        }
+
     }
 
 

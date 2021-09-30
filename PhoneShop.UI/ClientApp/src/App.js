@@ -15,6 +15,7 @@ import Logout from './components/Authentication/Logout';
 import UpdatePhone from './components/Admin/UpdatePhone'
 import { useSelector } from 'react-redux'
 import Orders from './components/Customer/Orders';
+import PhonesInOrder from './components/Customer/PhonesInOrder';
 
 function App() {
       return (      
@@ -35,7 +36,10 @@ function App() {
             </Route>
             <Route exact path="/orders">
                 <Orders />
-            </Route>            
+            </Route> 
+            <Route exact path="/phonesInOrder/:id">
+                <PhonesInOrder />
+            </Route>             
             <Route exact path="/updatephone/:id">
                 <UpdatePhone />
             </Route>            

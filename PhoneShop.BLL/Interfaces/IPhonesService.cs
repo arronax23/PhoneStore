@@ -12,5 +12,6 @@ namespace PhoneShop.BLL.Interfaces
         void AddPhoneToShoppingCart(AddPhoneToShoppingCardRequest request);
         IsPhoneInShoppingCartResponse IsPhoneInShoppingCart(IsPhoneInShoppingCartRequest request);
         void RemovePhoneFromShoppingCart(RemovePhoneFromShoppingCartRequest request);
+        GetPhonesInOrderResponse GetPhonesInOrder(GetPhonesInOrderRequest request);
     }
 }

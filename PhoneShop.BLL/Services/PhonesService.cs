@@ -144,5 +144,33 @@ namespace PhoneShop.BLL.Services
             _applicationDbContext.SaveChanges();
         }
 
+        public GetPhonesInOrderResponse GetPhonesInOrder(GetPhonesInOrderRequest request)
+        {
+            var getPhonesInOrderResponse = new GetPhonesInOrderResponse();
+
+            var phones = _applicationDbContext.PhoneOrders
+                .Include(po => po.Phone)
+                .Where(po => po.OrderId == request.OrderId)
+                .Select(po => new Phone() 
+                {
+                    PhoneId = po.Phone.PhoneId,
+                    Brand = po.Phone.Brand,
+                    Model = po.Phone.Model,
+                    RAM = po.Phone.RAM,
+                    Camera = po.Phone.Camera,
+                    Memory = po.Phone.Memory,
+                    Color = po.Phone.Color,
+                    ImageUrl = po.Phone.ImageUrl,
+                    OS = po.Phone.OS,
+                    Price = po.Phone.Price
+                })
+                .AsEnumerable();
+
+            getPhonesInOrderResponse.Phones = phones;
+
+            return getPhonesInOrderResponse;
+
+        }
+
     }
 }

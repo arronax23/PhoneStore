@@ -10,6 +10,6 @@ namespace PhoneShop.DAL.Models
         public ApplicationUser User { get; set; }
         public string UserId { get; set; }
 
-        public Order Order { get; set; }
+        public List<Order> Orders { get; set; }
     }
 }

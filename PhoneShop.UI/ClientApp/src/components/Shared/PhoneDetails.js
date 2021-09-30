@@ -101,7 +101,7 @@ function PhoneDetails() {
             <div className="dl">
                 <dl>
                     <div className="definition-list-item">
-                        <dt> RAM[GB]</dt>                  
+                        <dt> RAM [GB]</dt>                  
                         <dd>{phone.ram}</dd>
                     </div>
                     <div className="definition-list-item">
@@ -109,7 +109,7 @@ function PhoneDetails() {
                         <dd>{phone.camera}</dd>
                     </div>
                     <div className="definition-list-item">
-                        <dt>Memory[GB]</dt>
+                        <dt>Memory [GB]</dt>
                         <dd>{phone.memory}</dd>
                     </div>
                     <div className="definition-list-item">
@@ -121,8 +121,8 @@ function PhoneDetails() {
                         <dd>{phoneColor[phone.color]}</dd>
                     </div>
                     <div className="definition-list-item">
-                        <dt>Price</dt>
-                        <dd>{phone.price}&nbsp;$</dd>
+                        <dt>Price [$]</dt>
+                        <dd>{phone.price}</dd>
                     </div>
                 </dl>
                 {/* Admin */}
