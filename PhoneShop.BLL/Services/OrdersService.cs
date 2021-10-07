@@ -2,6 +2,7 @@
 using PhoneShop.BLL.Interfaces;
 using PhoneShop.BLL.Messages;
 using PhoneShop.DAL.Data;
+using PhoneShop.DAL.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,5 +24,44 @@ namespace PhoneShop.BLL.Services
             var response = new GetOrdersByCustomerIdResponse() { Orders = orders };
             return response;
         }
+        public void ChangeOrderStatus(ChangeOrderStatusRequest request)
+        {
+            var order = _applicationDbContext.Orders.Include(o => o.OrderStatusWorkflow).SingleOrDefault(o => o.OrderId == request.OrderId);
+            if (order == null)
+                throw new Exception("No order was found.");
+
+            var newStatus = OrderStatus.Open;
+
+            switch (request.NewStatus)
+            {
+                case "Open":
+                    newStatus = OrderStatus.Open;
+                    break;
+                case "Closed":
+                    newStatus = OrderStatus.Closed;
+                    break;
+                case "Paid":
+                    newStatus = OrderStatus.Paid;
+                    break;
+                case "Delivered":
+                    newStatus = OrderStatus.Delivered;
+                    break;
+                default:
+                    newStatus = OrderStatus.Open;
+                    break;
+            }
+
+            order.Status = newStatus;
+            order.ModifiedDate = DateTime.Now;
+            order.OrderStatusWorkflow.Add(new OrderStatusWorkflow()
+            {
+                Status = newStatus,
+                WorkflowDate = DateTime.Now
+            });
+
+            _applicationDbContext.SaveChanges();
+
+        }
+
     }
 }

@@ -22,17 +22,19 @@ function PhoneDetails() {
 
 
     useEffect(() => {
-        fetch('api/GetCustomerIdByUsername/'+username)
-        .then(response => response.text())
-        .then(customerId => {
-            setCustomerId(customerId);
-            fetch(`api/IsPhoneInShoppingCart/?customerId=${customerId}&phoneId=${id}`)
-            .then(resp => resp.json())
-            .then(data => {
-                console.log(data);
-                setIsInShoppingCart(data);
-            });
-        })
+        if(!isAdmin){
+            fetch('api/GetCustomerIdByUsername/'+username)
+            .then(response => response.text())
+            .then(customerId => {
+                setCustomerId(customerId);
+                fetch(`api/IsPhoneInShoppingCart/?customerId=${customerId}&phoneId=${id}`)
+                .then(resp => resp.json())
+                .then(data => {
+                    console.log(data);
+                    setIsInShoppingCart(data);
+                });
+            })
+        }
     },[refreshButton])
     const deleteClick = () => {
         fetch('api/DeletePhoneById/'+id, 

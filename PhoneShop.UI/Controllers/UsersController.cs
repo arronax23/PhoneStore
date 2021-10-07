@@ -54,8 +54,7 @@ namespace PhoneShop.UI.Controllers
             var response = await _usersService.Login(new LoginRequest()
             {
                 Username = userVM.Username,
-                Password = userVM.Password,
-                CurrentUser = HttpContext.User
+                Password = userVM.Password
             });
 
             if (response.IsSuccesfull)

@@ -71,7 +71,7 @@ namespace PhoneShop.BLL.Services
         public async Task<LoginResponse> Login(LoginRequest request)
         {
             var response = new LoginResponse();
-            var signInResult = await _signInManager.PasswordSignInAsync(request.Username, request.Password, false, false);
+            var signInResult = await _signInManager.PasswordSignInAsync(request.Username, request.Password, isPersistent: true, false);
 
             //var currentUser = await _userManager.GetUserAsync(request.CurrentUser);
             //var us = request.CurrentUser.FindFirst(c => c.Type == ClaimTypes.Role);

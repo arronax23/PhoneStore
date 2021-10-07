@@ -28,5 +28,19 @@ namespace PhoneShop.UI.Controllers
             var resposne = _ordersService.GetOrdersByCustomerId(new GetOrdersByCustomerIdRequest() { CustomerId = id });          
             return Ok(resposne.Orders);
         }
+
+        [HttpPost]
+        [Route("api/ChangeOrderStatus")]
+        [Authorize(Roles = "Customer")]
+        public IActionResult ChangeOrderStatus(int orderId, string newStatus)
+        {
+            _ordersService.ChangeOrderStatus(new ChangeOrderStatusRequest() 
+            { 
+                OrderId = orderId,
+                NewStatus = newStatus 
+            });
+
+            return Ok();
+        }
     }
 }
