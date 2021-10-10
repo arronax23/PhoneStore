@@ -27,6 +27,7 @@ function PhonesInOrder() {
         {
             brand: '',
             model: '',
+            imageUrl: '',
             ram: '',
             memory: '',
             camera: '',
@@ -48,6 +49,7 @@ function PhonesInOrder() {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
+              <TableCell>Image</TableCell>
               <TableCell>Brand</TableCell>
               <TableCell>Model</TableCell>
               {/* <TableCell>RAM [GB]</TableCell>
@@ -60,12 +62,9 @@ function PhonesInOrder() {
           </TableHead>
           <TableBody>
             {phones.map((phone) => (
-              <TableRow
-                key={phone.phoneId}
-              >
-                <TableCell component="th" scope="row">
-                  {phone.brand}
-                </TableCell>
+              <TableRow key={phone.phoneId}>
+                <TableCell><img className="phone-table-image" src={phone.imageUrl} /></TableCell>
+                <TableCell>{phone.brand}</TableCell>
                 <TableCell>{phone.model}</TableCell>
                 {/* <TableCell>{phone.ram}</TableCell>
                 <TableCell>{phone.camera}</TableCell>

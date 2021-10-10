@@ -23,6 +23,20 @@ namespace PhoneShop.BLL.Services
             var response = new GetAllPhonesResponse() { Phones = _applicationDbContext.Phones.AsEnumerable() };
             return response;
         }
+
+        public GetPhonesForOnePageResponse GetPhonesForOnePage(GetPhonesForOnePageRequest request)
+        {
+            var response = new GetPhonesForOnePageResponse() 
+            { 
+                Phones = _applicationDbContext.Phones
+                .OrderBy(p => p.Brand)
+                .Skip(18*(request.PageNumber-1))
+                .Take(18)
+                .AsEnumerable() 
+            };
+            return response;
+        }
+
         public GetPhoneByIdResponse GetPhoneById(GetPhoneByIdRequest request)
         {
             var phone = _applicationDbContext.Phones.SingleOrDefault(p => p.PhoneId == request.PhoneId);

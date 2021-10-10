@@ -1,6 +1,6 @@
 import { useState,useEffect } from 'react'
 
-const useFetchGet = (url) => {
+const useFetchGet = (url, pageNumber) => {
     const [data, setData] = useState();
     const [isPending, setIsPending] = useState(true);
     const [error, setError] = useState();
@@ -20,7 +20,7 @@ const useFetchGet = (url) => {
         })
         .catch(err => setError(err.message));
         return () => abortController.abort();
-      }, [url])
+      }, [url,pageNumber])
 
       return {data, isPending, error, httpResposne};
 }

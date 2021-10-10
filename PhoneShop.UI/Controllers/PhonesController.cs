@@ -49,6 +49,19 @@ namespace PhoneShop.UI.Controllers
 
             return phonesVM;
         }
+
+
+        [HttpGet]
+        [Route("api/GetPhonesForOnePage")]
+        [Authorize(Roles = "Admin,Customer")]
+        public IEnumerable<PhoneVM> GetPhonesForOnePage(int pageNumber)
+        {
+            var phones = _phonesService.GetPhonesForOnePage(new GetPhonesForOnePageRequest() { PageNumber = pageNumber }).Phones;
+            var phonesVM = _mapper.Map<IEnumerable<PhoneVM>>(phones);
+
+            return phonesVM;
+        }
+
         [HttpGet]
         [Route("api/GetPhoneById/{id}")]
         [Authorize(Roles = "Admin,Customer")]
