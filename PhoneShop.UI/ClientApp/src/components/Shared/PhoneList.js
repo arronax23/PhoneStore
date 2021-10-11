@@ -18,13 +18,15 @@ const useStyles = makeStyles({
     paginationContainer : {
         position: 'absolute',
         top: '93%',
-        width: '100%'
+        width: '100%',
+        textAlign: 'center'
     }
 });
 
 function PhoneList() {
     const [pageNumber, setPageNumber] = useState(1);
     const {data : phones, isPending, error, httpResposne}  = useFetchGet('api/GetPhonesForOnePage?pageNumber='+pageNumber);
+    const {data : pageCount, isPending: isPendingPagination}  = useFetchGet('api/GetNumberOfPagesInPhoneList');
     const classes = useStyles(); 
 
     const pageChange = (e) => {
@@ -48,7 +50,8 @@ function PhoneList() {
                 phones.map(phone => <PhoneCard key={phone.phoneId} phone={phone} />)}
             </Grid>
             <div className={classes.paginationContainer}>
-                <Pagination onChange={pageChange} className={classes.pagination} count={2} color="primary" />
+                {isPendingPagination && <div>Loading...</div>}
+                {pageCount && <Pagination onChange={pageChange} className={classes.pagination} count={pageCount} color="primary" />}
             </div>
         </div>     
     )

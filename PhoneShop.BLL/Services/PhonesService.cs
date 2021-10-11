@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using PhoneShop.BLL.Interfaces;
 using PhoneShop.BLL.Messages;
 using PhoneShop.DAL.Data;
@@ -13,9 +14,15 @@ namespace PhoneShop.BLL.Services
     public class PhonesService : IPhonesService
     {
         private ApplicationDbContext _applicationDbContext;
-        public PhonesService(ApplicationDbContext applicationDbContext)
+        private IConfiguration _configuration;
+
+        private int numberOfPhonesPerPage;
+
+        public PhonesService(ApplicationDbContext applicationDbContext, IConfiguration configuration)
         {
             _applicationDbContext = applicationDbContext;
+            _configuration = configuration;
+            numberOfPhonesPerPage = int.Parse(_configuration["Config:NumberOfPhonesPerPage"]);
         }
 
         public GetAllPhonesResponse GetAllPhones()
@@ -30,10 +37,24 @@ namespace PhoneShop.BLL.Services
             { 
                 Phones = _applicationDbContext.Phones
                 .OrderBy(p => p.Brand)
-                .Skip(18*(request.PageNumber-1))
-                .Take(18)
+                .Skip(numberOfPhonesPerPage * (request.PageNumber-1))
+                .Take(numberOfPhonesPerPage)
                 .AsEnumerable() 
             };
+            return response;
+        }
+
+        public GetNumberOfPagesInPhoneListResponse GetNumberOfPagesInPhoneList()
+        {
+            double numberOfAllPhones = _applicationDbContext.Phones.Count();   
+            double numberOfPages = Math.Ceiling(numberOfAllPhones / numberOfPhonesPerPage);
+            int numberOfPagesInt = (int)numberOfPages;
+
+            var response = new GetNumberOfPagesInPhoneListResponse()
+            {
+                NumberOfPages = numberOfPagesInt
+            };
+
             return response;
         }
 

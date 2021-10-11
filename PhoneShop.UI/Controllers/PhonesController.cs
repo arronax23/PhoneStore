@@ -72,6 +72,15 @@ namespace PhoneShop.UI.Controllers
             return phoneVM;
         }
 
+        [HttpGet]
+        [Route("api/GetNumberOfPagesInPhoneList")]
+        [Authorize(Roles = "Admin,Customer")]
+        public int GetNumberOfPagesInPhoneList()
+        {
+            var numberOfPagesInPhoneList = _phonesService.GetNumberOfPagesInPhoneList().NumberOfPages;
+            return numberOfPagesInPhoneList;
+        }
+
         [HttpPost]
         [Route("api/SavePhone")]
         [Authorize(Roles = "Admin")]
