@@ -35,6 +35,9 @@ function Navbar() {
     const orders = () => {
         history.push("/orders");
     } 
+    const swagger = () => {
+        window.location.href= '/swagger'
+    }
 
     return (
         <div>
@@ -46,9 +49,12 @@ function Navbar() {
             {logging == 'LOGGED_AS_ADMIN' ?
             <BottomNavigationAction label="Add phone" onClick={addPhoneClicked}/>
             : null}    
+            {logging == 'LOGGED_AS_ADMIN' ?
+            <BottomNavigationAction  label="Swagger" onClick={swagger}/>
+            : null}  
             {logging == 'LOGGED_AS_CUSTOMER' ?
             <BottomNavigationAction  label="Orders" onClick={orders}/>
-            : null}  
+            : null} 
             {logging == 'NOT_LOGGED' ?
             <BottomNavigationAction className="login-register" label="Login" onClick={login}/>
             : null}    
