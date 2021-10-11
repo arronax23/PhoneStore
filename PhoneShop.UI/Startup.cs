@@ -18,6 +18,7 @@ using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Threading.Tasks;
+using Microsoft.OpenApi.Models;
 
 namespace PhoneShop.UI
 {
@@ -113,6 +114,16 @@ namespace PhoneShop.UI
                 configuration.RootPath = "ClientApp/build";
             });
 
+
+           services.AddSwaggerGen();
+           //services.AddSwaggerGen(c => 
+           // {
+           //     c.SwaggerDoc("v1", new OpenApiInfo()
+           //     {
+           //         Description = "Desc"
+           //     }) ;
+           // });
+
             services.AddScoped<IPhonesService, PhonesService>();
             services.AddScoped<IUsersService, UsersService>();
             services.AddScoped<IOrdersService, OrdersService>();
@@ -142,6 +153,13 @@ namespace PhoneShop.UI
             app.UseAuthentication();
             //app.UseIdentityServer();
             app.UseAuthorization();
+
+            app.UseSwagger();
+            app.UseSwaggerUI(options => 
+            { 
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "PhoneShop API");
+            });
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
