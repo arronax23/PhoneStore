@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using PhoneShop.BLL.Interfaces;
 using PhoneShop.BLL.Messages;
 using PhoneShop.BLL.Services;
@@ -19,10 +20,12 @@ namespace PhoneShop.UI.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IUsersService _usersService;
+        private readonly ILogger<UsersController> _logger;
 
-        public UsersController(IUsersService usersService)
+        public UsersController(IUsersService usersService, ILogger<UsersController> logger)
         {
             _usersService = usersService;
+            _logger = logger;
         }
 
         [HttpPost]
@@ -58,9 +61,16 @@ namespace PhoneShop.UI.Controllers
             });
 
             if (response.IsSuccesfull)
+            {
+                _logger.LogDebug($"Succesufully logged in user: {userVM.Username}");
                 return Ok(response.CurrentUserRole);
+            }
             else
+            {
+                _logger.LogDebug($"Failed to log in user: {userVM.Username}");
                 return Problem("Logging failed");
+            }
+
         }
 
         [HttpPost]
