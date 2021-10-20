@@ -62,12 +62,12 @@ namespace PhoneShop.UI.Controllers
 
             if (response.IsSuccesfull)
             {
-                _logger.LogDebug($"Succesufully logged in user: {userVM.Username}");
+                _logger.LogInformation($"Succesufully logged in user: {userVM.Username}");
                 return Ok(response.CurrentUserRole);
             }
             else
             {
-                _logger.LogDebug($"Failed to log in user: {userVM.Username}");
+                _logger.LogInformation($"Failed to log in user: {userVM.Username}");
                 return Problem("Logging failed");
             }
 
