@@ -25,13 +25,10 @@ function PhonesInOrder() {
     const { id } = useParams();
     const [phones, setPhones] = useState([
         {
+            phoneId: 0,
             brand: '',
             model: '',
             imageUrl: '',
-            ram: '',
-            memory: '',
-            camera: '',
-            os: '',
             color: '',
             price: ''
         }

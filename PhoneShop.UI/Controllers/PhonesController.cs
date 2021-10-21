@@ -159,12 +159,12 @@ namespace PhoneShop.UI.Controllers
         [HttpGet]
         [Route("api/GetPhonesInOrder")]
         [Authorize(Roles = "Customer")]
-        public IEnumerable<PhoneVM> GetPhonesInOrder(int orderId)
+        public IEnumerable<PhoneInOrderVM> GetPhonesInOrder(int orderId)
         {
             var response = _phonesService.GetPhonesInOrder(new GetPhonesInOrderRequest() { OrderId = orderId });
-            var phonesVM = _mapper.Map<IEnumerable<PhoneVM>>(response.Phones);
+            var phoneInOrderVM = _mapper.Map<IEnumerable<PhoneInOrderVM>>(response.Phones);
 
-            return phonesVM;
+            return phoneInOrderVM;
         }
 
     }
