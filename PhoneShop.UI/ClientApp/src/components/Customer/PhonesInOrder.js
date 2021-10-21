@@ -32,7 +32,8 @@ function PhonesInOrder() {
             memory: '',
             camera: '',
             os: '',
-            color: ''
+            color: '',
+            price: ''
         }
     ]);
     useEffect(() => {

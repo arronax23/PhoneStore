@@ -17,5 +17,7 @@ namespace PhoneShop.BLL.Interfaces
         IsPhoneInShoppingCartResponse IsPhoneInShoppingCart(IsPhoneInShoppingCartRequest request);
         void RemovePhoneFromShoppingCart(RemovePhoneFromShoppingCartRequest request);
         GetPhonesInOrderResponse GetPhonesInOrder(GetPhonesInOrderRequest request);
+
+        SearchPhonesResponse SearchPhones(SearchPhonesRequest request);
     }
 }

@@ -44,6 +44,17 @@ namespace PhoneShop.BLL.Services
             return response;
         }
 
+        public SearchPhonesResponse SearchPhones(SearchPhonesRequest request)
+        {
+            var response = new SearchPhonesResponse()
+            {
+                Phones = _applicationDbContext.Phones
+                            .Where(phone => phone.Model.StartsWith(request.SearchText) || phone.Brand.StartsWith(request.SearchText))
+            };
+
+            return response;
+        }
+
         public GetNumberOfPagesInPhoneListResponse GetNumberOfPagesInPhoneList()
         {
             double numberOfAllPhones = _applicationDbContext.Phones.Count();   

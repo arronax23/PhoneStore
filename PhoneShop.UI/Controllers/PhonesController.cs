@@ -63,6 +63,17 @@ namespace PhoneShop.UI.Controllers
         }
 
         [HttpGet]
+        [Route("api/SearchPhones")]
+        [Authorize(Roles = "Admin,Customer")]
+        public IEnumerable<PhoneVM> SearchPhones(string searchText)
+        {
+            var phones = _phonesService.SearchPhones(new SearchPhonesRequest() { SearchText = searchText }).Phones;
+            var phonesVM = _mapper.Map<IEnumerable<PhoneVM>>(phones);
+
+            return phonesVM;
+        }
+
+        [HttpGet]
         [Route("api/GetPhoneById/{id}")]
         [Authorize(Roles = "Admin,Customer")]
         public PhoneVM GetPhoneById(int id)
