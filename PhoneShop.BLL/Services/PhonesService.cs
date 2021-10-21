@@ -51,6 +51,7 @@ namespace PhoneShop.BLL.Services
                 Phones = _applicationDbContext.Phones
                             .Where(phone => phone.Model.StartsWith(request.SearchText) || phone.Brand.StartsWith(request.SearchText))
             };
+            //response.NumberOfPages = (int)Math.Ceiling((double)response.Phones.ToList().Count / numberOfPhonesPerPage);
 
             return response;
         }

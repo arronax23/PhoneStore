@@ -6,5 +6,6 @@ namespace PhoneShop.BLL.Messages
     public class SearchPhonesResponse
     {
         public IEnumerable<Phone> Phones{ get; set; }
+        //public int NumberOfPages{ get; set; }
     }
 }

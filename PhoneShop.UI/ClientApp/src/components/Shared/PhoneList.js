@@ -47,12 +47,16 @@ function PhoneList() {
     const searchForPhones = (e) => {
         const searchText = e.target.value;
         console.log(searchText);
-        fetch('api/SearchPhones?searchText='+searchText)
-        .then(response => response.json())
-        .then(phones =>  {
-            console.log(phones);
-            setSearchPhones(phones)
-        });
+        if (searchText === ""){
+            setSearchPhones(null);
+        }else {
+            fetch('api/SearchPhones?searchText='+searchText)
+            .then(response => response.json())
+            .then(phones =>  {
+                console.log(phones);
+                setSearchPhones(phones)
+            });
+        }
     };
 
     return (
