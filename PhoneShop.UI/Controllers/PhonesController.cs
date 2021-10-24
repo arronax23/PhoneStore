@@ -93,12 +93,12 @@ namespace PhoneShop.UI.Controllers
         }
 
         [HttpPost]
-        [Route("api/SavePhone")]
+        [Route("api/CreatePhone")]
         [Authorize(Roles = "Admin")]
-        public IActionResult SavePhone(PhoneVM phoneVM)
+        public IActionResult CreatePhone(PhoneVM phoneVM)
         {
             var phone = _mapper.Map<Phone>(phoneVM);
-            _phonesService.SavePhone(new SavePhoneRequest() { Phone = phone });
+            _phonesService.CreatePhone(new SavePhoneRequest() { Phone = phone });
             return Ok(phone);
         }
 

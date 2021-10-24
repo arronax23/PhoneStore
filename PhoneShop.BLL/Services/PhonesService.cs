@@ -78,7 +78,7 @@ namespace PhoneShop.BLL.Services
             var response = new GetPhoneByIdResponse() { Phone = phone };
             return response;
         }
-        public void SavePhone(SavePhoneRequest request)
+        public void CreatePhone(SavePhoneRequest request)
         {
             _applicationDbContext.Phones.Add(request.Phone);
             _applicationDbContext.SaveChanges();

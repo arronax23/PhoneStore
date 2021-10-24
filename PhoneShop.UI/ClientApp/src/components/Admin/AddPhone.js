@@ -32,7 +32,7 @@ function AddPhone() {
         e.preventDefault();
         const phone = {brand, model, imageUrl, ram: parseInt(ram),camera: parseInt(camera),memory: parseInt(memory), os, color: parseInt(color),price: parseInt(price)};
         console.log(phone);
-        fetch('api/SavePhone', 
+        fetch('api/CreatePhone', 
             {
                 method: 'POST',
                 headers: {
