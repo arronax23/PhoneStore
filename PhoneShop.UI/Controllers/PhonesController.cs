@@ -99,7 +99,7 @@ namespace PhoneShop.UI.Controllers
         {
             var phone = _mapper.Map<Phone>(phoneVM);
             _phonesService.CreatePhone(new SavePhoneRequest() { Phone = phone });
-            return Ok(phone);
+            return Created($"api/GetPhoneById/{phone.PhoneId}", phone);
         }
 
         [HttpDelete]
