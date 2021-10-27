@@ -34,11 +34,14 @@ namespace PhoneShop.UI.Controllers
         [Authorize(Roles = "Customer")]
         public IActionResult ChangeOrderStatus(int orderId, string newStatus)
         {
-            _ordersService.ChangeOrderStatus(new ChangeOrderStatusRequest() 
+            var changed = _ordersService.ChangeOrderStatus(new ChangeOrderStatusRequest() 
             { 
                 OrderId = orderId,
                 NewStatus = newStatus 
             });
+
+            if (changed == false)
+                return BadRequest(new {Error = "Status didn't change" });
 
             return Ok();
         }

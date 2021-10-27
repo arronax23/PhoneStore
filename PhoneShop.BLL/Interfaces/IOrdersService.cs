@@ -5,6 +5,6 @@ namespace PhoneShop.BLL.Interfaces
     public interface IOrdersService
     {
         GetOrdersByCustomerIdResponse GetOrdersByCustomerId(GetOrdersByCustomerIdRequest request);
-        void ChangeOrderStatus(ChangeOrderStatusRequest request);
+        bool ChangeOrderStatus(ChangeOrderStatusRequest request);
     }
 }

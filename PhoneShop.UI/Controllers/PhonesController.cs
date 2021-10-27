@@ -98,7 +98,11 @@ namespace PhoneShop.UI.Controllers
         public IActionResult CreatePhone(PhoneVM phoneVM)
         {
             var phone = _mapper.Map<Phone>(phoneVM);
-            _phonesService.CreatePhone(new SavePhoneRequest() { Phone = phone });
+            var created = _phonesService.CreatePhone(new SavePhoneRequest() { Phone = phone });
+
+            if (created == false)
+                return BadRequest(new { Error = "No phone was created" });
+
             return Created($"api/GetPhoneById/{phone.PhoneId}", phone);
         }
 
@@ -107,7 +111,11 @@ namespace PhoneShop.UI.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult DeletePhoneById(int id)
         {
-            _phonesService.DeletePhoneById(new DeletePhoneByIdRequest() { PhoneId = id });
+            var deleted = _phonesService.DeletePhoneById(new DeletePhoneByIdRequest() { PhoneId = id });
+
+            if (deleted == false)
+                return BadRequest(new { Error = "No phone was deleted" });
+
             return Ok();
         }
 
@@ -117,7 +125,11 @@ namespace PhoneShop.UI.Controllers
         public IActionResult UpdatePhone(PhoneVM phoneVM)
         {
             var phone = _mapper.Map<Phone>(phoneVM);
-            _phonesService.UpdatePhone(new UpdatePhoneRequest() { Phone = phone });
+            var updated = _phonesService.UpdatePhone(new UpdatePhoneRequest() { Phone = phone });
+
+            if (updated == false)
+                return BadRequest(new { Error = "No phone was updated" });
+
             return Ok();
         }
 
@@ -126,11 +138,15 @@ namespace PhoneShop.UI.Controllers
         [Authorize(Roles = "Customer")]
         public IActionResult AddPhoneToShoppingCart(AddPhoneToShoppingCardVM addPhoneToShoppingCardVM)
         {
-            _phonesService.AddPhoneToShoppingCart(new AddPhoneToShoppingCardRequest()
+            var added =_phonesService.AddPhoneToShoppingCart(new AddPhoneToShoppingCardRequest()
             {
                 CustomerId = addPhoneToShoppingCardVM.CustomerId,
                 PhoneId = addPhoneToShoppingCardVM.PhoneId
             });
+
+            if (added == false)
+                return BadRequest(new { Error = "No phone was added to shopping cart" });
+
             return Ok();
         }
 
@@ -148,11 +164,15 @@ namespace PhoneShop.UI.Controllers
         [Authorize(Roles = "Customer")]
         public IActionResult RemovePhoneFromShoppingCart(RemovePhoneFromShoppingCartVM removePhoneFromShoppingCartVM)
         {
-            _phonesService.RemovePhoneFromShoppingCart(new RemovePhoneFromShoppingCartRequest()
+            var deleted = _phonesService.RemovePhoneFromShoppingCart(new RemovePhoneFromShoppingCartRequest()
             {
                 CustomerId = removePhoneFromShoppingCartVM.CustomerId,
                 PhoneId = removePhoneFromShoppingCartVM.PhoneId
             });
+
+            if (deleted == false)
+                return BadRequest(new { Error = "No phone was removed from shopping cart" });
+
             return Ok();
         }
 
@@ -166,8 +186,5 @@ namespace PhoneShop.UI.Controllers
 
             return phoneInOrderVM;
         }
-
     }
-
-
 }

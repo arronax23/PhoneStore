@@ -24,7 +24,7 @@ namespace PhoneShop.BLL.Services
             var response = new GetOrdersByCustomerIdResponse() { Orders = orders };
             return response;
         }
-        public void ChangeOrderStatus(ChangeOrderStatusRequest request)
+        public bool ChangeOrderStatus(ChangeOrderStatusRequest request)
         {
             var order = _applicationDbContext.Orders.Include(o => o.OrderStatusWorkflow).SingleOrDefault(o => o.OrderId == request.OrderId);
             if (order == null)
@@ -59,7 +59,8 @@ namespace PhoneShop.BLL.Services
                 WorkflowDate = DateTime.Now
             });
 
-            _applicationDbContext.SaveChanges();
+            var changed = _applicationDbContext.SaveChanges();
+            return changed > 0;
 
         }
 

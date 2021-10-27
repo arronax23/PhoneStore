@@ -78,30 +78,33 @@ namespace PhoneShop.BLL.Services
             var response = new GetPhoneByIdResponse() { Phone = phone };
             return response;
         }
-        public void CreatePhone(SavePhoneRequest request)
+        public bool CreatePhone(SavePhoneRequest request)
         {
             _applicationDbContext.Phones.Add(request.Phone);
-            _applicationDbContext.SaveChanges();
+            var created =_applicationDbContext.SaveChanges();
+            return created > 0;
         }
 
-        public void DeletePhoneById(DeletePhoneByIdRequest request)
+        public bool DeletePhoneById(DeletePhoneByIdRequest request)
         {
             var phoneToBeRemoved = _applicationDbContext.Phones.SingleOrDefault(p => p.PhoneId == request.PhoneId);
             if (phoneToBeRemoved == null)
                 throw new Exception("No phone was found.");
 
             _applicationDbContext.Phones.Remove(phoneToBeRemoved);
-            _applicationDbContext.SaveChanges();
+            var deleted = _applicationDbContext.SaveChanges();
+            return deleted > 0;
         }
 
-        public void UpdatePhone(UpdatePhoneRequest request)
+        public bool UpdatePhone(UpdatePhoneRequest request)
         {
             _applicationDbContext.Phones.Update(request.Phone);
-            _applicationDbContext.SaveChanges();
+            var updated = _applicationDbContext.SaveChanges();
+            return updated > 0;
    
         }
 
-        public void AddPhoneToShoppingCart(AddPhoneToShoppingCardRequest request)
+        public bool AddPhoneToShoppingCart(AddPhoneToShoppingCardRequest request)
         {
             var customer = _applicationDbContext.Customers.SingleOrDefault(c => c.CustomerId == request.CustomerId);
             if (customer == null)
@@ -143,7 +146,8 @@ namespace PhoneShop.BLL.Services
                 currentOrder.ModifiedDate = DateTime.Now;
             }
 
-            _applicationDbContext.SaveChanges();
+            var added = _applicationDbContext.SaveChanges();
+            return added > 0;
         }
         public IsPhoneInShoppingCartResponse IsPhoneInShoppingCart(IsPhoneInShoppingCartRequest request)
         {
@@ -172,7 +176,7 @@ namespace PhoneShop.BLL.Services
             return resposne;
         }
 
-        public void RemovePhoneFromShoppingCart(RemovePhoneFromShoppingCartRequest request)
+        public bool RemovePhoneFromShoppingCart(RemovePhoneFromShoppingCartRequest request)
         {
             var currentOrder = _applicationDbContext.Orders
             .Include(o => o.PhoneOrder)
@@ -188,7 +192,8 @@ namespace PhoneShop.BLL.Services
                 throw new Exception("No phone was found in open order");
 
             _applicationDbContext.PhoneOrders.Remove(phoneOrder);
-            _applicationDbContext.SaveChanges();
+            var deleted = _applicationDbContext.SaveChanges();
+            return deleted > 0;
         }
 
         public GetPhonesInOrderResponse GetPhonesInOrder(GetPhonesInOrderRequest request)

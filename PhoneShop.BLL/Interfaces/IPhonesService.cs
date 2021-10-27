@@ -10,12 +10,12 @@ namespace PhoneShop.BLL.Interfaces
 
         GetNumberOfPagesInPhoneListResponse GetNumberOfPagesInPhoneList();
         GetPhoneByIdResponse GetPhoneById(GetPhoneByIdRequest request);
-        void CreatePhone(SavePhoneRequest request);
-        void DeletePhoneById(DeletePhoneByIdRequest request);
-        void UpdatePhone(UpdatePhoneRequest request);
-        void AddPhoneToShoppingCart(AddPhoneToShoppingCardRequest request);
+        bool CreatePhone(SavePhoneRequest request);
+        bool DeletePhoneById(DeletePhoneByIdRequest request);
+        bool UpdatePhone(UpdatePhoneRequest request);
+        bool AddPhoneToShoppingCart(AddPhoneToShoppingCardRequest request);
         IsPhoneInShoppingCartResponse IsPhoneInShoppingCart(IsPhoneInShoppingCartRequest request);
-        void RemovePhoneFromShoppingCart(RemovePhoneFromShoppingCartRequest request);
+        bool RemovePhoneFromShoppingCart(RemovePhoneFromShoppingCartRequest request);
         GetPhonesInOrderResponse GetPhonesInOrder(GetPhonesInOrderRequest request);
 
         SearchPhonesResponse SearchPhones(SearchPhonesRequest request);
