@@ -10,12 +10,20 @@ import Button from '@material-ui/core/Button';
 import { useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/styles'
 import { useParams } from 'react-router'
+import { Typography } from '@material-ui/core';
 
 const useStyles = makeStyles({
     tableContainer: {
       width: '90%',
       margin: 'auto',
       marginTop: 10
+    },
+    totalPricePaper: {
+      width: '30%',
+      marginRight: '5%',
+      marginTop: 10,
+      float: 'right',
+      textAlign: 'center'
     }
   })
 
@@ -23,6 +31,7 @@ function PhonesInOrder() {
     const phoneColors = ["White", "Black", "Red","Blue", "Pink"];
     const classes = useStyles();
     const { id } = useParams();
+    const [totalPrice, setTotalPrice] = useState(0);
     const [phones, setPhones] = useState([
         {
             phoneId: 0,
@@ -39,10 +48,18 @@ function PhonesInOrder() {
         .then(data => {
             setPhones(data);
             console.log(data);
+            let totalPrice = 0
+            for (const phone of data)
+            {
+              totalPrice += phone.price;
+            }
+            setTotalPrice(totalPrice);
+            console.log(totalPrice);
         });
     },[]);
 
     return (
+      <div>
         <TableContainer className={classes.tableContainer} component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
@@ -75,6 +92,16 @@ function PhonesInOrder() {
           </TableBody>
         </Table>
       </TableContainer>
+      <Paper className={classes.totalPricePaper}>
+        <Typography variant="body2">
+        <b>
+        Total:
+        </b>
+        <br/>
+         {totalPrice} $
+         </Typography>
+      </Paper>
+      </div>
     )
 }
 
