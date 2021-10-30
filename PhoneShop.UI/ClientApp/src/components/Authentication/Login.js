@@ -59,10 +59,10 @@ function Login() {
             }
             else{
                 console.log('entered else');
-                return resp.json()        
-                .then(data => {
-                    console.log(data);
-                    setError(data.detail)
+                return resp.text()        
+                .then(errorMessage => {
+                    console.log(errorMessage);
+                    setError(errorMessage)
                 })
             }
         })

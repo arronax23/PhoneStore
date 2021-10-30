@@ -47,7 +47,7 @@ namespace PhoneShop.UI.Controllers
                 {
                     errorVM.Append(error.Description+" ");
                 }
-                return Problem(errorVM.ToString());
+                return BadRequest(errorVM.ToString());
             }
         }
         [HttpPost]
@@ -68,7 +68,7 @@ namespace PhoneShop.UI.Controllers
             else
             {
                 _logger.LogInformation($"Failed to log in user: {userVM.Username}");
-                return Problem("Logging failed");
+                return BadRequest("Logging failed");
             }
 
         }

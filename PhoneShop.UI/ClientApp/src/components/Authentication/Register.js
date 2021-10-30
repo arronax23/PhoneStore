@@ -37,12 +37,12 @@ function Register() {
             }
             else{
                 console.log('entered')
-                return resp.json();
+                return resp.text();
             }
         })
-        .then(data => {
-            console.log(data);
-            setError(data.detail)
+        .then(errorMessage => {
+            console.log(errorMessage);
+            setError(errorMessage);
         })
         .catch(err =>console.log(err.message));
     }
