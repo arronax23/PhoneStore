@@ -19,6 +19,11 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Threading.Tasks;
 using Microsoft.OpenApi.Models;
+using PhoneShop.UI.Settings;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using System.Collections.Generic;
 
 namespace PhoneShop.UI
 {
@@ -43,45 +48,66 @@ namespace PhoneShop.UI
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             
-            services.ConfigureApplicationCookie(options =>
-            {
-                options.Cookie.Name = "PhoneShop.Identity.Cookie";
-                options.Events = new CookieAuthenticationEvents()
-                {
-                    OnRedirectToLogin = (ctx) =>
-                    {
-                        if (ctx.Request.Path.StartsWithSegments("/api") && ctx.Response.StatusCode == 200)
-                        {
-                            ctx.Response.StatusCode = 401;
-                        }
+            //services.ConfigureApplicationCookie(options =>
+            //{
+            //    options.Cookie.Name = "PhoneShop.Identity.Cookie";
+            //    options.Events = new CookieAuthenticationEvents()
+            //    {
+            //        OnRedirectToLogin = (ctx) =>
+            //        {
+            //            if (ctx.Request.Path.StartsWithSegments("/api") && ctx.Response.StatusCode == 200)
+            //            {
+            //                ctx.Response.StatusCode = 401;
+            //            }
 
-                        return Task.CompletedTask;
-                    },
-                    OnRedirectToAccessDenied = (ctx) =>
-                    {
-                        if (ctx.Request.Path.StartsWithSegments("/api") && ctx.Response.StatusCode == 200)
-                        {
-                            ctx.Response.StatusCode = 403;
-                        }
+            //            return Task.CompletedTask;
+            //        },
+            //        OnRedirectToAccessDenied = (ctx) =>
+            //        {
+            //            if (ctx.Request.Path.StartsWithSegments("/api") && ctx.Response.StatusCode == 200)
+            //            {
+            //                ctx.Response.StatusCode = 403;
+            //            }
 
-                        return Task.CompletedTask;
-                    }
-                };
-                //options.Cookie.Name = "Identity.Cookie";
-                //options.LoginPath = "/Login";
-            });
+            //            return Task.CompletedTask;
+            //        }
+            //    };
+            //    //options.Cookie.Name = "Identity.Cookie";
+            //    //options.LoginPath = "/Login";
+            //});
 
             //services.AddIdentityServer()
             //    .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-            services.AddAuthentication();
-                //.AddCookie("PhoneShopCookie", config => 
-                //{
-                //    config.Cookie = new Microsoft.AspNetCore.Http.CookieBuilder() { Name = "PhoneShopCookie", Expiration = TimeSpan.FromHours(2) };
-                //});
-                //.AddIdentityServerJwt();
+            JwtSettings jwtSettings = new JwtSettings();
+            Configuration.GetSection(nameof(JwtSettings)).Bind(jwtSettings);
+            //services.AddSingleton(jwtSettings);
+
+            services.AddAuthentication(config => 
+            {
+                config.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                config.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                config.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+                .AddJwtBearer(config => 
+                {
+                    config.SaveToken = true;
+                    config.TokenValidationParameters = new TokenValidationParameters()
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtSettings.Secret)),
+                        ValidateAudience = false,
+                        RequireExpirationTime = false,
+                        ValidateLifetime = true
+                    };
+                });
+            //.AddCookie("PhoneShopCookie", config => 
+            //{
+            //    config.Cookie = new Microsoft.AspNetCore.Http.CookieBuilder() { Name = "PhoneShopCookie", Expiration = TimeSpan.FromHours(2) };
+            //});
+            //.AddIdentityServerJwt();
 
 
             //services.AddAuthorization(config => 
@@ -97,13 +123,13 @@ namespace PhoneShop.UI
             //});
 
 
-            //services.AddAuthorization(options =>
-            //{
-            //    options.AddPolicy("PolicyName", config =>
-            //    {
-            //        config.RequireUserName().RequireClaim()
-            //    });
-            //});
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("Admin", config =>
+                {
+                    config.RequireClaim("Role", "Admin");
+                });
+            });
 
             services.AddControllersWithViews();
             services.AddRazorPages();
@@ -115,7 +141,30 @@ namespace PhoneShop.UI
             });
 
 
-           services.AddSwaggerGen();
+           services.AddSwaggerGen(config => 
+           {
+               var security = new OpenApiSecurityRequirement()
+               {
+                   {new OpenApiSecurityScheme(){
+                       Reference = new OpenApiReference()
+                       {
+                        Id = "Bearer",
+                        Type = ReferenceType.SecurityScheme
+                       }
+                    }
+                   , new List<string>()}
+               };
+
+               config.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+               {
+                   Description = "JWT authorization header using bearer scheme",
+                   Name = "Authorization",
+                   In = ParameterLocation.Header,
+                   Type = SecuritySchemeType.ApiKey
+               });
+
+               config.AddSecurityRequirement(security);
+           });
            //services.AddSwaggerGen(c => 
            // {
            //     c.SwaggerDoc("v1", new OpenApiInfo()

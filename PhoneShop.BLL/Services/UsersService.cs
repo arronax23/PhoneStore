@@ -1,10 +1,13 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using PhoneShop.BLL.Interfaces;
 using PhoneShop.BLL.Messages;
 using PhoneShop.DAL.Data;
 using PhoneShop.DAL.Models;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
@@ -18,17 +21,20 @@ namespace PhoneShop.BLL.Services
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ApplicationDbContext _applicationDbContext;
+        private readonly IConfiguration _configuration;
 
         public UsersService(
             UserManager<ApplicationUser> userManager,
             RoleManager<IdentityRole> roleManager,
             SignInManager<ApplicationUser> signInManager,
-            ApplicationDbContext applicationDbContext)
+            ApplicationDbContext applicationDbContext,
+            IConfiguration configuration)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _signInManager = signInManager;
             _applicationDbContext = applicationDbContext;
+            _configuration = configuration;
         }
 
         public async Task<RegisterUserResponse> RegisterUser(RegisterUserRequest request)
@@ -54,7 +60,6 @@ namespace PhoneShop.BLL.Services
                     _applicationDbContext.SaveChanges();
                 }
             
-
                 response.IsSuccesfull = true;
             }
             else
@@ -71,19 +76,36 @@ namespace PhoneShop.BLL.Services
         public async Task<LoginResponse> Login(LoginRequest request)
         {
             var response = new LoginResponse();
-            var signInResult = await _signInManager.PasswordSignInAsync(request.Username, request.Password, isPersistent: true, false);
 
-            //var currentUser = await _userManager.GetUserAsync(request.CurrentUser);
-            //var us = request.CurrentUser.FindFirst(c => c.Type == ClaimTypes.Role);
-            //var role =  _userManager.GetRolesAsync()
+            var user = await _userManager.FindByNameAsync(request.Username);
 
-            if (signInResult.Succeeded)
+            var AreCredentialsCorrect = await _userManager.CheckPasswordAsync(user, request.Password);
+
+
+            if (AreCredentialsCorrect)
             {
                 var currentUser = await _userManager.FindByNameAsync(request.Username);
                 var roles = await _userManager.GetRolesAsync(currentUser);
                 var role = roles.First();
 
                 response.CurrentUserRole = role;
+
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var key = Encoding.ASCII.GetBytes(_configuration["JwtSettings:Secret"]);
+                var tokenDescriptor = new SecurityTokenDescriptor()
+                {
+                    Subject = new ClaimsIdentity(new[]
+                    {
+                        new Claim(JwtRegisteredClaimNames.Sub, request.Username),
+                        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                        new Claim(ClaimTypes.Role, role)
+                    }),
+                    Expires = DateTime.UtcNow.AddHours(2),
+                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),SecurityAlgorithms.HmacSha256Signature)
+                };
+
+                var token = tokenHandler.CreateToken(tokenDescriptor);
+                response.Token = tokenHandler.WriteToken(token);
 
                 response.IsSuccesfull = true;
             }
