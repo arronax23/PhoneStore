@@ -19,15 +19,19 @@ function PhoneDetails() {
     const { id } = useParams();
     const username = useSelector(state => state.username);
     const {data: phone, isPending, error} = useFetchGet("api/GetPhoneById/"+id);
-
-
+    const token = useSelector(state => state.token);
+    
     useEffect(() => {
         if(!isAdmin){
             fetch('api/GetCustomerIdByUsername/'+username)
             .then(response => response.text())
             .then(customerId => {
                 setCustomerId(customerId);
-                fetch(`api/IsPhoneInShoppingCart/?customerId=${customerId}&phoneId=${id}`)
+                fetch(`api/IsPhoneInShoppingCart/?customerId=${customerId}&phoneId=${id}`, {
+                    headers: {
+                        "Authorization": "bearer "+token
+                      }
+                })
                 .then(resp => resp.json())
                 .then(data => {
                     console.log(data);
@@ -39,7 +43,10 @@ function PhoneDetails() {
     const deleteClick = () => {
         fetch('api/DeletePhoneById/'+id, 
         {
-            method: 'DELETE'
+            method: 'DELETE',
+            headers: {
+                "Authorization": "bearer "+token
+              }
         })
         .then(resp => {
             console.log("resp:"+resp);
@@ -61,7 +68,8 @@ function PhoneDetails() {
         fetch('api/AddPhoneToShoppingCart',{
             method: 'POST',
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": "bearer "+token
             },
             body : JSON.stringify({customerId: parseInt(customerId), phoneId: parseInt(id)})
         })
@@ -79,7 +87,8 @@ function PhoneDetails() {
         fetch('api/RemovePhoneFromShoppingCart',{
             method: 'POST',
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": "bearer "+token
             },
             body : JSON.stringify({customerId: parseInt(customerId), phoneId: parseInt(id)})
         })

@@ -32,6 +32,7 @@ function PhonesInOrder() {
     const classes = useStyles();
     const { id } = useParams();
     const [totalPrice, setTotalPrice] = useState(0);
+    const token = useSelector(state => state.token);
     const [phones, setPhones] = useState([
         {
             phoneId: 0,
@@ -43,7 +44,11 @@ function PhonesInOrder() {
         }
     ]);
     useEffect(() => {
-        fetch('api/GetPhonesInOrder?orderId='+id)
+        fetch('api/GetPhonesInOrder?orderId='+id, {
+          headers: {
+            "Authorization": "bearer "+token
+          }
+        })
         .then(response => response.json())
         .then(data => {
             setPhones(data);

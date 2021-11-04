@@ -28,3 +28,16 @@ export const forgetUsername = () => {
         type: 'FORGET_USERNAME'
     }
 }
+
+export const insertToken = (payload) => {
+    return {
+        type: 'INSERT_TOKEN',
+        payload: payload
+    }
+}
+
+export const resetToken = () => {
+    return {
+        type: 'RESET_TOKEN',
+    }
+}

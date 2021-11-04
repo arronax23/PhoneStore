@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -28,8 +29,7 @@ namespace PhoneShop.UI.Controllers
 
         [HttpGet]
         [Route("api/GetAllPhones")]
-        //[Authorize(Roles = "Admin,Customer")]
-        [Authorize(Policy = "Admin")]
+        [Authorize(Roles = "Admin,Customer")]
         public IEnumerable<PhoneVM> GetAllPhones()
         {
             //var phones = _phonesService.GetAllPhones().Phones.Select(phone => new PhoneVM()

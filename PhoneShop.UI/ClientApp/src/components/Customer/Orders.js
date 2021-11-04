@@ -56,13 +56,18 @@ function Orders() {
             }
         ]
     )
+    const token = useSelector(state => state.token);
     
     const fetchOrders = () =>{
       fetch('api/GetCustomerIdByUsername/'+username)
       .then(response => response.text())
       .then(id => {
           setCustomerId(parseInt(id));
-          fetch('api/GetOrdersByCustomerId/'+id)
+          fetch('api/GetOrdersByCustomerId/'+id, {
+            headers: {
+              "Authorization": "bearer "+token
+            }
+          })
           .then(response => response.json())
           .then(data => {
               console.log(data);
@@ -109,7 +114,10 @@ function Orders() {
 
     const closeOrder = (e) => {
       fetch('api/ChangeOrderStatus?orderId='+orderId+"&newStatus=Closed",{
-        method: 'POST'
+        method: 'POST',
+        headers: {
+          "Authorization": "bearer "+token
+        }
       })
       .then(resp => {
         console.log(resp);
@@ -145,7 +153,10 @@ function Orders() {
 
     const payOrder = (e) => {
       fetch('api/ChangeOrderStatus?orderId='+orderId+"&newStatus=Paid",{
-        method: 'POST'
+        method: 'POST',
+        headers: {
+          "Authorization": "bearer "+token
+        }
       })
       .then(resp => {
         console.log(resp);

@@ -5,6 +5,7 @@ import Pagination from '@material-ui/lab/Pagination';
 import TextField from '@material-ui/core/TextField';
 import PhoneCard from './PhoneCard'
 import { makeStyles } from '@material-ui/styles'
+import {useSelector} from 'react-redux'
 
 const useStyles = makeStyles({
     root: {
@@ -33,6 +34,7 @@ function PhoneList() {
     const {data : phones, isPending, error, httpResposne}  = useFetchGet('api/GetPhonesForOnePage?pageNumber='+pageNumber);
     const {data : pageCount, isPending: isPendingPagination}  = useFetchGet('api/GetNumberOfPagesInPhoneList');
     const [searchPhones, setSearchPhones] = useState();
+    const token = useSelector(state => state.token);
 
     const classes = useStyles(); 
 
@@ -50,7 +52,11 @@ function PhoneList() {
         if (searchText === ""){
             setSearchPhones(null);
         }else {
-            fetch('api/SearchPhones?searchText='+searchText)
+            fetch('api/SearchPhones?searchText='+searchText, {
+                headers: {
+                    "Authorization": "bearer "+token
+                  }
+            })
             .then(response => response.json())
             .then(phones =>  {
                 console.log(phones);

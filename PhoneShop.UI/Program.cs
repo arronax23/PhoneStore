@@ -3,18 +3,35 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Logging;
 using NLog.Web;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
 
 namespace PhoneShop.UI
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var logger = NLog.Web.NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
             try
             {
                 logger.Debug("init main");
-                CreateHostBuilder(args).Build().Run();
+                var builder = CreateHostBuilder(args).Build();
+                using(var serviceScope  = builder.Services.CreateScope())
+                {
+                    var roleManager = serviceScope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+                    var doesAdminRoleExists = await roleManager.RoleExistsAsync("Admin");
+                    var doesCustomerRoleExists = await roleManager.RoleExistsAsync("Customer");
+
+                    if (!doesAdminRoleExists)
+                        await roleManager.CreateAsync(new IdentityRole() { Name = "Admin"});
+
+                    if (!doesCustomerRoleExists)
+                        await roleManager.CreateAsync(new IdentityRole() { Name = "Customer" });
+
+                }
+                builder.Run();
             }
             catch (Exception exception)
             {

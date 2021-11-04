@@ -100,7 +100,8 @@ namespace PhoneShop.UI
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtSettings.Secret)),
                         ValidateAudience = false,
                         RequireExpirationTime = false,
-                        ValidateLifetime = true
+                        ValidateLifetime = true,
+                        ValidateIssuer = false
                     };
                 });
             //.AddCookie("PhoneShopCookie", config => 
@@ -122,14 +123,14 @@ namespace PhoneShop.UI
             //    });
             //});
 
-
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy("Admin", config =>
-                {
-                    config.RequireClaim("Role", "Admin");
-                });
-            });
+            services.AddAuthorization();
+            //services.AddAuthorization(options =>
+            //{
+            //    options.AddPolicy("Admin", config =>
+            //    {
+            //        config.RequireClaim("Role", "Admin");
+            //    });
+            //});
 
             services.AddControllersWithViews();
             services.AddRazorPages();

@@ -5,7 +5,7 @@ import { isClassExpression } from 'typescript';
 import Button from '@material-ui/core/Button'
 import { useHistory } from 'react-router';
 import { useDispatch } from 'react-redux';
-import { logout, forgetUsername } from './../../actions/index'
+import { logout, forgetUsername, resetToken } from './../../actions/index'
 
 const useStyles = makeStyles({
     logoutYes: {
@@ -27,9 +27,7 @@ function Logout() {
     const yesLogout = () => {
         dispatch(logout());
         dispatch(forgetUsername());
-        fetch('api/Logout', {
-            method: 'POST'
-        });
+        dispatch(resetToken());
         history.push('/');
     }
 

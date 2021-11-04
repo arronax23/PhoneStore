@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/styles';
 import { useHistory } from 'react-router';
 import { Typography } from '@material-ui/core';
 import { useDispatch } from 'react-redux'
-import { logAsAdmin, logAsCustomer, selectUsername } from './../../actions/index'
+import { insertToken, logAsAdmin, logAsCustomer, selectUsername } from './../../actions/index'
 
 const useStyles = makeStyles({
     root: {
@@ -42,18 +42,18 @@ function Login() {
         .then(resp => {
             console.log(resp);
             if (resp.ok){
-                // history.push(`/succesfulregistration/${username}`)
                 console.log('ok');
-                return resp.text()
-                .then(role => {
-                    console.log(role);
-                    if (role == "Admin"){
+                return resp.json()
+                .then(data => {
+                    console.log(data);
+                    if (data.currentUserRole == "Admin"){
                         dispatch(logAsAdmin());
                     }
-                    else if (role == "Customer"){
+                    else if (data.currentUserRole == "Customer"){
                         dispatch(logAsCustomer());
                     }
                     dispatch(selectUsername(username));
+                    dispatch(insertToken(data.token))
                     history.push(`/succesfulllogin/${username}`)
                 })
             }

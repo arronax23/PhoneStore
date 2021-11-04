@@ -73,13 +73,6 @@ namespace PhoneShop.UI.Controllers
 
         }
 
-        [HttpPost]
-        [Route("api/Logout")]
-        public IActionResult Logout()
-        {
-            _usersService.Logout();
-            return Ok();
-        }
 
         [HttpGet]
         [Route("api/GetCustomerIdByUsername/{username}")]

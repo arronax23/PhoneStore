@@ -40,19 +40,19 @@ namespace PhoneShop.BLL.Services
         public async Task<RegisterUserResponse> RegisterUser(RegisterUserRequest request)
         {
             var user = new ApplicationUser() { UserName = request.Username };
-            var createResult = await _userManager.CreateAsync(user, request.Password);
-            var doesRoleExists = await _roleManager.RoleExistsAsync(request.Role);
-            if (!doesRoleExists)
-                await _roleManager.CreateAsync(new IdentityRole() { Name = request.Role });
+            var createUserResult = await _userManager.CreateAsync(user, request.Password);
+            //var doesRoleExists = await _roleManager.RoleExistsAsync(request.Role);
+            //if (!doesRoleExists)
+            //    await _roleManager.CreateAsync(new IdentityRole() { Name = request.Role });
 
-            IdentityResult roleResult = new IdentityResult();
-            if (createResult.Succeeded)
-                roleResult = await _userManager.AddToRoleAsync(user, request.Role);
+            IdentityResult addToRoleResult = new IdentityResult();
+            if (createUserResult.Succeeded)
+                addToRoleResult = await _userManager.AddToRoleAsync(user, request.Role);
 
             
             var response = new RegisterUserResponse();
             
-            if (createResult.Succeeded && roleResult.Succeeded)
+            if (createUserResult.Succeeded && addToRoleResult.Succeeded)
             {
                 if (request.Role == "Customer")
                 {
@@ -66,9 +66,9 @@ namespace PhoneShop.BLL.Services
             {
                 response.Errors = new List<IdentityError>();
                 response.IsSuccesfull = false;
-                response.Errors.AddRange(createResult.Errors);
-                if (roleResult.Errors != null)
-                    response.Errors.AddRange(roleResult.Errors);
+                response.Errors.AddRange(createUserResult.Errors);
+                if (addToRoleResult.Errors != null)
+                    response.Errors.AddRange(addToRoleResult.Errors);
             }
             return response;
         }
@@ -91,13 +91,16 @@ namespace PhoneShop.BLL.Services
                 response.CurrentUserRole = role;
 
                 var tokenHandler = new JwtSecurityTokenHandler();
-                var key = Encoding.ASCII.GetBytes(_configuration["JwtSettings:Secret"]);
+                var secret = _configuration["JwtSettings:Secret"];
+                var key = Encoding.ASCII.GetBytes(secret);
                 var tokenDescriptor = new SecurityTokenDescriptor()
                 {
                     Subject = new ClaimsIdentity(new[]
                     {
                         new Claim(JwtRegisteredClaimNames.Sub, request.Username),
                         new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                        new Claim(JwtRegisteredClaimNames.GivenName, request.Username),
+                        //new Claim(JwtRegisteredClaimNames.Email, $"{request.Username}@gmail.com"),
                         new Claim(ClaimTypes.Role, role)
                     }),
                     Expires = DateTime.UtcNow.AddHours(2),
@@ -115,11 +118,6 @@ namespace PhoneShop.BLL.Services
             return response;
             //_signInManager.IsSignedIn()
             //await _signInManager.SignInAsync(user, false);
-        }
-
-        public async Task Logout()
-        {
-            await _signInManager.SignOutAsync();
         }
 
         public async Task<GetCustomerIdByUsernameResponse> GetCustomerIdByUsername(GetCustomerIdByUsernameRequest request)

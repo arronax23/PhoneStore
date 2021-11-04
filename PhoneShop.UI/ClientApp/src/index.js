@@ -7,6 +7,7 @@ import {createStore, combineReducers} from 'redux'
 import {Provider} from 'react-redux'
 import loggingReducer from './reducers/loggingReducer'
 import usernameReducer from './reducers/usernameReducer'
+import tokenReducer from './reducers/tokenReducer'
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage' 
 import { PersistGate } from 'redux-persist/integration/react'
@@ -16,7 +17,7 @@ import { PersistGate } from 'redux-persist/integration/react'
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
 const rootElement = document.getElementById('root');
 
-const rootReducer = combineReducers({ logging: loggingReducer, username: usernameReducer });
+const rootReducer = combineReducers({ logging: loggingReducer, username: usernameReducer, token: tokenReducer });
 const persistConfig = {
   key: 'root',
   storage,
