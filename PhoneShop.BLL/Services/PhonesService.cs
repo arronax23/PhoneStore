@@ -46,10 +46,23 @@ namespace PhoneShop.BLL.Services
 
         public SearchPhonesResponse SearchPhones(SearchPhonesRequest request)
         {
+            var phones =
+                _applicationDbContext.Phones
+                    .AsEnumerable()
+                    .Select(phone => new { Phone = phone, PhoneName = $"{phone.Brand} {phone.Model}" })
+                    .Where(phonesWithName => 
+                        phonesWithName.PhoneName.StartsWith(request.SearchText)
+                        || phonesWithName.Phone.Model.StartsWith(request.SearchText)
+                        || phonesWithName.Phone.Brand.StartsWith(request.SearchText))
+                    .Select(phonesWithName => phonesWithName.Phone);
+                  
+
             var response = new SearchPhonesResponse()
             {
-                Phones = _applicationDbContext.Phones
-                            .Where(phone => phone.Model.StartsWith(request.SearchText) || phone.Brand.StartsWith(request.SearchText))
+                //Phones = _applicationDbContext.Phones
+                //            .Where(phone => phone.Model.StartsWith(request.SearchText) || phone.Brand.StartsWith(request.SearchText))
+                Phones = phones
+
             };
             //response.NumberOfPages = (int)Math.Ceiling((double)response.Phones.ToList().Count / numberOfPhonesPerPage);
 
