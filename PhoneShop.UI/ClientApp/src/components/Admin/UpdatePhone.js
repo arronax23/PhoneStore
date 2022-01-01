@@ -33,7 +33,11 @@ function UpdatePhone() {
     const token = useSelector(state => state.token);
 
     useEffect(()=> {  
-        fetch("api/GetPhoneById/"+id)
+        fetch("api/GetPhoneById/"+id, {
+            headers: {
+                "Authorization": "bearer "+token
+              }
+        })
         .then(resp => resp.json())
         .then(phone => {
             setPhoneId(phone.phoneId);
