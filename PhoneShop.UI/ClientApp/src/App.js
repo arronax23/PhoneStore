@@ -20,46 +20,46 @@ import PhonesInOrder from './components/Customer/PhonesInOrder';
 function App() {
       return (      
         <div>
-        <Navbar />
-        <Switch>
-            <Route exact path="/">
-                <Home />
-            </Route>
-            <Route exact path="/phonelist">
-                <PhoneList />
-            </Route>
-            <Route exact path="/phonedetails/:id">
-                <PhoneDetails />
-            </Route>
-            <Route exact path="/addphone">
-                <AddPhone />
-            </Route>
-            <Route exact path="/orders">
-                <Orders />
-            </Route> 
-            <Route exact path="/phonesInOrder/:id">
-                <PhonesInOrder />
-            </Route>             
-            <Route exact path="/updatephone/:id">
-                <UpdatePhone />
-            </Route>            
-            <Route exact path="/register">
-                <Register />
-            </Route>  
-            <Route exact path="/succesfullregistration/:user">
-                <SuccesfullRegistration />
-            </Route>     
-            <Route exact path="/login">
-                <Login />
-            </Route>   
-            <Route exact path="/succesfulllogin/:user">
-                <SuccesfullLogin />
-            </Route>    
-            <Route exact path="/logout">
-                <Logout />
-            </Route>                          
-        </Switch>
-        <Footer />
+            <Navbar />
+            <Switch>
+                <Route exact path="/">
+                    <Home />
+                </Route>
+                <Route exact path="/phonelist">
+                    <PhoneList />
+                </Route>
+                <Route exact path="/phonedetails/:id">
+                    <PhoneDetails />
+                </Route>
+                <Route exact path="/addphone">
+                    <AddPhone />
+                </Route>
+                <Route exact path="/orders">
+                    <Orders />
+                </Route> 
+                <Route exact path="/phonesInOrder/:id">
+                    <PhonesInOrder />
+                </Route>             
+                <Route exact path="/updatephone/:id">
+                    <UpdatePhone />
+                </Route>            
+                <Route exact path="/register">
+                    <Register />
+                </Route>  
+                <Route exact path="/succesfullregistration/:user">
+                    <SuccesfullRegistration />
+                </Route>     
+                <Route exact path="/login">
+                    <Login />
+                </Route>   
+                <Route exact path="/succesfulllogin/:user">
+                    <SuccesfullLogin />
+                </Route>    
+                <Route exact path="/logout">
+                    <Logout />
+                </Route>                          
+            </Switch>
+            <Footer />
         </div>
       );
 }

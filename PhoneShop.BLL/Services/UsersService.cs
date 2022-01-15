@@ -79,10 +79,10 @@ namespace PhoneShop.BLL.Services
 
             var user = await _userManager.FindByNameAsync(request.Username);
 
-            var AreCredentialsCorrect = await _userManager.CheckPasswordAsync(user, request.Password);
+            var areCredentialsCorrect = await _userManager.CheckPasswordAsync(user, request.Password);
 
 
-            if (AreCredentialsCorrect)
+            if (areCredentialsCorrect)
             {
                 var currentUser = await _userManager.FindByNameAsync(request.Username);
                 var roles = await _userManager.GetRolesAsync(currentUser);
