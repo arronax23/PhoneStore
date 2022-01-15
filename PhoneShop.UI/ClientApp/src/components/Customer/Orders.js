@@ -161,7 +161,8 @@ function Orders() {
       .then(resp => {
         console.log(resp);
         if (resp.ok){
-          setIsPopperOpen(false);
+          setIsPopperOpenPay(false);
+          setAnchorElPay(null);
           fetchOrders();
         }
         else{
