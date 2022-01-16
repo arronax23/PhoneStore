@@ -17,8 +17,8 @@ namespace PhoneShop.UI
             try
             {
                 logger.Debug("init main");
-                var builder = CreateHostBuilder(args).Build();
-                using(var serviceScope  = builder.Services.CreateScope())
+                var host = CreateHostBuilder(args).Build();
+                using(var serviceScope  = host.Services.CreateScope())
                 {
                     var roleManager = serviceScope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
                     var doesAdminRoleExists = await roleManager.RoleExistsAsync("Admin");
@@ -31,7 +31,7 @@ namespace PhoneShop.UI
                         await roleManager.CreateAsync(new IdentityRole() { Name = "Customer" });
 
                 }
-                builder.Run();
+                host.Run();
             }
             catch (Exception exception)
             {
