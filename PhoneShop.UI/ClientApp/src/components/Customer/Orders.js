@@ -17,7 +17,8 @@ const useStyles = makeStyles({
   tableContainer: {
     width: '90%',
     margin: 'auto',
-    marginTop: 10
+    marginTop: 10,
+    height: '87.5vh'
   },
   closeYes: {
     backgroundColor: '#52b202'

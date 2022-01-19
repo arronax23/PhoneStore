@@ -16,7 +16,8 @@ const useStyles = makeStyles({
     tableContainer: {
       width: '90%',
       margin: 'auto',
-      marginTop: 10
+      marginTop: 10,
+      height: '80.5vh'
     },
     totalPricePaper: {
       width: '30%',

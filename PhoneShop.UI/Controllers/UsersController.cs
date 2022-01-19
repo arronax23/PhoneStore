@@ -38,6 +38,7 @@ namespace PhoneShop.UI.Controllers
                 Password = userVM.Password,
                 Role = userVM.Role
             });
+
             if (response.IsSuccesfull == true)
                 return Ok();
             else
