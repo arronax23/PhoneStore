@@ -193,8 +193,8 @@ function Orders() {
                 <TableCell component="th" scope="row">
                   {order.orderId}
                 </TableCell>
-                <TableCell>{order.createdDate.toLocaleString()}</TableCell>
-                <TableCell>{order.modifiedDate.toLocaleString()}</TableCell>
+                <TableCell>{new Date(order.createdDate).toLocaleString()}</TableCell>
+                <TableCell>{new Date(order.modifiedDate).toLocaleString()}</TableCell>
                 <TableCell>{orderStatus[order.status]}</TableCell>
                 <TableCell><Button value={order.orderId} onClick={showPhones} variant="outlined" color="primary">Show</Button></TableCell>
                 {orderStatus[order.status] == "Open" ?
