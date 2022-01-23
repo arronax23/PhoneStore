@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace PhoneShop.BLL.Services
 {
@@ -33,13 +34,13 @@ namespace PhoneShop.BLL.Services
 
         public GetPhonesForOnePageResponse GetPhonesForOnePage(GetPhonesForOnePageRequest request)
         {
-            var response = new GetPhonesForOnePageResponse() 
-            { 
+            var response = new GetPhonesForOnePageResponse()
+            {
                 Phones = _applicationDbContext.Phones
                 .OrderBy(p => p.Brand)
-                .Skip(numberOfPhonesPerPage * (request.PageNumber-1))
+                .Skip(numberOfPhonesPerPage * (request.PageNumber - 1))
                 .Take(numberOfPhonesPerPage)
-                .AsEnumerable() 
+                .AsEnumerable()
             };
             return response;
         }
@@ -50,12 +51,12 @@ namespace PhoneShop.BLL.Services
                 _applicationDbContext.Phones
                     .AsEnumerable()
                     .Select(phone => new { Phone = phone, PhoneName = $"{phone.Brand} {phone.Model}" })
-                    .Where(phonesWithName => 
+                    .Where(phonesWithName =>
                         phonesWithName.PhoneName.StartsWith(request.SearchText)
                         || phonesWithName.Phone.Model.StartsWith(request.SearchText)
                         || phonesWithName.Phone.Brand.StartsWith(request.SearchText))
                     .Select(phonesWithName => phonesWithName.Phone);
-                  
+
 
             var response = new SearchPhonesResponse()
             {
@@ -71,7 +72,7 @@ namespace PhoneShop.BLL.Services
 
         public GetNumberOfPagesInPhoneListResponse GetNumberOfPagesInPhoneList()
         {
-            double numberOfAllPhones = _applicationDbContext.Phones.Count();   
+            double numberOfAllPhones = _applicationDbContext.Phones.Count();
             double numberOfPages = Math.Ceiling(numberOfAllPhones / numberOfPhonesPerPage);
             int numberOfPagesInt = (int)numberOfPages;
 
@@ -91,45 +92,44 @@ namespace PhoneShop.BLL.Services
             var response = new GetPhoneByIdResponse() { Phone = phone };
             return response;
         }
-        public bool CreatePhone(SavePhoneRequest request)
+        public async Task<bool> CreatePhone(SavePhoneRequest request)
         {
-            _applicationDbContext.Phones.Add(request.Phone);
-            var created =_applicationDbContext.SaveChanges();
-            return created > 0;
+            await _applicationDbContext.Phones.AddAsync(request.Phone);
+            var isCreated = await _applicationDbContext.SaveChangesAsync() > 0;
+            return isCreated;
         }
 
-        public bool DeletePhoneById(DeletePhoneByIdRequest request)
+        public async Task<bool> DeletePhoneById(DeletePhoneByIdRequest request)
         {
-            var phoneToBeRemoved = _applicationDbContext.Phones.SingleOrDefault(p => p.PhoneId == request.PhoneId);
+            var phoneToBeRemoved = await _applicationDbContext.Phones.SingleOrDefaultAsync(p => p.PhoneId == request.PhoneId);
             if (phoneToBeRemoved == null)
                 throw new Exception("No phone was found.");
 
             _applicationDbContext.Phones.Remove(phoneToBeRemoved);
-            var deleted = _applicationDbContext.SaveChanges();
-            return deleted > 0;
+            var isDeleted = await _applicationDbContext.SaveChangesAsync() > 0;
+            return isDeleted;
         }
 
-        public bool UpdatePhone(UpdatePhoneRequest request)
+        public async Task<bool> UpdatePhone(UpdatePhoneRequest request)
         {
             _applicationDbContext.Phones.Update(request.Phone);
-            var updated = _applicationDbContext.SaveChanges();
-            return updated > 0;
-   
+            var isUpdated = await _applicationDbContext.SaveChangesAsync() > 0;
+            return isUpdated;
+
         }
 
-        public bool AddPhoneToShoppingCart(AddPhoneToShoppingCardRequest request)
+        public async Task<bool> AddPhoneToShoppingCart(AddPhoneToShoppingCardRequest request)
         {
-            var customer = _applicationDbContext.Customers.SingleOrDefault(c => c.CustomerId == request.CustomerId);
+            var customer = await _applicationDbContext.Customers.SingleOrDefaultAsync(c => c.CustomerId == request.CustomerId);
             if (customer == null)
                 throw new Exception("No customer was found.");
-            var phone = _applicationDbContext.Phones.SingleOrDefault(p => p.PhoneId == request.PhoneId);
+            var phone = await _applicationDbContext.Phones.SingleOrDefaultAsync(p => p.PhoneId == request.PhoneId);
             if (phone == null)
                 throw new Exception("No phone was found.");
 
-            var currentOrder = _applicationDbContext.Orders
+            var currentOrder = await _applicationDbContext.Orders
                 .Include(o => o.PhoneOrder)
-                .Where(o => o.Status == OrderStatus.Open && o.CustomerId == request.CustomerId) //only 1 order can be open
-                .SingleOrDefault();
+                .SingleOrDefaultAsync(o => o.Status == OrderStatus.Open && o.CustomerId == request.CustomerId);
 
             if (currentOrder == null)
             {
@@ -149,8 +149,8 @@ namespace PhoneShop.BLL.Services
                     WorkflowDate = DateTime.Now
                 };
 
-                _applicationDbContext.Orders.Add(currentOrder);
-                _applicationDbContext.OrderStatusWorkflows.Add(orderStatusWorkflow);
+                await _applicationDbContext.Orders.AddAsync(currentOrder);
+                await _applicationDbContext.OrderStatusWorkflows.AddAsync(orderStatusWorkflow);
             }
             else
             {
@@ -159,26 +159,25 @@ namespace PhoneShop.BLL.Services
                 currentOrder.ModifiedDate = DateTime.Now;
             }
 
-            var added = _applicationDbContext.SaveChanges();
-            return added > 0;
+            var isAdded = await _applicationDbContext.SaveChangesAsync() > 0;
+            return isAdded;
         }
-        public IsPhoneInShoppingCartResponse IsPhoneInShoppingCart(IsPhoneInShoppingCartRequest request)
+        public async Task<IsPhoneInShoppingCartResponse> IsPhoneInShoppingCart(IsPhoneInShoppingCartRequest request)
         {
             var resposne = new IsPhoneInShoppingCartResponse();
 
-            var currentOrder = _applicationDbContext.Orders
+            var currentOrder = await _applicationDbContext.Orders
                 .Include(o => o.PhoneOrder)
-                .Where(o => o.Status == OrderStatus.Open && o.CustomerId == request.CustomerId) //only 1 order can be open so I don't sort descending by Created Date
-                .SingleOrDefault();
+                .SingleOrDefaultAsync(o => o.Status == OrderStatus.Open && o.CustomerId == request.CustomerId);
 
             if (currentOrder == null)
             {
-                resposne.IsPhoneInShoppingCart = false;    
+                resposne.IsPhoneInShoppingCart = false;
             }
             else
             {
-                var phoneOrder = _applicationDbContext.PhoneOrders
-                    .SingleOrDefault(po => po.OrderId == currentOrder.OrderId && po.PhoneId == request.PhoneId);
+                var phoneOrder = await _applicationDbContext.PhoneOrders
+                    .SingleOrDefaultAsync(po => po.OrderId == currentOrder.OrderId && po.PhoneId == request.PhoneId);
 
                 if (phoneOrder == null)
                     resposne.IsPhoneInShoppingCart = false;
@@ -189,12 +188,11 @@ namespace PhoneShop.BLL.Services
             return resposne;
         }
 
-        public bool RemovePhoneFromShoppingCart(RemovePhoneFromShoppingCartRequest request)
+        public async Task<bool> RemovePhoneFromShoppingCart(RemovePhoneFromShoppingCartRequest request)
         {
-            var currentOrder = _applicationDbContext.Orders
+            var currentOrder = await _applicationDbContext.Orders
             .Include(o => o.PhoneOrder)
-            .Where(o => o.Status == OrderStatus.Open && o.CustomerId == request.CustomerId) //only 1 order can be open
-            .SingleOrDefault();
+            .SingleOrDefaultAsync(o => o.Status == OrderStatus.Open && o.CustomerId == request.CustomerId);
 
             if (currentOrder == null)
                 throw new Exception("No order was found");
@@ -205,8 +203,8 @@ namespace PhoneShop.BLL.Services
                 throw new Exception("No phone was found in open order");
 
             _applicationDbContext.PhoneOrders.Remove(phoneOrder);
-            var deleted = _applicationDbContext.SaveChanges();
-            return deleted > 0;
+            var isDeleted = await _applicationDbContext.SaveChangesAsync() > 0;
+            return isDeleted;
         }
 
         public GetPhonesInOrderResponse GetPhonesInOrder(GetPhonesInOrderRequest request)
@@ -216,7 +214,7 @@ namespace PhoneShop.BLL.Services
             var phones = _applicationDbContext.PhoneOrders
                 .Include(po => po.Phone)
                 .Where(po => po.OrderId == request.OrderId)
-                .Select(po => new Phone() 
+                .Select(po => new Phone()
                 {
                     PhoneId = po.Phone.PhoneId,
                     Brand = po.Phone.Brand,

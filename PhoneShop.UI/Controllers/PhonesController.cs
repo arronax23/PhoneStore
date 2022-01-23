@@ -14,7 +14,6 @@ using PhoneShop.UI.VIewModels;
 
 namespace PhoneShop.UI.Controllers
 {
-    //[Route("api/[controller]")]
     [ApiController]
     public class PhonesController : ControllerBase
     {
@@ -32,19 +31,6 @@ namespace PhoneShop.UI.Controllers
         [Authorize(Roles = "Admin,Customer")]
         public IEnumerable<PhoneVM> GetAllPhones()
         {
-            //var phones = _phonesService.GetAllPhones().Phones.Select(phone => new PhoneVM()
-            //{
-            //    PhoneId = phone.PhoneId,
-            //    Brand = phone.Brand,
-            //    Model = phone.Model,
-            //    Color = (PhoneColorVM)phone.Color,
-            //    Camera = phone.Camera,
-            //    Memory = phone.Memory,
-            //    ImageUrl = phone.ImageUrl,
-            //    OS = phone.OS,
-            //    RAM = phone.RAM
-            //});
-
             var phones = _phonesService.GetAllPhones().Phones;
             var phonesVM = _mapper.Map<IEnumerable<PhoneVM>>(phones);
 
@@ -96,12 +82,12 @@ namespace PhoneShop.UI.Controllers
         [HttpPost]
         [Route("api/CreatePhone")]
         [Authorize(Roles = "Admin")]
-        public IActionResult CreatePhone(PhoneVM phoneVM)
+        public async Task<IActionResult> CreatePhone(PhoneVM phoneVM)
         {
             var phone = _mapper.Map<Phone>(phoneVM);
-            var created = _phonesService.CreatePhone(new SavePhoneRequest() { Phone = phone });
+            var isCreated = await _phonesService.CreatePhone(new SavePhoneRequest() { Phone = phone });
 
-            if (created == false)
+            if (isCreated == false)
                 return BadRequest(new { Error = "No phone was created" });
 
             return Created($"api/GetPhoneById/{phone.PhoneId}", phone);
@@ -110,11 +96,11 @@ namespace PhoneShop.UI.Controllers
         [HttpDelete]
         [Route("api/DeletePhoneById/{id}")]
         [Authorize(Roles = "Admin")]
-        public IActionResult DeletePhoneById(int id)
+        public async Task<IActionResult> DeletePhoneById(int id)
         {
-            var deleted = _phonesService.DeletePhoneById(new DeletePhoneByIdRequest() { PhoneId = id });
+            var isDeleted = await _phonesService.DeletePhoneById(new DeletePhoneByIdRequest() { PhoneId = id });
 
-            if (deleted == false)
+            if (isDeleted == false)
                 return BadRequest(new { Error = "No phone was deleted" });
 
             return Ok();
@@ -123,12 +109,12 @@ namespace PhoneShop.UI.Controllers
         [HttpPut]
         [Route("api/UpdatePhone")]
         [Authorize(Roles = "Admin")]
-        public IActionResult UpdatePhone(PhoneVM phoneVM)
+        public async Task<IActionResult> UpdatePhone(PhoneVM phoneVM)
         {
             var phone = _mapper.Map<Phone>(phoneVM);
-            var updated = _phonesService.UpdatePhone(new UpdatePhoneRequest() { Phone = phone });
+            var isUpdated = await _phonesService.UpdatePhone(new UpdatePhoneRequest() { Phone = phone });
 
-            if (updated == false)
+            if (isUpdated == false)
                 return BadRequest(new { Error = "No phone was updated" });
 
             return Ok();
@@ -137,15 +123,15 @@ namespace PhoneShop.UI.Controllers
         [HttpPost]
         [Route("api/AddPhoneToShoppingCart")]
         [Authorize(Roles = "Customer")]
-        public IActionResult AddPhoneToShoppingCart(AddPhoneToShoppingCardVM addPhoneToShoppingCardVM)
+        public async Task<IActionResult> AddPhoneToShoppingCart(AddPhoneToShoppingCardVM addPhoneToShoppingCardVM)
         {
-            var added =_phonesService.AddPhoneToShoppingCart(new AddPhoneToShoppingCardRequest()
+            var isAdded = await _phonesService.AddPhoneToShoppingCart(new AddPhoneToShoppingCardRequest()
             {
                 CustomerId = addPhoneToShoppingCardVM.CustomerId,
                 PhoneId = addPhoneToShoppingCardVM.PhoneId
             });
 
-            if (added == false)
+            if (isAdded == false)
                 return BadRequest(new { Error = "No phone was added to shopping cart" });
 
             return Ok();
@@ -154,24 +140,24 @@ namespace PhoneShop.UI.Controllers
         [HttpGet]
         [Route("api/IsPhoneInShoppingCart")]
         [Authorize(Roles = "Customer")]
-        public IActionResult IsPhoneInShoppingCart(int customerId, int phoneId)
+        public async Task<IActionResult> IsPhoneInShoppingCart(int customerId, int phoneId)
         {
-            var response = _phonesService.IsPhoneInShoppingCart(new IsPhoneInShoppingCartRequest() { CustomerId = customerId, PhoneId = phoneId });
+            var response = await _phonesService.IsPhoneInShoppingCart(new IsPhoneInShoppingCartRequest() { CustomerId = customerId, PhoneId = phoneId });
             return Ok(response.IsPhoneInShoppingCart);
         }
 
         [HttpPost]
         [Route("api/RemovePhoneFromShoppingCart")]
         [Authorize(Roles = "Customer")]
-        public IActionResult RemovePhoneFromShoppingCart(RemovePhoneFromShoppingCartVM removePhoneFromShoppingCartVM)
+        public async Task<IActionResult> RemovePhoneFromShoppingCart(RemovePhoneFromShoppingCartVM removePhoneFromShoppingCartVM)
         {
-            var deleted = _phonesService.RemovePhoneFromShoppingCart(new RemovePhoneFromShoppingCartRequest()
+            var isDeleted = await _phonesService.RemovePhoneFromShoppingCart(new RemovePhoneFromShoppingCartRequest()
             {
                 CustomerId = removePhoneFromShoppingCartVM.CustomerId,
                 PhoneId = removePhoneFromShoppingCartVM.PhoneId
             });
 
-            if (deleted == false)
+            if (isDeleted == false)
                 return BadRequest(new { Error = "No phone was removed from shopping cart" });
 
             return Ok();

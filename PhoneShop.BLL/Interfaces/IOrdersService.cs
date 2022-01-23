@@ -1,10 +1,11 @@
 ﻿using PhoneShop.BLL.Messages;
+using System.Threading.Tasks;
 
 namespace PhoneShop.BLL.Interfaces
 {
     public interface IOrdersService
     {
         GetOrdersByCustomerIdResponse GetOrdersByCustomerId(GetOrdersByCustomerIdRequest request);
-        bool ChangeOrderStatus(ChangeOrderStatusRequest request);
+        Task<bool> ChangeOrderStatus(ChangeOrderStatusRequest request);
     }
 }

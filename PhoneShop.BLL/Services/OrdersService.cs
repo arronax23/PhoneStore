@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace PhoneShop.BLL.Services
 {
@@ -20,13 +21,19 @@ namespace PhoneShop.BLL.Services
 
         public GetOrdersByCustomerIdResponse GetOrdersByCustomerId(GetOrdersByCustomerIdRequest request)
         {
-            var orders = _applicationDbContext.Orders.Where(o => o.CustomerId == request.CustomerId).AsEnumerable();
+            var orders = _applicationDbContext.Orders
+                .Where(o => o.CustomerId == request.CustomerId)
+                .AsEnumerable();
+            
             var response = new GetOrdersByCustomerIdResponse() { Orders = orders };
             return response;
         }
-        public bool ChangeOrderStatus(ChangeOrderStatusRequest request)
+        public async Task<bool> ChangeOrderStatus(ChangeOrderStatusRequest request)
         {
-            var order = _applicationDbContext.Orders.Include(o => o.OrderStatusWorkflow).SingleOrDefault(o => o.OrderId == request.OrderId);
+            var order = await _applicationDbContext.Orders
+                .Include(o => o.OrderStatusWorkflow)
+                .SingleOrDefaultAsync(o => o.OrderId == request.OrderId);
+
             if (order == null)
                 throw new Exception("No order was found.");
 
@@ -59,8 +66,8 @@ namespace PhoneShop.BLL.Services
                 WorkflowDate = DateTime.Now
             });
 
-            var changed = _applicationDbContext.SaveChanges();
-            return changed > 0;
+            var isChanged = await _applicationDbContext.SaveChangesAsync() > 0;
+            return isChanged;
 
         }
 

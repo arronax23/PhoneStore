@@ -32,15 +32,15 @@ namespace PhoneShop.UI.Controllers
         [HttpPost]
         [Route("api/ChangeOrderStatus")]
         [Authorize(Roles = "Customer")]
-        public IActionResult ChangeOrderStatus(int orderId, string newStatus)
+        public async Task<IActionResult> ChangeOrderStatus(int orderId, string newStatus)
         {
-            var changed = _ordersService.ChangeOrderStatus(new ChangeOrderStatusRequest() 
+            var isChanged = await _ordersService.ChangeOrderStatus(new ChangeOrderStatusRequest() 
             { 
                 OrderId = orderId,
                 NewStatus = newStatus 
             });
 
-            if (changed == false)
+            if (isChanged == false)
                 return BadRequest(new {Error = "Status didn't change" });
 
             return Ok();

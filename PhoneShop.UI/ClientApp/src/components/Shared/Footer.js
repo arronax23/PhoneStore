@@ -3,7 +3,7 @@ import { Typography } from '@material-ui/core'
 function Footer() {
     return (
         <div>
-            <footer><Typography>Created by: Wiktor Zielak</Typography></footer>
+            <footer><Typography>Created by Wiktor Zielak</Typography></footer>
         </div>
     )
 }
