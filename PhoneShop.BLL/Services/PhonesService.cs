@@ -47,14 +47,16 @@ namespace PhoneShop.BLL.Services
 
         public SearchPhonesResponse SearchPhones(SearchPhonesRequest request)
         {
+            var searchTextUpper = request.SearchText.ToUpper();
+
             var phones =
                 _applicationDbContext.Phones
                     .AsEnumerable()
                     .Select(phone => new { Phone = phone, PhoneName = $"{phone.Brand} {phone.Model}" })
                     .Where(phonesWithName =>
-                        phonesWithName.PhoneName.StartsWith(request.SearchText)
-                        || phonesWithName.Phone.Model.StartsWith(request.SearchText)
-                        || phonesWithName.Phone.Brand.StartsWith(request.SearchText))
+                        phonesWithName.PhoneName.ToUpper().StartsWith(searchTextUpper)
+                        || phonesWithName.Phone.Model.ToUpper().StartsWith(searchTextUpper)
+                        || phonesWithName.Phone.Brand.ToUpper().StartsWith(searchTextUpper))
                     .Select(phonesWithName => phonesWithName.Phone);
 
 

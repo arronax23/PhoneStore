@@ -169,9 +169,9 @@ namespace PhoneShop.UI.Controllers
         public IEnumerable<PhoneInOrderVM> GetPhonesInOrder(int orderId)
         {
             var response = _phonesService.GetPhonesInOrder(new GetPhonesInOrderRequest() { OrderId = orderId });
-            var phoneInOrderVM = _mapper.Map<IEnumerable<PhoneInOrderVM>>(response.Phones);
+            var phonesInOrderVM = _mapper.Map<IEnumerable<PhoneInOrderVM>>(response.Phones);
 
-            return phoneInOrderVM;
+            return phonesInOrderVM;
         }
     }
 }
