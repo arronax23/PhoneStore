@@ -62,6 +62,7 @@ namespace PhoneShop.UI.Controllers
             });
 
             if (response.IsSuccesfull)
+
             {
                 _logger.LogInformation($"Succesufully logged in user: {userVM.Username}");
                 return Ok(response);
