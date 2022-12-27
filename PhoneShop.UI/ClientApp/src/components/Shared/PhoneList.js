@@ -9,7 +9,7 @@ import {useSelector} from 'react-redux'
 
 const useStyles = makeStyles({
     root: {
-        width: '80%',
+        maxWidth: '80%',
         marginTop: 5,
         margin: 'auto'
     },
@@ -66,7 +66,7 @@ function PhoneList() {
     };
 
     return (
-        <div>
+        <div className="phone-list-main">
             <div className={classes.searchBar}>
             {phones && <TextField label="Search phones" variant="outlined" onChange={searchForPhones} />}
             </div>

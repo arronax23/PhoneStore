@@ -11,8 +11,7 @@ import { useHistory } from 'react-router'
 
 const useStyles = makeStyles({
     root: {
-        // width: 100,
-        // height: 150,
+        maxWidth: '80%',
         textAlign: 'center'
     }
 });
@@ -23,7 +22,7 @@ function PhoneCard({ phone }) {
         history.push('/phonedetails/'+ phone.phoneId)
     }
     return (
-        <Grid item xs={2} className={classes.root}>
+        <Grid item xs={12} sm={4} md={2} className={classes.root}>
             <Card >
                 <CardContent>
                     <Typography color="textSecondary">

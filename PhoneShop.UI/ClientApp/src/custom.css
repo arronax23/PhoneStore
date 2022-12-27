@@ -20,6 +20,7 @@ code {
 
 .phone-card-img {
   width: 140px;
+  height: 140px;
 }
 
 .MuiCardActions-root {
@@ -40,8 +41,9 @@ footer {
   text-align: center;
   background-color: white;
   color: rgba(0, 0, 0, 0.54);
-  position: absolute;
-  top: 97.7%;
+  position: fixed;
+  /* top: 97.7%; */
+  bottom: 0;
   width: 100%;
 }
 
@@ -86,16 +88,16 @@ footer {
 }
 
 .login-register {
-  background-color: rgba(97, 92, 92, 0.596) !important;
+  background-color: #A9FBD7 !important;
 }
 
 .role {
-  background-color: #002984 !important;
+  background-color: #0A0908 !important;
   color: white !important;
 }
 
 .username {
-  background-color: #ba000d !important;
+  background-color: #49111C !important;
   color: white !important;
 }
 

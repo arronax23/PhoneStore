@@ -1,0 +1,13 @@
+2022-12-27 16:51:27.609 +01:00 [INF] Starting up!
+2022-12-27 16:51:46.051 +01:00 [ERR] Browserslist: caniuse-lite is outdated. Please run next command `npm update`
+
+2022-12-27 16:52:33.882 +01:00 [INF] Succesufully logged in user: Arronax23
+2022-12-27 16:52:33.882 +01:00 [INF] Succesufully logged in user: Arronax23
+2022-12-27 16:59:33.996 +01:00 [INF] Succesufully logged in user: Arronax23
+2022-12-27 17:03:57.231 +01:00 [WRN] Invalid password for user 84ee7135-13c4-457e-bb7a-6cf6e7fea163.
+2022-12-27 17:03:57.232 +01:00 [INF] Failed to log in user: Arronax23
+2022-12-27 17:04:02.018 +01:00 [INF] Succesufully logged in user: Arronax23
+2022-12-27 19:34:13.487 +01:00 [INF] Starting up!
+2022-12-27 19:34:36.076 +01:00 [ERR] Browserslist: caniuse-lite is outdated. Please run next command `npm update`
+
+2022-12-27 19:35:20.966 +01:00 [INF] Succesufully logged in user: Arronax23
