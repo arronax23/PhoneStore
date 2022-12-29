@@ -6,23 +6,15 @@ import Typography from '@material-ui/core/Typography'
 import CardMedia from '@material-ui/core/CardMedia'
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
-import {makeStyles} from '@material-ui/styles'
 import { useHistory } from 'react-router'
 
-const useStyles = makeStyles({
-    root: {
-        maxWidth: '80%',
-        textAlign: 'center'
-    }
-});
 function PhoneCard({ phone }) {
     const history = useHistory();
-    const classes = useStyles();
     const handleClick = () => {
         history.push('/phonedetails/'+ phone.phoneId)
     }
     return (
-        <Grid item xs={12} sm={4} md={2} className={classes.root}>
+        <Grid item xs={12} sm={4} md={2} className="phone-card">
             <Card >
                 <CardContent>
                     <Typography color="textSecondary">

@@ -11,3 +11,23 @@
 
 2022-12-29 18:47:29.451 +01:00 [INF] Succesufully logged in user: Arronax23
 2022-12-29 18:47:29.451 +01:00 [INF] Succesufully logged in user: Arronax23
+2022-12-29 18:59:08.301 +01:00 [INF] Starting up!
+2022-12-29 18:59:22.975 +01:00 [ERR] Browserslist: caniuse-lite is outdated. Please run next command `npm update`
+
+2022-12-29 19:11:06.677 +01:00 [ERR] An unhandled exception has occurred while executing the request.
+System.UriFormatException: Invalid URI: The hostname could not be parsed.
+   at System.Uri.CreateThis(String uri, Boolean dontEscape, UriKind uriKind)
+   at System.Uri.CreateUri(Uri baseUri, String relativeUri, Boolean dontEscape)
+   at Microsoft.AspNetCore.SpaServices.Extensions.Proxy.SpaProxy.PerformProxyRequest(HttpContext context, HttpClient httpClient, Task`1 baseUriTask, CancellationToken applicationStoppingToken, Boolean proxy404s)
+   at Microsoft.AspNetCore.Builder.SpaProxyingExtensions.<>c__DisplayClass2_0.<<UseProxyToSpaDevelopmentServer>b__0>d.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.MigrationsEndPointMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.DatabaseErrorPageMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.DatabaseErrorPageMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2022-12-29 19:59:31.323 +01:00 [INF] Succesufully logged in user: Customer
+2022-12-29 20:00:04.185 +01:00 [INF] Succesufully logged in user: Customer

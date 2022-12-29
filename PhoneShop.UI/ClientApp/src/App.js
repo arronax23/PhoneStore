@@ -19,7 +19,7 @@ import PhonesInOrder from './components/Customer/PhonesInOrder';
 
 function App() {
       return (      
-        <div>
+        <div className="main">
             <Navbar />
             <Switch>
                 <Route exact path="/">

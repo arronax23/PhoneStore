@@ -1,5 +1,10 @@
 /* Provide sufficient contrast against white background */
 
+* {
+  margin: 0;
+  padding: 0;
+}
+
 body {
   background-image: url("./img/backgroundPhone.jpg");
   background-size: cover; 
@@ -12,6 +17,12 @@ body {
   }
 }
 
+.main {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 a {
   color: #0366d6;
 }
@@ -20,11 +31,39 @@ code {
   color: #e01a76;
 }
 
+ @media screen and (max-width: 960px) {
+  .bottomNavigation {
+    display: flex;
+    flex-direction: column;
+    height: auto !important;
+    margin-bottom: 1em;
+  }
+  .bottomNavigation button {
+    width: 100%;
+    max-width: none !important;
+    border: 1px solid black;
+  }
+}
+
 .btn-primary {
   color: #fff;
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
+
+.phone-card {
+  max-width: 70% !important;
+  text-align: center;
+}
+
+/* 
+@media screen and (min-width: 960px) {
+  .pagination-container {
+    margin: 0;
+    position: absolute;
+    bottom: 30px;
+  }
+} */
 
 .phone-card-img {
   max-height: 140px;
@@ -40,6 +79,10 @@ code {
   padding: 0 !important;
 }
 
+.Mui-selected {
+  border-bottom: 1px solid ;
+}
+
 .MuiCard-root {
   background: linear-gradient(#e29c9c, #bdc0db) !important;
   border: 1px solid rgba(7, 6, 6, 0.507);
@@ -48,6 +91,7 @@ code {
 
 address {
   margin: 0;
+  margin-top: auto;
   text-align: center;
   background-color: white;
   color: rgba(0, 0, 0, 0.54);
@@ -97,6 +141,13 @@ address {
   background: linear-gradient(to left, #e29c9c, #bdc0db);
   width: 20%;
   margin: auto;
+}
+
+@media screen and (max-width: 960px) {
+  .form {
+    width: 80%;
+    margin-bottom: 1em;
+  }
 }
 
 .definition-list-item dd {

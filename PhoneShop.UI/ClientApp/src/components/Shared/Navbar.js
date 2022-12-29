@@ -42,8 +42,9 @@ function Navbar() {
     }
 
     return (
-        <div>
+        <nav>
         <BottomNavigation 
+            className="bottomNavigation"
             showLabels
             value={currentTab}
             onChange={(e, newTab)=> {setcurrentTab(newTab)}}
@@ -80,7 +81,7 @@ function Navbar() {
             <BottomNavigationAction className="login-register" label="Logout" onClick={logout} />
             : null}                    
         </BottomNavigation>
-        </div>
+        </nav>
     )
 }
 
