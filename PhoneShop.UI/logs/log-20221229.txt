@@ -31,3 +31,7 @@ System.UriFormatException: Invalid URI: The hostname could not be parsed.
    at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
 2022-12-29 19:59:31.323 +01:00 [INF] Succesufully logged in user: Customer
 2022-12-29 20:00:04.185 +01:00 [INF] Succesufully logged in user: Customer
+2022-12-29 21:25:36.653 +01:00 [INF] Starting up!
+2022-12-29 21:25:53.752 +01:00 [ERR] Browserslist: caniuse-lite is outdated. Please run next command `npm update`
+
+2022-12-29 21:32:07.129 +01:00 [INF] Succesufully logged in user: Customer

@@ -52,7 +52,7 @@ code {
 }
 
 .phone-card {
-  max-width: 70% !important;
+  /* max-width: 70% !important; */
   text-align: center;
 }
 
@@ -66,9 +66,15 @@ code {
 } */
 
 .phone-card-img {
-  max-height: 140px;
+
   width: 68%;
   height: 68%;
+}
+
+@media screen and (min-width: 960px) {
+  .phone-card-img {
+    max-height: 140px;
+  }
 }
 
 .MuiCardActions-root {
@@ -139,14 +145,14 @@ address {
   border-radius: 4px;
   text-align: center;
   background: linear-gradient(to left, #e29c9c, #bdc0db);
-  width: 20%;
-  margin: auto;
+  margin-bottom: 1em;
+  width: 80%;
 }
 
-@media screen and (max-width: 960px) {
+@media screen and (min-width: 960px) {
   .form {
-    width: 80%;
-    margin-bottom: 1em;
+    width: 20%;
+    margin: 1em auto;
   }
 }
 
@@ -187,5 +193,21 @@ address {
     margin: 0;
     position: absolute;
     bottom: 30px;
+  }
+}
+
+.phone-list-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.phone-grid {
+  margin-top: 5px;
+}
+
+@media screen and (min-width: 960px) {
+  .phone-grid {
+    max-width: 80%;
   }
 }

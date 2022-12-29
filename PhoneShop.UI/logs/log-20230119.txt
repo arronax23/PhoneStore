@@ -1,0 +1,102 @@
+2023-01-19 22:21:52.224 +01:00 [INF] Starting up!
+2023-01-19 22:22:05.098 +01:00 [ERR] Error: error:0308010C:digital envelope routines::unsupported
+
+2023-01-19 22:22:08.533 +01:00 [ERR]     at new Hash (node:internal/crypto/hash:71:19)
+    at Object.createHash (node:crypto:133:10)
+    at module.exports (D:\Pulpit\VisualStudioProjects\PhoneShop\PhoneShop.UI\ClientApp\node_modules\webpack\lib\util\createHash.js:90:53)
+    at NormalModule._initBuildHash (D:\Pulpit\VisualStudioProjects\PhoneShop\PhoneShop.UI\ClientApp\node_modules\webpack\lib\NormalModule.js:401:16)
+    at handleParseError (D:\Pulpit\VisualStudioProjects\PhoneShop\PhoneShop.UI\ClientApp\node_modules\webpack\lib\NormalModule.js:449:10)
+    at D:\Pulpit\VisualStudioProjects\PhoneShop\PhoneShop.UI\ClientApp\node_modules\webpack\lib\NormalModule.js:481:5
+    at D:\Pulpit\VisualStudioProjects\PhoneShop\PhoneShop.UI\ClientApp\node_modules\webpack\lib\NormalModule.js:342:12
+    at D:\Pulpit\VisualStudioProjects\PhoneShop\PhoneShop.UI\ClientApp\node_modules\loader-runner\lib\LoaderRunner.js:373:3
+    at iterateNormalLoaders (D:\Pulpit\VisualStudioProjects\PhoneShop\PhoneShop.UI\ClientApp\node_modules\loader-runner\lib\LoaderRunner.js:214:10)
+    at iterateNormalLoaders (D:\Pulpit\VisualStudioProjects\PhoneShop\PhoneShop.UI\ClientApp\node_modules\loader-runner\lib\LoaderRunner.js:221:10)
+    at D:\Pulpit\VisualStudioProjects\PhoneShop\PhoneShop.UI\ClientApp\node_modules\loader-runner\lib\LoaderRunner.js:236:3
+    at runSyncOrAsync (D:\Pulpit\VisualStudioProjects\PhoneShop\PhoneShop.UI\ClientApp\node_modules\loader-runner\lib\LoaderRunner.js:130:11)
+    at iterateNormalLoaders (D:\Pulpit\VisualStudioProjects\PhoneShop\PhoneShop.UI\ClientApp\node_modules\loader-runner\lib\LoaderRunner.js:232:2)
+    at Array.<anonymous> (D:\Pulpit\VisualStudioProjects\PhoneShop\PhoneShop.UI\ClientApp\node_modules\loader-runner\lib\LoaderRunner.js:205:4)
+    at Storage.finished (D:\Pulpit\VisualStudioProjects\PhoneShop\PhoneShop.UI\ClientApp\node_modules\enhanced-resolve\lib\CachedInputFileSystem.js:43:16)
+    at D:\Pulpit\VisualStudioProjects\PhoneShop\PhoneShop.UI\ClientApp\node_modules\enhanced-resolve\lib\CachedInputFileSystem.js:79:9
+D:\Pulpit\VisualStudioProjects\PhoneShop\PhoneShop.UI\ClientApp\node_modules\react-scripts\scripts\start.js:19
+
+2023-01-19 22:22:08.534 +01:00 [ERR]   throw err;
+  ^
+
+Error: error:0308010C:digital envelope routines::unsupported
+    at new Hash (node:internal/crypto/hash:71:19)
+    at Object.createHash (node:crypto:133:10)
+    at module.exports (D:\Pulpit\VisualStudioProjects\PhoneShop\PhoneShop.UI\ClientApp\node_modules\webpack\lib\util\createHash.js:90:53)
+    at NormalModule._initBuildHash (D:\Pulpit\VisualStudioProjects\PhoneShop\PhoneShop.UI\ClientApp\node_modules\webpack\lib\NormalModule.js:401:16)
+    at D:\Pulpit\VisualStudioProjects\PhoneShop\PhoneShop.UI\ClientApp\node_modules\webpack\lib\NormalModule.js:433:10
+    at D:\Pulpit\VisualStudioProjects\PhoneShop\PhoneShop.UI\ClientApp\node_modules\webpack\lib\NormalModule.js:308:13
+    at D:\Pulpit\VisualStudioProjects\PhoneShop\PhoneShop.UI\ClientApp\node_modules\loader-runner\lib\LoaderRunner.js:367:11
+    at D:\Pulpit\VisualStudioProjects\PhoneShop\PhoneShop.UI\ClientApp\node_modules\loader-runner\lib\LoaderRunner.js:233:18
+    at context.callback (D:\Pulpit\VisualStudioProjects\PhoneShop\PhoneShop.UI\ClientApp\node_modules\loader-runner\lib\LoaderRunner.js:111:13)
+    at D:\Pulpit\VisualStudioProjects\PhoneShop\PhoneShop.UI\ClientApp\node_modules\babel-loader\lib\index.js:51:103 {
+  opensslErrorStack: [ 'error:03000086:digital envelope routines::initialization error' ],
+  library: 'digital envelope routines',
+  reason: 'unsupported',
+  code: 'ERR_OSSL_EVP_UNSUPPORTED'
+}
+
+
+2023-01-19 22:22:08.568 +01:00 [ERR] An unhandled exception has occurred while executing the request.
+System.Net.Http.HttpRequestException: Failed to proxy the request to http://localhost:55645/, because the request to the proxy target failed. Check that the proxy target server is running and accepting requests to http://localhost:55645/.
+
+The underlying exception message was 'An error occurred while sending the request.'.Check the InnerException for more details.
+ ---> System.Net.Http.HttpRequestException: An error occurred while sending the request.
+ ---> System.IO.IOException: Unable to read data from the transport connection: Istniejące połączenie zostało gwałtownie zamknięte przez zdalnego hosta..
+ ---> System.Net.Sockets.SocketException (10054): Istniejące połączenie zostało gwałtownie zamknięte przez zdalnego hosta.
+   --- End of inner exception stack trace ---
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.GetResult(Int16 token)
+   at System.Net.Http.HttpConnection.FillAsync()
+   at System.Net.Http.HttpConnection.ReadNextResponseHeaderLineAsync(Boolean foldedHeadersAllowed)
+   at System.Net.Http.HttpConnection.SendAsyncCore(HttpRequestMessage request, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnection.SendAsyncCore(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithNtConnectionAuthAsync(HttpConnection connection, HttpRequestMessage request, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithRetryAsync(HttpRequestMessage request, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.FinishSendAsyncUnbuffered(Task`1 sendTask, HttpRequestMessage request, CancellationTokenSource cts, Boolean disposeCts)
+   at Microsoft.AspNetCore.SpaServices.Extensions.Proxy.SpaProxy.PerformProxyRequest(HttpContext context, HttpClient httpClient, Task`1 baseUriTask, CancellationToken applicationStoppingToken, Boolean proxy404s)
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.SpaServices.Extensions.Proxy.SpaProxy.PerformProxyRequest(HttpContext context, HttpClient httpClient, Task`1 baseUriTask, CancellationToken applicationStoppingToken, Boolean proxy404s)
+   at Microsoft.AspNetCore.Builder.SpaProxyingExtensions.<>c__DisplayClass2_0.<<UseProxyToSpaDevelopmentServer>b__0>d.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.MigrationsEndPointMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.DatabaseErrorPageMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.DatabaseErrorPageMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2023-01-19 22:22:13.093 +01:00 [ERR] An unhandled exception has occurred while executing the request.
+System.Net.Http.HttpRequestException: Failed to proxy the request to http://localhost:55645/favicon.ico, because the request to the proxy target failed. Check that the proxy target server is running and accepting requests to http://localhost:55645/.
+
+The underlying exception message was 'Nie można nawiązać połączenia, ponieważ komputer docelowy aktywnie go odmawia.'.Check the InnerException for more details.
+ ---> System.Net.Http.HttpRequestException: Nie można nawiązać połączenia, ponieważ komputer docelowy aktywnie go odmawia.
+ ---> System.Net.Sockets.SocketException (10061): Nie można nawiązać połączenia, ponieważ komputer docelowy aktywnie go odmawia.
+   at System.Net.Http.ConnectHelper.ConnectAsync(String host, Int32 port, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.ConnectHelper.ConnectAsync(String host, Int32 port, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean allowHttp2, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.GetHttpConnectionAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithRetryAsync(HttpRequestMessage request, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.FinishSendAsyncUnbuffered(Task`1 sendTask, HttpRequestMessage request, CancellationTokenSource cts, Boolean disposeCts)
+   at Microsoft.AspNetCore.SpaServices.Extensions.Proxy.SpaProxy.PerformProxyRequest(HttpContext context, HttpClient httpClient, Task`1 baseUriTask, CancellationToken applicationStoppingToken, Boolean proxy404s)
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.SpaServices.Extensions.Proxy.SpaProxy.PerformProxyRequest(HttpContext context, HttpClient httpClient, Task`1 baseUriTask, CancellationToken applicationStoppingToken, Boolean proxy404s)
+   at Microsoft.AspNetCore.Builder.SpaProxyingExtensions.<>c__DisplayClass2_0.<<UseProxyToSpaDevelopmentServer>b__0>d.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.MigrationsEndPointMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.DatabaseErrorPageMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.DatabaseErrorPageMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)

@@ -8,11 +8,6 @@ import { makeStyles } from '@material-ui/styles'
 import {useSelector} from 'react-redux'
 
 const useStyles = makeStyles({
-    root: {
-        maxWidth: '80%',
-        marginTop: 5,
-        margin: 'auto'
-    },
     pagination: {
         display: 'flex',
         justifyContent: 'center'
@@ -69,7 +64,7 @@ function PhoneList() {
                 direction="row"
                 justifyContent="center"
                 wrap="wrap"
-                className={classes.root}
+                className="phone-grid"
             >
                 {isPending && <div>Loading...</div>}
                 {error && httpResposne && (<div>Error: {error} Http Status: {httpResposne}</div>)}
