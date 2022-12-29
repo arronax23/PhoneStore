@@ -17,12 +17,6 @@ const useStyles = makeStyles({
         display: 'flex',
         justifyContent: 'center'
     },
-    paginationContainer : {
-        position: 'absolute',
-        top: '93%',
-        width: '100%',
-        textAlign: 'center'
-    },
     searchBar : {
         textAlign: 'center',
         marginTop: 5          
@@ -85,7 +79,7 @@ function PhoneList() {
                 {searchPhones &&
                 searchPhones.map(phone => <PhoneCard key={phone.phoneId} phone={phone} />)}
             </Grid>
-            <div className={classes.paginationContainer}>
+            <div className="pagination-container">
                 {isPendingPagination && <div>Loading...</div>}
                 {pageCount && <Pagination onChange={pageChange} className={classes.pagination} count={pageCount} color="primary" />}
             </div>

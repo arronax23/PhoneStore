@@ -3,11 +3,13 @@ import BottomNavigation from '@material-ui/core/BottomNavigation'
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction'
 import { useHistory } from 'react-router';
 import { useSelector } from 'react-redux'
+import { useState } from 'react';
 
 function Navbar() {
     const history = useHistory();
     const logging = useSelector(state => state.logging);
     const username = useSelector(state => state.username)
+    const [currentTab, setcurrentTab] = useState(0)
 
     const homeClicked = () => {
         history.push("/");
@@ -41,7 +43,11 @@ function Navbar() {
 
     return (
         <div>
-        <BottomNavigation showLabels>
+        <BottomNavigation 
+            showLabels
+            value={currentTab}
+            onChange={(e, newTab)=> {setcurrentTab(newTab)}}
+        >
             <BottomNavigationAction label="Home" onClick={homeClicked} />
             {logging != 'NOT_LOGGED' ?
             <BottomNavigationAction label="Phones" onClick={phoneListClicked}/>

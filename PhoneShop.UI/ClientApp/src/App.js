@@ -1,6 +1,6 @@
 import React from 'react'
 import Navbar from './components/Shared/Navbar';
-import Footer from './components/Shared/Footer';
+import Address from './components/Shared/Address';
 import './custom.css'
 import { Switch, Route } from 'react-router-dom'
 import PhoneList from './components/Shared/PhoneList'
@@ -59,7 +59,7 @@ function App() {
                     <Logout />
                 </Route>                          
             </Switch>
-            <Footer />
+            <Address />
         </div>
       );
 }
