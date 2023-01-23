@@ -7,7 +7,6 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
-import Box from '@material-ui/core/Box';
 import Popper from '@material-ui/core/Popper';
 import { useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/styles'
@@ -82,30 +81,37 @@ function Orders() {
     },[]);
 
     const showPhones = (e) => {
-      if (e.target.className =='MuiButton-label'){
-        setOrderId(e.target.parentNode.value);
-        history.push('/phonesInOrder/'+e.target.parentNode.value);
+      console.log(e.target);
+      let id;
+      if (e.target.classList.contains('MuiButton-label')){
+        id = e.target.parentNode.value;
       }
-      else if (e.target.className =='MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary'){
-        setOrderId(e.target.value);
-        history.push('/phonesInOrder/'+e.target.value);
+      else if (e.target.classList.contains('btn-show')){
+        id = e.target.value   
       }
-      // console.log(orderId);
+      setOrderId(id);
+      history.push('/phonesInOrder/'+id);
+
     }
 
-    const handlePopper = (e) => {
-       setIsPopperOpen((state) => !state);
-       setAnchorEl(anchorEl ? null : e.target);
-
-      if (e.target.className =='MuiButton-label'){
-        setOrderId(e.target.parentNode.value);
-        console.log(e.target.parentNode.value);
+    const handlePopper = (btn, e) => {
+      if (btn === "close"){
+        setIsPopperOpen((state) => !state);
+        setAnchorEl(anchorEl ? null : e.target);
       }
-      else if (e.target.className =='MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButton-outlinedSecondary'){
-        setOrderId(e.target.value);
-
-        console.log(e.target.value);
+      else if (btn === "pay"){
+        setIsPopperOpenPay((state) => !state);
+        setAnchorElPay(anchorElPay ? null : e.target);
       }
+
+      let id;
+      if (e.target.classList.contains('MuiButton-label')){
+        id = e.target.parentNode.value;
+      }
+      else if (e.target.classList.contains('btn-close') || e.target.classList.contains('btn-pay')){
+        id = e.target.value;
+      }
+      setOrderId(id);
     }
 
     const dontCloseOrder = (e) => {
@@ -130,21 +136,6 @@ function Orders() {
           alert('Closing order went wrong!');
         }
       });
-    }
-
-    
-    const handlePopperPay = (e) => {
-      setIsPopperOpenPay((state) => !state);
-      setAnchorElPay(anchorElPay ? null : e.target);
-
-     if (e.target.className =='MuiButton-label'){
-       setOrderId(e.target.parentNode.value);
-       console.log(e.target.parentNode.value);
-     }
-     else if (e.target.className =='MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButton-outlinedSecondary'){
-       setOrderId(e.target.value);
-       console.log(e.target.value);
-     }
     }
 
     const dontPayOrder = (e) => {
@@ -190,16 +181,14 @@ function Orders() {
               <TableRow
                 key={order.orderId}
               >
-                <TableCell component="th" scope="row">
-                  {order.orderId}
-                </TableCell>
+                <TableCell component="th" scope="row">{order.orderId}</TableCell>
                 <TableCell>{new Date(order.createdDate).toLocaleString()}</TableCell>
                 <TableCell>{new Date(order.modifiedDate).toLocaleString()}</TableCell>
                 <TableCell>{orderStatus[order.status]}</TableCell>
-                <TableCell><Button value={order.orderId} onClick={showPhones} variant="outlined" color="primary">Show</Button></TableCell>
+                <TableCell><Button className="btn-action" value={order.orderId} onClick={showPhones} variant="outlined" color="primary">Show</Button></TableCell>
                 {orderStatus[order.status] == "Open" ?
                 <TableCell>
-                  <Button aria-describedby="close" value={order.orderId} onClick={handlePopper} variant="outlined" color="secondary">Close</Button>
+                  <Button className="btn-close" aria-describedby="close" value={order.orderId} onClick={(e) => handlePopper("close",e)} variant="outlined" color="secondary">Close</Button>
                   <Popper  id="close" open={isPopperOpen} anchorEl={anchorEl} >
                      <Paper className={classes.popperPaper}>
                        <div>
@@ -215,11 +204,11 @@ function Orders() {
                  :
                  orderStatus[order.status] == "Closed" ? 
                  <TableCell>
-                   <Button value={order.orderId} onClick={handlePopperPay} variant="outlined" color="secondary">Pay</Button>
+                   <Button className="btn-pay" value={order.orderId} onClick={(e) => handlePopper("pay",e)} variant="outlined" color="secondary">Pay</Button>
                    <Popper  id="close" open={isPopperOpenPay} anchorEl={anchorElPay} >
                      <Paper className={classes.popperPaper}>
                        <div>
-                          Are you sure that you want to pay for this order?
+                          Are you sure to pay for this order?
                         </div>
                         <div className={classes.buttonGroup}>
                           <Button className={classes.closeYes} onClick={payOrder}>Yes</Button>
