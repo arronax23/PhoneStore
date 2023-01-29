@@ -3,3 +3,12 @@
 
 2023-01-23 15:36:39.291 +01:00 [INF] Succesufully logged in user: Customer
 2023-01-23 16:36:17.393 +01:00 [INF] Succesufully logged in user: Arronax23
+2023-01-23 16:44:39.288 +01:00 [INF] Starting up!
+2023-01-23 16:44:55.795 +01:00 [ERR] Browserslist: caniuse-lite is outdated. Please run next command `npm update`
+
+2023-01-23 16:45:54.961 +01:00 [INF] Succesufully logged in user: Customer
+2023-01-23 17:07:26.507 +01:00 [INF] Stopped cleanly
+2023-01-23 17:07:31.985 +01:00 [INF] Starting up!
+2023-01-23 17:07:48.780 +01:00 [ERR] Browserslist: caniuse-lite is outdated. Please run next command `npm update`
+
+2023-01-23 19:39:17.332 +01:00 [INF] Stopped cleanly

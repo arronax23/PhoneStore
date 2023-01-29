@@ -21,29 +21,23 @@ namespace PhoneStore.BLL.Services
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ApplicationDbContext _applicationDbContext;
-        private readonly IConfiguration _configuration;
 
         public UsersService(
             UserManager<ApplicationUser> userManager,
             RoleManager<IdentityRole> roleManager,
             SignInManager<ApplicationUser> signInManager,
-            ApplicationDbContext applicationDbContext,
-            IConfiguration configuration)
+            ApplicationDbContext applicationDbContext)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _signInManager = signInManager;
             _applicationDbContext = applicationDbContext;
-            _configuration = configuration;
         }
 
         public async Task<RegisterUserResponse> RegisterUser(RegisterUserRequest request)
         {
             var user = new ApplicationUser() { UserName = request.Username };
             var createUserResult = await _userManager.CreateAsync(user, request.Password);
-            //var doesRoleExists = await _roleManager.RoleExistsAsync(request.Role);
-            //if (!doesRoleExists)
-            //    await _roleManager.CreateAsync(new IdentityRole() { Name = request.Role });
 
             IdentityResult addToRoleResult = new IdentityResult();
             if (createUserResult.Succeeded)
@@ -78,46 +72,26 @@ namespace PhoneStore.BLL.Services
             var response = new LoginResponse();
 
             var user = await _userManager.FindByNameAsync(request.Username);
+            var isPasswordCorrect = await _userManager.CheckPasswordAsync(user, request.Password);
 
-            var areCredentialsCorrect = await _userManager.CheckPasswordAsync(user, request.Password);
-
-
-            if (areCredentialsCorrect)
+            if (isPasswordCorrect)
             {
-                var currentUser = await _userManager.FindByNameAsync(request.Username);
-                var roles = await _userManager.GetRolesAsync(currentUser);
+                await _signInManager.SignInAsync(user, isPersistent: false);
+                var roles = await _userManager.GetRolesAsync(user);
                 var role = roles.First();
-
                 response.CurrentUserRole = role;
-
-                var tokenHandler = new JwtSecurityTokenHandler();
-                var secret = _configuration["JwtSettings:Secret"];
-                var key = Encoding.ASCII.GetBytes(secret);
-                var tokenDescriptor = new SecurityTokenDescriptor()
-                {
-                    Subject = new ClaimsIdentity(new[]
-                    {
-                        new Claim(JwtRegisteredClaimNames.Sub, request.Username),
-                        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                        new Claim(JwtRegisteredClaimNames.GivenName, request.Username),
-                        //new Claim(JwtRegisteredClaimNames.Email, $"{request.Username}@gmail.com"),
-                        new Claim(ClaimTypes.Role, role)
-                    }),
-                    Expires = DateTime.UtcNow.AddHours(2),
-                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),SecurityAlgorithms.HmacSha256Signature)
-                };
-
-                var token = tokenHandler.CreateToken(tokenDescriptor);
-                response.Token = tokenHandler.WriteToken(token);
-
                 response.IsSuccesfull = true;
+                return response;
             }
-            else
-                response.IsSuccesfull = false;
+            else 
+                response.IsSuccesfull = false;   
 
             return response;
-            //_signInManager.IsSignedIn()
-            //await _signInManager.SignInAsync(user, false);
+        }
+
+        public async Task Logout( )
+        {
+            await _signInManager.SignOutAsync();
         }
 
         public async Task<GetCustomerIdByUsernameResponse> GetCustomerIdByUsername(GetCustomerIdByUsernameRequest request)

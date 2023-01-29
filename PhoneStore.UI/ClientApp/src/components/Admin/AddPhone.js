@@ -4,7 +4,6 @@ import Button from '@material-ui/core/Button'
 import MenuItem from '@material-ui/core/MenuItem'
 import {makeStyles} from '@material-ui/styles'
 import {useHistory} from 'react-router'
-import { useSelector } from 'react-redux'
 
 const useStyles = makeStyles({
     root: {
@@ -28,7 +27,6 @@ function AddPhone() {
     const [price, setPrice] = useState(0);
 
     const [error, setError] = useState(0);
-    const token = useSelector(state => state.token)
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -38,8 +36,7 @@ function AddPhone() {
             {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
-                    "Authorization": "bearer "+token
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(phone)  
             })

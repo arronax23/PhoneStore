@@ -4,7 +4,6 @@ import Button from '@material-ui/core/Button'
 import MenuItem from '@material-ui/core/MenuItem'
 import {makeStyles} from '@material-ui/styles'
 import {useHistory, useParams} from 'react-router'
-import { useSelector } from 'react-redux'
 
 const useStyles = makeStyles({
     root: {
@@ -30,14 +29,9 @@ function UpdatePhone() {
     const [price, setPrice] = useState(0);
     
     const [error, setError] = useState('');
-    const token = useSelector(state => state.token);
 
     useEffect(()=> {  
-        fetch("api/GetPhoneById/"+id, {
-            headers: {
-                "Authorization": "bearer "+token
-              }
-        })
+        fetch("api/GetPhoneById/"+id)
         .then(resp => resp.json())
         .then(phone => {
             setPhoneId(phone.phoneId);
@@ -62,8 +56,7 @@ function UpdatePhone() {
             {
                 method: 'PUT',
                 headers: {
-                    'Content-Type': 'application/json',
-                    "Authorization": "bearer "+token
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(phone)  
             })

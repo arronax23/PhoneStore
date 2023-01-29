@@ -24,6 +24,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Http;
 
 namespace PhoneStore.UI
 {
@@ -47,7 +48,20 @@ namespace PhoneStore.UI
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.Events.OnRedirectToLogin = opt =>
+                {
+                    opt.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                    return Task.CompletedTask;
+                };
+                options.Events.OnRedirectToAccessDenied = opt =>
+                {
+                    opt.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                    return Task.CompletedTask;
+                };
+            });
+
             //services.ConfigureApplicationCookie(options =>
             //{
             //    options.Cookie.Name = "PhoneStore.Identity.Cookie";
@@ -81,29 +95,13 @@ namespace PhoneStore.UI
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-            JwtSettings jwtSettings = new JwtSettings();
-            Configuration.GetSection(nameof(JwtSettings)).Bind(jwtSettings);
-            //services.AddSingleton(jwtSettings);
+            //services.AddAuthentication("some")
+            //    .AddCookie("some",config => {
+            //        config.AccessDeniedPath = "/login";
+            //    });
 
-            services.AddAuthentication(config => 
-            {
-                config.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                config.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-                config.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-                .AddJwtBearer(config => 
-                {
-                    config.SaveToken = true;
-                    config.TokenValidationParameters = new TokenValidationParameters()
-                    {
-                        ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtSettings.Secret)),
-                        ValidateAudience = false,
-                        RequireExpirationTime = false,
-                        ValidateLifetime = true,
-                        ValidateIssuer = false
-                    };
-                });
+
+
             //.AddCookie("PhoneShopCookie", config => 
             //{
             //    config.Cookie = new Microsoft.AspNetCore.Http.CookieBuilder() { Name = "PhoneShopCookie", Expiration = TimeSpan.FromHours(2) };

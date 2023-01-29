@@ -1,0 +1,5 @@
+2023-01-25 19:17:22.872 +01:00 [INF] Starting up!
+2023-01-25 19:17:42.222 +01:00 [ERR] Browserslist: caniuse-lite is outdated. Please run next command `npm update`
+
+2023-01-25 19:18:59.471 +01:00 [INF] Succesufully logged in user: Customer
+2023-01-25 19:18:59.471 +01:00 [INF] Succesufully logged in user: Customer

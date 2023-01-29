@@ -5,8 +5,6 @@ import Button from '@material-ui/core/Button'
 import { makeStyles } from '@material-ui/styles';
 import { useHistory } from 'react-router';
 import { Typography } from '@material-ui/core';
-import { useDispatch } from 'react-redux'
-import { insertToken, logAsAdmin, logAsCustomer, selectUsername } from './../../actions/index'
 
 const useStyles = makeStyles({
     root: {
@@ -28,7 +26,6 @@ function Login() {
     const [error, setError] = useState();
     const classes = useStyles();
     const history = useHistory();
-    const dispatch = useDispatch();
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -46,14 +43,6 @@ function Login() {
                 return resp.json()
                 .then(data => {
                     console.log(data);
-                    if (data.currentUserRole == "Admin"){
-                        dispatch(logAsAdmin());
-                    }
-                    else if (data.currentUserRole == "Customer"){
-                        dispatch(logAsCustomer());
-                    }
-                    dispatch(selectUsername(username));
-                    dispatch(insertToken(data.token))
                     history.push(`/succesfulllogin/${username}`)
                 })
             }

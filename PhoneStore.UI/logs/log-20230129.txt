@@ -1,0 +1,90 @@
+2023-01-29 00:13:17.101 +01:00 [INF] Stopped cleanly
+2023-01-29 15:09:17.181 +01:00 [INF] Starting up!
+2023-01-29 15:09:38.733 +01:00 [ERR] Browserslist: caniuse-lite is outdated. Please run next command `npm update`
+
+2023-01-29 15:15:38.372 +01:00 [INF] Succesufully logged in user: Customer
+2023-01-29 15:18:32.804 +01:00 [INF] Starting up!
+2023-01-29 15:18:49.174 +01:00 [ERR] Browserslist: caniuse-lite is outdated. Please run next command `npm update`
+
+2023-01-29 15:21:07.183 +01:00 [INF] Starting up!
+2023-01-29 15:21:24.466 +01:00 [ERR] Browserslist: caniuse-lite is outdated. Please run next command `npm update`
+
+2023-01-29 15:23:28.471 +01:00 [ERR] An unhandled exception has occurred while executing the request.
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at PhoneStore.UI.Controllers.UsersController.Authorize() in D:\Pulpit\VisualStudioProjects\PhoneStore\PhoneStore.UI\Controllers\UsersController.cs:line 93
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeNextActionFilterAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.MigrationsEndPointMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.DatabaseErrorPageMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.DatabaseErrorPageMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2023-01-29 15:24:31.311 +01:00 [INF] Starting up!
+2023-01-29 15:24:49.089 +01:00 [ERR] Browserslist: caniuse-lite is outdated. Please run next command `npm update`
+
+2023-01-29 15:34:19.652 +01:00 [INF] Starting up!
+2023-01-29 15:34:34.106 +01:00 [ERR] Browserslist: caniuse-lite is outdated. Please run next command `npm update`
+
+2023-01-29 15:36:51.912 +01:00 [INF] Succesufully logged in user: Customer
+2023-01-29 15:39:38.213 +01:00 [INF] Succesufully logged in user: Arronax23
+2023-01-29 15:41:54.587 +01:00 [INF] Succesufully logged in user: Arronax23
+2023-01-29 15:42:52.683 +01:00 [INF] Succesufully logged in user: Arronax23
+2023-01-29 15:42:57.856 +01:00 [INF] Succesufully logged in user: Arronax23
+2023-01-29 15:45:18.766 +01:00 [INF] Succesufully logged in user: Arronax23
+2023-01-29 15:48:52.629 +01:00 [INF] Succesufully logged in user: Arronax23
+2023-01-29 15:49:04.596 +01:00 [INF] Succesufully logged in user: Arronax23
+2023-01-29 15:57:23.887 +01:00 [INF] Starting up!
+2023-01-29 15:57:37.896 +01:00 [ERR] Browserslist: caniuse-lite is outdated. Please run next command `npm update`
+
+2023-01-29 15:59:52.741 +01:00 [INF] Succesufully logged in user: Arronax23
+2023-01-29 16:00:37.145 +01:00 [INF] Succesufully logged in user: Arronax23
+2023-01-29 16:00:45.472 +01:00 [INF] Succesufully logged in user: Customer
+2023-01-29 16:25:32.445 +01:00 [INF] Starting up!
+2023-01-29 16:25:46.677 +01:00 [ERR] Browserslist: caniuse-lite is outdated. Please run next command `npm update`
+
+2023-01-29 16:27:20.839 +01:00 [INF] Succesufully logged in user: Customer
+2023-01-29 16:27:27.387 +01:00 [ERR] An unhandled exception has occurred while executing the request.
+System.Exception: No customer was found.
+   at PhoneStore.BLL.Services.PhonesService.AddPhoneToShoppingCart(AddPhoneToShoppingCardRequest request) in D:\Pulpit\VisualStudioProjects\PhoneStore\PhoneStore.BLL\Services\PhonesService.cs:line 128
+   at PhoneStore.UI.Controllers.PhonesController.AddPhoneToShoppingCart(AddPhoneToShoppingCardVM addPhoneToShoppingCardVM) in D:\Pulpit\VisualStudioProjects\PhoneStore\PhoneStore.UI\Controllers\PhonesController.cs:line 128
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|19_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.MigrationsEndPointMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.DatabaseErrorPageMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.DatabaseErrorPageMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2023-01-29 16:33:32.664 +01:00 [INF] Succesufully logged in user: Arronax23
+2023-01-29 17:02:11.749 +01:00 [INF] Succesufully logged in user: Arronax23

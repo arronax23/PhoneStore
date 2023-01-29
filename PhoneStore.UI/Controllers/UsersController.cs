@@ -62,7 +62,6 @@ namespace PhoneStore.UI.Controllers
             });
 
             if (response.IsSuccesfull)
-
             {
                 _logger.LogInformation($"Succesufully logged in user: {userVM.Username}");
                 return Ok(response);
@@ -75,6 +74,15 @@ namespace PhoneStore.UI.Controllers
 
         }
 
+        [HttpPost]
+        [Route("api/Logout")]
+        public async Task<IActionResult> Logout()
+        {
+            await _usersService.Logout();
+            return Ok();
+        }
+
+
 
         [HttpGet]
         [Route("api/GetCustomerIdByUsername/{username}")]
@@ -83,5 +91,20 @@ namespace PhoneStore.UI.Controllers
             var response = await _usersService.GetCustomerIdByUsername(new GetCustomerIdByUsernameRequest() { Username = username });
             return Ok(response.CustomerId);
         }
+
+
+        [HttpGet]
+        [Route("api/Authorize")]
+        public IActionResult Authorize()
+        {
+            var role = HttpContext.User.Claims.SingleOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+            var name = HttpContext.User.Claims.SingleOrDefault(c => c.Type == ClaimTypes.Name)?.Value;
+            
+            if (role == null)
+                return Ok(new {Name = "", Role = "Unauthorized" });
+            else
+                return Ok(new {Name = name, Role = role});
+        }
+
     }
 }

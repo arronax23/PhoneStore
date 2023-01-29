@@ -7,7 +7,6 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
-import { useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/styles'
 import { useParams } from 'react-router'
 import { Typography } from '@material-ui/core';
@@ -33,7 +32,6 @@ function PhonesInOrder() {
     const classes = useStyles();
     const { id } = useParams();
     const [totalPrice, setTotalPrice] = useState(0);
-    const token = useSelector(state => state.token);
     const [phones, setPhones] = useState([
         {
             phoneId: 0,
@@ -45,11 +43,7 @@ function PhonesInOrder() {
         }
     ]);
     useEffect(() => {
-        fetch('api/GetPhonesInOrder?orderId='+id, {
-          headers: {
-            "Authorization": "bearer "+token
-          }
-        })
+        fetch('api/GetPhonesInOrder?orderId='+id)
         .then(response => response.json())
         .then(data => {
             setPhones(data);
@@ -82,7 +76,7 @@ function PhonesInOrder() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {phones.map((phone) => (
+            {phones && phones.map((phone) => (
               <TableRow key={phone.phoneId}>
                 <TableCell><img className="phone-table-image" src={phone.imageUrl} /></TableCell>
                 <TableCell>{phone.brand}</TableCell>

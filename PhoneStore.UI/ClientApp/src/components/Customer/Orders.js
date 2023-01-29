@@ -8,7 +8,6 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import Popper from '@material-ui/core/Popper';
-import { useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/styles'
 import { useHistory } from 'react-router';
 
@@ -35,10 +34,9 @@ const useStyles = makeStyles({
 })
 
 
-function Orders() {
+function Orders({username}) {
     const classes = useStyles();
     const history = useHistory(); 
-    const username = useSelector(state => state.username);
     const [customerId, setCustomerId] = useState(0);
     const [orderId, setOrderId] = useState(0);
     const [isPopperOpen, setIsPopperOpen] = useState(false);
@@ -56,18 +54,13 @@ function Orders() {
             }
         ]
     )
-    const token = useSelector(state => state.token);
     
     const fetchOrders = () =>{
       fetch('api/GetCustomerIdByUsername/'+username)
       .then(response => response.text())
       .then(id => {
           setCustomerId(parseInt(id));
-          fetch('api/GetOrdersByCustomerId/'+id, {
-            headers: {
-              "Authorization": "bearer "+token
-            }
-          })
+          fetch('api/GetOrdersByCustomerId/'+id)
           .then(response => response.json())
           .then(data => {
               console.log(data);
@@ -121,10 +114,7 @@ function Orders() {
 
     const closeOrder = (e) => {
       fetch('api/ChangeOrderStatus?orderId='+orderId+"&newStatus=Closed",{
-        method: 'POST',
-        headers: {
-          "Authorization": "bearer "+token
-        }
+        method: 'POST'
       })
       .then(resp => {
         console.log(resp);
@@ -145,10 +135,7 @@ function Orders() {
 
     const payOrder = (e) => {
       fetch('api/ChangeOrderStatus?orderId='+orderId+"&newStatus=Paid",{
-        method: 'POST',
-        headers: {
-          "Authorization": "bearer "+token
-        }
+        method: 'POST'
       })
       .then(resp => {
         console.log(resp);
@@ -177,7 +164,7 @@ function Orders() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {orders.map((order) => (
+            {orders && orders.map((order) => (
               <TableRow
                 key={order.orderId}
               >
@@ -185,7 +172,7 @@ function Orders() {
                 <TableCell>{new Date(order.createdDate).toLocaleString()}</TableCell>
                 <TableCell>{new Date(order.modifiedDate).toLocaleString()}</TableCell>
                 <TableCell>{orderStatus[order.status]}</TableCell>
-                <TableCell><Button className="btn-action" value={order.orderId} onClick={showPhones} variant="outlined" color="primary">Show</Button></TableCell>
+                <TableCell><Button className="btn-show" value={order.orderId} onClick={showPhones} variant="outlined" color="primary">Show</Button></TableCell>
                 {orderStatus[order.status] == "Open" ?
                 <TableCell>
                   <Button className="btn-close" aria-describedby="close" value={order.orderId} onClick={(e) => handlePopper("close",e)} variant="outlined" color="secondary">Close</Button>

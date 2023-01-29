@@ -6,7 +6,7 @@
 }
 
 body {
-  background-image: url("./img/backgroundPhone.jpg");
+  background-image: url("/backgroundPhone.jpg");
   background-size: cover; 
   background-position: center;
   min-height: 100vh;
@@ -14,7 +14,7 @@ body {
 
 @media screen and (max-width: 960px) {
   body {
-    background-image: url("./img/backgroundPhoneSmall.jpg");
+    background-image: url("/backgroundPhoneSmall.jpg");
   }
 }
 
@@ -32,7 +32,7 @@ code {
   color: #e01a76;
 }
 
- @media screen and (max-width: 960px) {
+ @media screen and (max-width: 400px) {
   .bottomNavigation {
     display: flex;
     flex-direction: column;

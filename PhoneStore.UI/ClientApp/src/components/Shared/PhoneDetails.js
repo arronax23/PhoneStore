@@ -4,34 +4,27 @@ import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
 import { useParams, useHistory } from 'react-router-dom'
 import useFetchGet from '../../customHooks/useFetchGet'
-import { useSelector } from 'react-redux'
 import { ContactSupportOutlined } from '@material-ui/icons'
 
 const phoneColor = ["White","Black","Red","Blue","Pink"]
 
-function PhoneDetails() {
-    const logging = useSelector(state => state.logging);
-    const isAdmin = logging == "LOGGED_AS_ADMIN" ? true : false;
+function PhoneDetails({ authorizationStatus, username }) {
+    const isAdmin = authorizationStatus == "Admin" ? true : false;
     const [refreshButton, setRefreshButton] = useState(0);
     const [isInShoppingCart,setIsInShoppingCart] = useState(false);
     const [customerId, setCustomerId] = useState(0);
     const history = useHistory();
     const { id } = useParams();
-    const username = useSelector(state => state.username);
     const {data: phone, isPending, error} = useFetchGet("api/GetPhoneById/"+id);
-    const token = useSelector(state => state.token);
     
     useEffect(() => {
+        console.log(username);
         if(!isAdmin){
             fetch('api/GetCustomerIdByUsername/'+username)
             .then(response => response.text())
             .then(customerId => {
                 setCustomerId(customerId);
-                fetch(`api/IsPhoneInShoppingCart/?customerId=${customerId}&phoneId=${id}`, {
-                    headers: {
-                        "Authorization": "bearer "+token
-                      }
-                })
+                fetch(`api/IsPhoneInShoppingCart/?customerId=${customerId}&phoneId=${id}`)
                 .then(resp => resp.json())
                 .then(data => {
                     console.log(data);
@@ -43,10 +36,7 @@ function PhoneDetails() {
     const deleteClick = () => {
         fetch('api/DeletePhoneById/'+id, 
         {
-            method: 'DELETE',
-            headers: {
-                "Authorization": "bearer "+token
-              }
+            method: 'DELETE'
         })
         .then(resp => {
             console.log("resp:"+resp);
@@ -68,8 +58,7 @@ function PhoneDetails() {
         fetch('api/AddPhoneToShoppingCart',{
             method: 'POST',
             headers: {
-                "Content-Type": "application/json",
-                "Authorization": "bearer "+token
+                "Content-Type": "application/json"
             },
             body : JSON.stringify({customerId: parseInt(customerId), phoneId: parseInt(id)})
         })
@@ -87,8 +76,7 @@ function PhoneDetails() {
         fetch('api/RemovePhoneFromShoppingCart',{
             method: 'POST',
             headers: {
-                "Content-Type": "application/json",
-                "Authorization": "bearer "+token
+                "Content-Type": "application/json"
             },
             body : JSON.stringify({customerId: parseInt(customerId), phoneId: parseInt(id)})
         })

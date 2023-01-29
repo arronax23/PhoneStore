@@ -3,40 +3,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
-import {createStore, combineReducers} from 'redux'
-import {Provider} from 'react-redux'
-import loggingReducer from './reducers/loggingReducer'
-import usernameReducer from './reducers/usernameReducer'
-import tokenReducer from './reducers/tokenReducer'
-import { persistStore, persistReducer } from 'redux-persist'
-import storage from 'redux-persist/lib/storage' 
-import { PersistGate } from 'redux-persist/integration/react'
 //import registerServiceWorker from './registerServiceWorker';
-
 
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
 const rootElement = document.getElementById('root');
 
-const rootReducer = combineReducers({ logging: loggingReducer, username: usernameReducer, token: tokenReducer });
-const persistConfig = {
-  key: 'root',
-  storage,
-}
-const persistedReducer = persistReducer(persistConfig, rootReducer);
-let store = createStore(persistedReducer,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
-let persistor = persistStore(store)
-
-// const store = createStore(),window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
-
-
 ReactDOM.render(
-  <Provider store={store}>
-     <PersistGate loading={null} persistor={persistor}>
-      <BrowserRouter basename={baseUrl}>
-        <App />
-      </BrowserRouter>
-    </PersistGate>
-  </Provider>,
+  <BrowserRouter basename={baseUrl}>
+    <App />
+  </BrowserRouter>,
   rootElement);
 
 // Uncomment the line above that imports the registerServiceWorker function

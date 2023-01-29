@@ -1,11 +1,8 @@
 import React from 'react'
 import { Typography } from '@material-ui/core'
 import{ makeStyles } from '@material-ui/styles'
-import { isClassExpression } from 'typescript';
 import Button from '@material-ui/core/Button'
 import { useHistory } from 'react-router';
-import { useDispatch } from 'react-redux';
-import { logout, forgetUsername, resetToken } from './../../actions/index'
 
 const useStyles = makeStyles({
     logoutYes: {
@@ -15,19 +12,20 @@ const useStyles = makeStyles({
         backgroundColor: '#b2102f'
     }
 });
-function Logout() {
+function Logout( {setAuthorizationStatus, setUsername}) {
     const classes = useStyles();
     const history = useHistory();
-    const dispatch = useDispatch()
 
     const noLogout = () => {
         history.push('/');
     }
 
     const yesLogout = () => {
-        dispatch(logout());
-        dispatch(forgetUsername());
-        dispatch(resetToken());
+        fetch('api/Logout', {
+            method: 'POST'
+        });
+        setAuthorizationStatus("Unauthorized");
+        setUsername("");
         history.push('/');
     }
 

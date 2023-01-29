@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import Typography from '@material-ui/core/Typography'
 import{ makeStyles } from '@material-ui/styles'
 import { useParams } from 'react-router'
@@ -10,7 +10,13 @@ const useStyles = makeStyles({
 });
 
 
-function SuccesfullLogin() {
+function SuccesfullLogin({setAuthorizationStatus}) {
+    useEffect(() => {
+        fetch("api/Authorize")
+        .then(response => response.json())
+        .then(data => setAuthorizationStatus(data.role));
+    }, [])
+    
     const classes = useStyles();
     const { user } = useParams();
     return (

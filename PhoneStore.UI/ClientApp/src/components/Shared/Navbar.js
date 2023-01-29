@@ -2,13 +2,10 @@ import React from 'react'
 import BottomNavigation from '@material-ui/core/BottomNavigation'
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction'
 import { useHistory } from 'react-router';
-import { useSelector } from 'react-redux'
 import { useState } from 'react';
 
-function Navbar() {
+function Navbar({ authorizationStatus, username }) {
     const history = useHistory();
-    const logging = useSelector(state => state.logging);
-    const username = useSelector(state => state.username)
     const [currentTab, setcurrentTab] = useState(0)
 
     const homeClicked = () => {
@@ -50,34 +47,34 @@ function Navbar() {
             onChange={(e, newTab)=> {setcurrentTab(newTab)}}
         >
             <BottomNavigationAction label="Home" onClick={homeClicked} />
-            {logging != 'NOT_LOGGED' ?
+            {authorizationStatus != 'Unauthorized' ?
             <BottomNavigationAction label="Phones" onClick={phoneListClicked}/>
             : null}     
-            {logging == 'LOGGED_AS_ADMIN' ?
+            {authorizationStatus == 'Admin' ?
             <BottomNavigationAction label="Add phone" onClick={addPhoneClicked}/>
             : null}    
-            {logging == 'LOGGED_AS_ADMIN' ?
+            {authorizationStatus == 'Admin' ?
             <BottomNavigationAction  label="Swagger" onClick={swagger}/>
             : null}  
-            {logging == 'LOGGED_AS_CUSTOMER' ?
+            {authorizationStatus == 'Customer' ?
             <BottomNavigationAction  label="Orders" onClick={orders}/>
             : null} 
-            {logging == 'NOT_LOGGED' ?
+            {authorizationStatus == 'Unauthorized' ?
             <BottomNavigationAction className="login-register" label="Login" onClick={login}/>
             : null}    
-            {logging == 'NOT_LOGGED' ?
+            {authorizationStatus == 'Unauthorized' ?
             <BottomNavigationAction className="login-register" label="Register" onClick={register}/>
             : null}     
-            {logging == 'LOGGED_AS_ADMIN' ?
+            {authorizationStatus == 'Admin' ?
             <BottomNavigationAction className="role" label="Role: ADMIN"  disabled/>
             : null}    
-            {logging == 'LOGGED_AS_CUSTOMER' ?
+            {authorizationStatus == 'Customer' ?
             <BottomNavigationAction className="role" label="Role: CUSTOMER"  disabled/>
             : null}       
             {username != '' ?
             <BottomNavigationAction className="username" label={`User: ${username}`}  disabled/>
             : null}      
-            {logging != 'NOT_LOGGED' ?
+            {authorizationStatus != 'Unauthorized' ?
             <BottomNavigationAction className="login-register" label="Logout" onClick={logout} />
             : null}                    
         </BottomNavigation>
