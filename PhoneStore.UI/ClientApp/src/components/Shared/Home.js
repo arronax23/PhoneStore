@@ -12,7 +12,9 @@ function Home() {
     const classes = useStyles()
     return (
         <div>
-            <Typography className={classes.root} variant="h6" color="textSecondary">Welcome! This is the PhoneStore application.</Typography>
+            <Typography className={classes.root} variant="h6" color="textSecondary">
+                Welcome! This is the PhoneStore application.
+            </Typography>
         </div>
     )
 }

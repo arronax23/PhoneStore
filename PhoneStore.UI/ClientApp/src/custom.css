@@ -32,6 +32,10 @@ code {
   color: #e01a76;
 }
 
+.bar {
+  display: none !important;
+}
+
  @media screen and (max-width: 400px) {
   .bottomNavigation {
     display: flex;
@@ -43,6 +47,14 @@ code {
     width: 100%;
     max-width: none !important;
     border: 1px solid black;
+  }
+
+  .bar {
+    display: block !important;
+  }
+
+  .hide {
+    display: none !important;
   }
 }
 
