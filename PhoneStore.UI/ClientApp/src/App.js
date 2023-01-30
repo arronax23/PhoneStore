@@ -68,7 +68,7 @@ function App() {
           <Login />
         </Route>
         <Route exact path="/succesfulllogin/:user">
-          <SuccesfullLogin setAuthorizationStatus={setAuthorizationStatus} />
+          <SuccesfullLogin setAuthorizationStatus={setAuthorizationStatus} setUsername={setUsername} />
         </Route>
         <Route exact path="/logout">
           <Logout setAuthorizationStatus={setAuthorizationStatus} setUsername={setUsername} />

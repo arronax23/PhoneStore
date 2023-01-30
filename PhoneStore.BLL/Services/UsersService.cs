@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using PhoneStore.BLL.Interfaces;
@@ -17,87 +21,107 @@ namespace PhoneStore.BLL.Services
 {
     public class UsersService : IUsersService
     {
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly ApplicationDbContext _applicationDbContext;
 
-        public UsersService(
-            UserManager<ApplicationUser> userManager,
-            RoleManager<IdentityRole> roleManager,
-            SignInManager<ApplicationUser> signInManager,
-            ApplicationDbContext applicationDbContext)
+        private readonly ApplicationDbContext _applicationDbContext;
+        private readonly IPasswordHasher<ApplicationUser> _hasher;
+
+        public UsersService(ApplicationDbContext applicationDbContext, IPasswordHasher<ApplicationUser> hasher)
         {
-            _userManager = userManager;
-            _roleManager = roleManager;
-            _signInManager = signInManager;
             _applicationDbContext = applicationDbContext;
+            _hasher = hasher;
         }
 
         public async Task<RegisterUserResponse> RegisterUser(RegisterUserRequest request)
         {
-            var user = new ApplicationUser() { UserName = request.Username };
-            var createUserResult = await _userManager.CreateAsync(user, request.Password);
-
-            IdentityResult addToRoleResult = new IdentityResult();
-            if (createUserResult.Succeeded)
-                addToRoleResult = await _userManager.AddToRoleAsync(user, request.Role);
-
-            
             var response = new RegisterUserResponse();
-            
-            if (createUserResult.Succeeded && addToRoleResult.Succeeded)
+
+            var user = new ApplicationUser()
             {
-                if (request.Role == "Customer")
-                {
-                    _applicationDbContext.Customers.Add(new Customer() { User = user });
-                    _applicationDbContext.SaveChanges();
+                Username = request.Username,
+                Claims = new List<UserClaim>
+                {   
+                    new UserClaim()
+                    {
+                        Type = ClaimTypes.Name,
+                        Value = request.Username
+                    },
+                    new UserClaim()
+                    {
+                        Type = ClaimTypes.Role,
+                        Value = request.Role
+                    }
                 }
-            
+            };
+            user.PasswordHash = _hasher.HashPassword(user, request.Password);
+
+            await _applicationDbContext.ApplicationUsers.AddAsync(user);
+
+            if (request.Role == "Customer")
+            {
+                await _applicationDbContext.Customers.AddAsync(new Customer() { ApplicationUser = user });
+                await _applicationDbContext.SaveChangesAsync();
                 response.IsSuccesfull = true;
+                response.Errors = new List<IdentityError>();
+            }
+            else if (request.Role == "Admin")
+            {
+                await _applicationDbContext.SaveChangesAsync();
+                response.IsSuccesfull = true;
+                response.Errors = new List<IdentityError>();
             }
             else
             {
-                response.Errors = new List<IdentityError>();
                 response.IsSuccesfull = false;
-                response.Errors.AddRange(createUserResult.Errors);
-                if (addToRoleResult.Errors != null)
-                    response.Errors.AddRange(addToRoleResult.Errors);
+                response.Errors = new List<IdentityError>();
             }
+
             return response;
+
         }
 
         public async Task<LoginResponse> Login(LoginRequest request)
         {
             var response = new LoginResponse();
 
-            var user = await _userManager.FindByNameAsync(request.Username);
-            var isPasswordCorrect = await _userManager.CheckPasswordAsync(user, request.Password);
+            var user = await _applicationDbContext
+                .ApplicationUsers
+                .Include(au => au.Claims)
+                .SingleOrDefaultAsync(u => u.Username == request.Username);
 
-            if (isPasswordCorrect)
+
+            var result = _hasher.VerifyHashedPassword(user, user.PasswordHash, request.Password);
+
+            if (user != null && result == PasswordVerificationResult.Success) 
             {
-                await _signInManager.SignInAsync(user, isPersistent: false);
-                var roles = await _userManager.GetRolesAsync(user);
-                var role = roles.First();
-                response.CurrentUserRole = role;
+                var claims = user.Claims.Select(c => new Claim(c.Type, c.Value));
+                var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+                await request.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
                 response.IsSuccesfull = true;
-                return response;
+                response.CurrentUserRole = claims.SingleOrDefault(c => c.Type == ClaimTypes.Role).Value;
             }
-            else 
-                response.IsSuccesfull = false;   
+            else
+            {
+                response.IsSuccesfull = false;
+            }
 
             return response;
         }
 
-        public async Task Logout( )
+        public async Task Logout(LogoutRequest request)
         {
-            await _signInManager.SignOutAsync();
+            await request.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
         }
 
         public async Task<GetCustomerIdByUsernameResponse> GetCustomerIdByUsername(GetCustomerIdByUsernameRequest request)
         {
-            var currentUser = await _userManager.FindByNameAsync(request.Username);
-            var customerId = _applicationDbContext.Customers.SingleOrDefault(c => c.UserId == currentUser.Id).CustomerId;
+
+            var user = await _applicationDbContext
+                .ApplicationUsers
+                .Include(a => a.Customer)
+                .SingleOrDefaultAsync(u => u.Username == request.Username);
+
+            var customerId = user.Customer.CustomerId;
 
             var response = new GetCustomerIdByUsernameResponse() { CustomerId = customerId };
             return response;

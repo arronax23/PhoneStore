@@ -11,12 +11,14 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace PhoneStore.DAL.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : DbContext
     {
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
         }
 
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<UserClaim> UserClaims { get; set; }
         public DbSet<Phone> Phones { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Order> Orders { get; set; }

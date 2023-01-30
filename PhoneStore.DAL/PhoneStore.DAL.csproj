@@ -5,6 +5,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20230130160123_Username_Required.cs" />
+    <Compile Remove="Migrations\20230130160123_Username_Required.Designer.cs" />
+    <Compile Remove="Migrations\20230130160223_Username_Required_And_PasswordHash_Introduced.cs" />
+    <Compile Remove="Migrations\20230130160223_Username_Required_And_PasswordHash_Introduced.Designer.cs" />
+    <Compile Remove="Migrations\20230130160351_Username_Required_And_PasswordHash_Introduced.cs" />
+    <Compile Remove="Migrations\20230130160351_Username_Required_And_PasswordHash_Introduced.Designer.cs" />
+    <Compile Remove="Migrations\20230130160424_Username_Required_And_PasswordHash_Introduced.cs" />
+    <Compile Remove="Migrations\20230130160424_Username_Required_And_PasswordHash_Introduced.Designer.cs" />
+    <Compile Remove="Migrations\20230130160702_Username_nvarchar_256_And_PasswordHash_Introduced.cs" />
+    <Compile Remove="Migrations\20230130160702_Username_nvarchar_256_And_PasswordHash_Introduced.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" Version="3.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.0.0">

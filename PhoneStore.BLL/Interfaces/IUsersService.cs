@@ -7,7 +7,7 @@ namespace PhoneStore.BLL.Interfaces
     {
         Task<RegisterUserResponse> RegisterUser(RegisterUserRequest request);
         Task<LoginResponse> Login(LoginRequest request);
-        Task Logout();
+        Task Logout(LogoutRequest request);
         Task<GetCustomerIdByUsernameResponse> GetCustomerIdByUsername(GetCustomerIdByUsernameRequest request);
     }
 }

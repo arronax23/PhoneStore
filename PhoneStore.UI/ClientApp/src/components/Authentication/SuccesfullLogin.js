@@ -10,11 +10,14 @@ const useStyles = makeStyles({
 });
 
 
-function SuccesfullLogin({setAuthorizationStatus}) {
+function SuccesfullLogin({ setAuthorizationStatus, setUsername }) {
     useEffect(() => {
         fetch("api/Authorize")
         .then(response => response.json())
-        .then(data => setAuthorizationStatus(data.role));
+        .then(data => {
+            setAuthorizationStatus(data.role);
+            setUsername(user);
+        });
     }, [])
     
     const classes = useStyles();

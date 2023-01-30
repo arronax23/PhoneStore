@@ -141,3 +141,6 @@ System.NullReferenceException: Object reference not set to an instance of an obj
    at Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.DatabaseErrorPageMiddleware.Invoke(HttpContext httpContext)
    at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
 2023-01-29 22:00:28.678 +01:00 [INF] Stopped cleanly
+2023-01-29 22:09:33.070 +01:00 [INF] Starting up!
+2023-01-29 22:09:54.345 +01:00 [ERR] Browserslist: caniuse-lite is outdated. Please run next command `npm update`
+

@@ -58,7 +58,8 @@ namespace PhoneStore.UI.Controllers
             var response = await _usersService.Login(new LoginRequest()
             {
                 Username = userVM.Username,
-                Password = userVM.Password
+                Password = userVM.Password,
+                HttpContext = HttpContext
             });
 
             if (response.IsSuccesfull)
@@ -78,7 +79,10 @@ namespace PhoneStore.UI.Controllers
         [Route("api/Logout")]
         public async Task<IActionResult> Logout()
         {
-            await _usersService.Logout();
+            await _usersService.Logout(new LogoutRequest() 
+            { 
+                HttpContext = HttpContext
+            });
             return Ok();
         }
 

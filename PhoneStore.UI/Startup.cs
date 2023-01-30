@@ -44,24 +44,6 @@ namespace PhoneStore.UI
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddDefaultIdentity<ApplicationUser>()
-                .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
-
-            services.ConfigureApplicationCookie(options =>
-            {
-                options.Events.OnRedirectToLogin = opt =>
-                {
-                    opt.Response.StatusCode = StatusCodes.Status401Unauthorized;
-                    return Task.CompletedTask;
-                };
-                options.Events.OnRedirectToAccessDenied = opt =>
-                {
-                    opt.Response.StatusCode = StatusCodes.Status401Unauthorized;
-                    return Task.CompletedTask;
-                };
-            });
-
             //services.ConfigureApplicationCookie(options =>
             //{
             //    options.Cookie.Name = "PhoneStore.Identity.Cookie";
@@ -95,11 +77,20 @@ namespace PhoneStore.UI
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-            //services.AddAuthentication("some")
-            //    .AddCookie("some",config => {
-            //        config.AccessDeniedPath = "/login";
-            //    });
-
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
+                {
+                    options.Events.OnRedirectToLogin = opt =>
+                    {
+                        opt.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                        return Task.CompletedTask;
+                    };
+                    options.Events.OnRedirectToAccessDenied = opt =>
+                    {
+                        opt.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                        return Task.CompletedTask;
+                    };
+                });
 
 
             //.AddCookie("PhoneShopCookie", config => 
@@ -175,6 +166,7 @@ namespace PhoneStore.UI
             services.AddScoped<IPhonesService, PhonesService>();
             services.AddScoped<IUsersService, UsersService>();
             services.AddScoped<IOrdersService, OrdersService>();
+            services.AddSingleton<IPasswordHasher<ApplicationUser>, PasswordHasher<ApplicationUser>>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
