@@ -2,7 +2,7 @@ import React , { useEffect, useState } from "react";
 import Navbar from "./components/Shared/Navbar";
 import Address from "./components/Shared/Address";
 import "./custom.css";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import PhoneList from "./components/Shared/PhoneList";
 import Home from "./components/Shared/Home";
 import PhoneDetails from "./components/Shared/PhoneDetails";
@@ -15,7 +15,9 @@ import Logout from "./components/Authentication/Logout";
 import UpdatePhone from "./components/Admin/UpdatePhone";
 import Orders from "./components/Customer/Orders";
 import PhonesInOrder from "./components/Customer/PhonesInOrder";
-import Unauthorized from "./components/Shared/Unauthorized";
+import WrongRole from "./components/Authorization/WrongRole";
+import UnprotectedRoute from "./components/Authorization/UnprotectedRoute";
+import ProtectedRoute from "./components/Authorization/ProtectedRoute";
 
 function App() {
   const [authorizationStatus, setAuthorizationStatus] = useState("Unauthorized");
@@ -34,45 +36,68 @@ function App() {
     <div className="main">
       <Navbar authorizationStatus={authorizationStatus} username={username} />
       <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
-        <Route exact path="/phonelist">
-          <PhoneList />
-        </Route>
-        <Route exact path="/phonedetails/:id">
-          <PhoneDetails authorizationStatus={authorizationStatus} username={username} />
-        </Route>
-        <Route exact path="/addphone">
-          <AddPhone />
-        </Route>
-        <Route exact path="/orders">
-          <Orders username={username} />
-        </Route>
-        <Route exact path="/phonesInOrder/:id">
-          <PhonesInOrder />
-        </Route>
-        <Route exact path="/updatephone/:id">
-          <UpdatePhone />
-        </Route>
-        <Route exact path="/unauthorized">
-          <Unauthorized />
-        </Route>
-        <Route exact path="/register">
-          <Register />
-        </Route>
-        <Route exact path="/succesfullregistration/:user">
-          <SuccesfullRegistration />
-        </Route>
-        <Route exact path="/login">
-          <Login />
-        </Route>
-        <Route exact path="/succesfulllogin/:user">
-          <SuccesfullLogin setAuthorizationStatus={setAuthorizationStatus} setUsername={setUsername} />
-        </Route>
-        <Route exact path="/logout">
-          <Logout setAuthorizationStatus={setAuthorizationStatus} setUsername={setUsername} />
-        </Route>
+        <ProtectedRoute 
+          path="/phonelist"
+          authorizationStatus={authorizationStatus} 
+          allowAdmin={true} 
+          allowCustomer={true}
+          renderComponent={()=> <PhoneList />} 
+        />
+        <ProtectedRoute 
+          path="/phonedetails/:id"
+          authorizationStatus={authorizationStatus} 
+          allowAdmin={true} 
+          allowCustomer={true}
+          renderComponent={()=> <PhoneDetails authorizationStatus={authorizationStatus} username={username} />} 
+        />
+        <ProtectedRoute 
+          path="/addphone" 
+          authorizationStatus={authorizationStatus} 
+          allowAdmin={true} 
+          renderComponent={()=> <AddPhone />} 
+        />  
+        <ProtectedRoute 
+          path="/orders"
+          authorizationStatus={authorizationStatus}
+          allowCustomer={true} 
+          renderComponent={()=> <Orders username={username} />} 
+        />
+        <ProtectedRoute 
+          path="/phonesInOrder/:id"
+          authorizationStatus={authorizationStatus}
+          allowCustomer={true} 
+          renderComponent={()=> <PhonesInOrder />} 
+        />
+        <ProtectedRoute 
+          path="/updatephone/:id"
+          authorizationStatus={authorizationStatus}
+          allowAdmin={true} 
+          renderComponent={()=> <UpdatePhone />} 
+        />
+        <UnprotectedRoute 
+          path="/register"
+          renderComponent={() => <Register />}
+        />
+        <UnprotectedRoute 
+          path="/succesfullregistration/:user"
+          renderComponent={() => <SuccesfullRegistration />}
+        />
+        <UnprotectedRoute 
+          path="/login"
+          renderComponent={()=> <Login />}
+        />
+        <UnprotectedRoute 
+          path="/succesfulllogin/:user"
+          renderComponent={() => <SuccesfullLogin setAuthorizationStatus={setAuthorizationStatus} setUsername={setUsername} />}
+        />
+        <UnprotectedRoute 
+          path="/logout"
+          renderComponent={() => <Logout setAuthorizationStatus={setAuthorizationStatus} setUsername={setUsername} />}
+        />
+        <UnprotectedRoute 
+          path="/"
+          renderComponent={() => <Home />}
+        />
       </Switch>
       <Address />
     </div>
