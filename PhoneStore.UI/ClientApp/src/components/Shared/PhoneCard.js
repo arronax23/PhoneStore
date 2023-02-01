@@ -14,17 +14,15 @@ function PhoneCard({ phone }) {
         history.push('/phonedetails/'+ phone.phoneId)
     }
     return (
-        <Grid item xs={12} sm={4} md={2} className="phone-card">
-            <Card >
-                <CardContent>
-                    <Typography color="textSecondary">
-                        {phone.brand} {phone.model}
-                    </Typography>
-                    <img className="phone-card-img" src={phone.imageUrl} />
-                </CardContent>
+        <Card className="phone-card" >
+            <CardContent className="phone-card-content">
+                <Typography color="textSecondary">
+                    {phone.brand} {phone.model}
+                </Typography>
+                <img className="phone-card-img" src={phone.imageUrl} />
                 <Button onClick={handleClick} color="primary">Show details</Button>
-            </Card>
-        </Grid>
+            </CardContent>
+        </Card>
     )
 }
 

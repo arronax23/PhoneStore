@@ -53,13 +53,7 @@ function PhoneList() {
             <div className={classes.searchBar}>
             {phones && <TextField label="Search phones" variant="outlined" onChange={searchForPhones} />}
             </div>
-            <Grid 
-                container
-                direction="row"
-                justifyContent="center"
-                wrap="wrap"
-                className="phone-grid"
-            >
+            <div className="phone-grid">
                 {isPending && <div>Loading...</div>}
                 {error && httpResposne && (<div>Error: {error} Http Status: {httpResposne}</div>)}
 
@@ -67,7 +61,7 @@ function PhoneList() {
                 phones.map(phone => <PhoneCard key={phone.phoneId} phone={phone} />)}
                 {searchPhones &&
                 searchPhones.map(phone => <PhoneCard key={phone.phoneId} phone={phone} />)}
-            </Grid>
+            </div>
             <div className="pagination-container">
                 {isPendingPagination && <div>Loading...</div>}
                 {pageCount && <Pagination onChange={pageChange} className={classes.pagination} count={pageCount} color="primary" />}
