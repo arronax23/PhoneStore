@@ -58,6 +58,7 @@ function PhoneList() {
                 direction="row"
                 justifyContent="center"
                 wrap="wrap"
+                spacing={1}
                 className="phone-grid"
             >
                 {isPending && <div>Loading...</div>}

@@ -79,15 +79,36 @@ code {
 } */
 
 .phone-card-img {
+  height: 65%;
+}
 
-  width: 68%;
-  height: 68%;
+.phone-grid-item {
+  height: 300px;
+}
+
+.phone-card {
+  height: 100%;
+}
+
+.phone-card-content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+@media screen and (min-width: 600px) {
+  .phone-grid-item {
+    height: 200px;
+  }
 }
 
 @media screen and (min-width: 960px) {
-  .phone-card-img {
-    max-height: 140px;
-  }
+  .phone-grid-item {
+    height: 195px;
+  }  
 }
 
 .MuiCardActions-root {
@@ -216,7 +237,7 @@ address {
 }
 
 .phone-grid {
-  margin-top: 5px;
+  margin-top: 5px !important;
 }
 
 @media screen and (min-width: 960px) {
