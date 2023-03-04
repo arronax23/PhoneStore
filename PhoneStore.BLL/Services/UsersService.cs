@@ -88,10 +88,15 @@ namespace PhoneStore.BLL.Services
                 .Include(au => au.Claims)
                 .SingleOrDefaultAsync(u => u.Username == request.Username);
 
+            if (user == null)
+            {
+                response.IsSuccesfull = false;
+                return response;
+            }
 
             var result = _hasher.VerifyHashedPassword(user, user.PasswordHash, request.Password);
 
-            if (user != null && result == PasswordVerificationResult.Success) 
+            if (result == PasswordVerificationResult.Success) 
             {
                 var claims = user.Claims.Select(c => new Claim(c.Type, c.Value));
                 var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
