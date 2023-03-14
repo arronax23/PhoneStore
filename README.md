@@ -4,6 +4,7 @@
 
 - [General info](#general-info)
 - [Technologies](#technologies)
+- [Database Diagram](#er-diagram)
 - [Screenshots](#screenshots)
 
 ## General info
@@ -20,6 +21,10 @@ Phone Store e-commerce application.
 - Automapper
 - Swagger
 - Serilog
+
+## Database Diagram
+
+![ER Diagram](./ER_Diagram.png)
 
 ## Screenshots
 
