@@ -24,11 +24,11 @@ Phone Store e-commerce application.
 
 ## Database Diagram
 
-![ER Diagram](./ER_Diagram.png)
+![ER Diagram](./img-README/ER_Diagram.png)
 
 ## Screenshots
 
-![Phone List Screenshot](./PhoneList.png)
-![Phone List Screenshot](./PhoneCustomer.png)
-![Phone List Screenshot](./Swagger.png)
-![Phone List Screenshot](./Order.png)
+![Phone List Screenshot](./img-README/PhoneList.png)
+![Phone List Screenshot](./img-README/PhoneCustomer.png)
+![Phone List Screenshot](./img-README/Swagger.png)
+![Phone List Screenshot](./img-README/Order.png)
