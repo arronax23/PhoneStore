@@ -4,7 +4,7 @@
 
 - [General info](#general-info)
 - [Technologies](#technologies)
-- [Database Diagram](#er-diagram)
+- [Database Diagram](#database-diagram)
 - [Screenshots](#screenshots)
 
 ## General info
