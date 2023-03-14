@@ -20,7 +20,7 @@ function Navbar({ authorizationStatus, username }) {
 
     const onBarClick = () => {
         document.querySelectorAll(".btn-nav").forEach((btn)=>{
-            btn.classList.toggle("hide");
+            btn.classList.toggle("mobile-hide");
         })
     }
 
@@ -59,36 +59,36 @@ function Navbar({ authorizationStatus, username }) {
             onChange={(e, newTab)=> {setcurrentTab(newTab)}}
         >
             <BottomNavigationAction className="bar" ref={bar} onClick={onBarClick} />
-            <BottomNavigationAction className="btn-nav" label="Home" onClick={homeClicked} />
+            <BottomNavigationAction className="btn-nav mobile-hide" label="Home" onClick={homeClicked} />
             {authorizationStatus != 'Unauthorized' ?
-            <BottomNavigationAction className="btn-nav" label="Phones" onClick={phoneListClicked}/>
+            <BottomNavigationAction className="btn-nav mobile-hide" label="Phones" onClick={phoneListClicked}/>
             : null}     
             {authorizationStatus == 'Admin' ?
-            <BottomNavigationAction className="btn-nav" label="Add phone" onClick={addPhoneClicked}/>
+            <BottomNavigationAction className="btn-nav mobile-hide" label="Add phone" onClick={addPhoneClicked}/>
             : null}    
             {authorizationStatus == 'Admin' ?
-            <BottomNavigationAction className="btn-nav" label="Swagger" onClick={swagger}/>
+            <BottomNavigationAction className="btn-nav mobile-hide" label="Swagger" onClick={swagger}/>
             : null}  
             {authorizationStatus == 'Customer' ?
-            <BottomNavigationAction className="btn-nav" label="Orders" onClick={orders}/>
+            <BottomNavigationAction className="btn-nav mobile-hide" label="Orders" onClick={orders}/>
             : null} 
             {authorizationStatus == 'Unauthorized' ?
-            <BottomNavigationAction className="login-register btn-nav" label="Login" onClick={login}/>
+            <BottomNavigationAction className="login-register btn-nav mobile-hide" label="Login" onClick={login}/>
             : null}    
             {authorizationStatus == 'Unauthorized' ?
-            <BottomNavigationAction className="login-register btn-nav" label="Register" onClick={register}/>
+            <BottomNavigationAction className="login-register btn-nav mobile-hide" label="Register" onClick={register}/>
             : null}     
             {authorizationStatus == 'Admin' ?
-            <BottomNavigationAction className="role btn-nav" label="Role: ADMIN"  disabled/>
+            <BottomNavigationAction className="role btn-nav mobile-hide" label="Role: ADMIN"  disabled/>
             : null}    
             {authorizationStatus == 'Customer' ?
-            <BottomNavigationAction className="role btn-nav" label="Role: CUSTOMER"  disabled/>
+            <BottomNavigationAction className="role btn-nav mobile-hide" label="Role: CUSTOMER"  disabled/>
             : null}       
             {username != '' ?
-            <BottomNavigationAction className="username btn-nav" label={`User: ${username}`}  disabled/>
+            <BottomNavigationAction className="username btn-nav mobile-hide" label={`User: ${username}`}  disabled/>
             : null}      
             {authorizationStatus != 'Unauthorized' ?
-            <BottomNavigationAction className="login-register btn-nav" label="Logout" onClick={logout} />
+            <BottomNavigationAction className="login-register btn-nav mobile-hide" label="Logout" onClick={logout} />
             : null}                    
         </BottomNavigation>
         </nav>

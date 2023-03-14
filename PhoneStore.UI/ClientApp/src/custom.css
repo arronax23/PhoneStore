@@ -36,7 +36,7 @@ code {
   display: none !important;
 }
 
- @media screen and (max-width: 400px) {
+@media screen and (max-width: 600px) {
   .bottomNavigation {
     display: flex;
     flex-direction: column;
@@ -53,7 +53,7 @@ code {
     display: block !important;
   }
 
-  .hide {
+  .mobile-hide {
     display: none !important;
   }
 }
@@ -238,6 +238,12 @@ address {
 
 .phone-grid {
   margin-top: 5px !important;
+}
+
+@media screen and (max-width: 600px) {
+  .phone-grid-item {
+    margin: 0 1rem !important;
+  }
 }
 
 @media screen and (min-width: 960px) {
