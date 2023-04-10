@@ -17,5 +17,6 @@ namespace PhoneStore.BLL.Interfaces
         Task<bool> RemovePhoneFromShoppingCart(RemovePhoneFromShoppingCartRequest request);
         SearchPhonesResponse SearchPhones(SearchPhonesRequest request);
         Task<bool> UpdatePhone(UpdatePhoneRequest request);
+        bool RemoveCustomer(RemoveCustomerRequest request);
     }
 }

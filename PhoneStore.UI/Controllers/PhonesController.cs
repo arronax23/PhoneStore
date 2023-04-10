@@ -173,5 +173,18 @@ namespace PhoneStore.UI.Controllers
 
             return phonesInOrderVM;
         }
+
+
+        [HttpDelete]
+        [Route("api/DeleteCustomerById/{id}")]
+        public IActionResult DeleteCustomerById(int id)
+        {
+            var isDeleted =  _phonesService.RemoveCustomer(new RemoveCustomerRequest() { CustomerId = id });
+
+            if (isDeleted == false)
+                return BadRequest(new { Error = "No phone was deleted" });
+
+            return Ok();
+        }
     }
 }

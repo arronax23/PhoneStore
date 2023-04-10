@@ -237,5 +237,14 @@ namespace PhoneStore.BLL.Services
 
         }
 
+        public bool RemoveCustomer(RemoveCustomerRequest request)
+        {
+            var customer = _applicationDbContext.Customers.Single(c => c.CustomerId == request.CustomerId);
+            _applicationDbContext.Customers.Remove(customer);
+            var isDeleted = _applicationDbContext.SaveChanges() > 0;
+
+            return isDeleted;
+
+        }
     }
 }
