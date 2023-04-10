@@ -2,7 +2,7 @@
 
 ## Table of contents
 
-- [Website URL](#website)
+- [Website URL](#website-url)
 - [General info](#general-info)
 - [Technologies](#technologies)
 - [Database Diagram](#database-diagram)
