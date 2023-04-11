@@ -10,7 +10,7 @@
 
 ## Website URL
 
-https://phonestore.arronax23.hostingasp.pl/
+https://phonestore.arronax23.hostingasp.pl
 
 ## General info
 
