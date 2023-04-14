@@ -65,14 +65,16 @@ namespace PhoneStore.UI
            {
                var security = new OpenApiSecurityRequirement()
                {
-                   {new OpenApiSecurityScheme(){
-                       Reference = new OpenApiReference()
-                       {
-                        Id = "Bearer",
-                        Type = ReferenceType.SecurityScheme
-                       }
-                    }
-                   , new List<string>()}
+                   {
+                       new OpenApiSecurityScheme(){
+                           Reference = new OpenApiReference()
+                           {
+                                Id = "Bearer",
+                                Type = ReferenceType.SecurityScheme
+                           }
+                       },
+                       new List<string>()
+                   }
                };
 
                config.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
