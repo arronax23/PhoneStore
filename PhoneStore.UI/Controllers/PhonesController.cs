@@ -103,7 +103,7 @@ namespace PhoneStore.UI.Controllers
             if (isDeleted == false)
                 return BadRequest(new { Error = "No phone was deleted" });
 
-            return Ok();
+            return NoContent();
         }
 
         [HttpPut]
@@ -117,7 +117,7 @@ namespace PhoneStore.UI.Controllers
             if (isUpdated == false)
                 return BadRequest(new { Error = "No phone was updated" });
 
-            return Ok();
+            return NoContent();
         }
 
         [HttpPost]
@@ -134,7 +134,7 @@ namespace PhoneStore.UI.Controllers
             if (isAdded == false)
                 return BadRequest(new { Error = "No phone was added to shopping cart" });
 
-            return Ok();
+            return NoContent();
         }
 
         [HttpGet]
@@ -160,7 +160,7 @@ namespace PhoneStore.UI.Controllers
             if (isDeleted == false)
                 return BadRequest(new { Error = "No phone was removed from shopping cart" });
 
-            return Ok();
+            return NoContent();
         }
 
         [HttpGet]
@@ -184,7 +184,7 @@ namespace PhoneStore.UI.Controllers
             if (isDeleted == false)
                 return BadRequest(new { Error = "No phone was deleted" });
 
-            return Ok();
+            return NoContent();
         }
     }
 }

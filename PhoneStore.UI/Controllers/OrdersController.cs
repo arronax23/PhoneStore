@@ -43,7 +43,7 @@ namespace PhoneStore.UI.Controllers
             if (isChanged == false)
                 return BadRequest(new {Error = "Status didn't change" });
 
-            return Ok();
+            return NoContent();
         }
     }
 }

@@ -40,7 +40,7 @@ namespace PhoneStore.UI.Controllers
             });
 
             if (response.IsSuccesfull == true)
-                return Ok();
+                return NoContent();
             else
             {
                 StringBuilder errorVM = new StringBuilder();
@@ -83,7 +83,7 @@ namespace PhoneStore.UI.Controllers
             { 
                 HttpContext = HttpContext
             });
-            return Ok();
+            return NoContent();
         }
 
 
