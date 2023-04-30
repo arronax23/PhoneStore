@@ -131,7 +131,7 @@ namespace PhoneStore.BLL.Services
 
             var currentOrder = await _applicationDbContext.Orders
                 .Include(o => o.PhoneOrder)
-                .SingleOrDefaultAsync(o => o.Status == OrderStatus.Open && o.CustomerId == request.CustomerId);
+                .SingleOrDefaultAsync(o => o.OrderStatusId == OrderStatusId.Open && o.CustomerId == request.CustomerId);
 
             if (currentOrder == null)
             {
@@ -147,7 +147,7 @@ namespace PhoneStore.BLL.Services
                 var orderStatusWorkflow = new OrderStatusWorkflow()
                 {
                     Order = currentOrder,
-                    Status = OrderStatus.Open,
+                    OrderStatusId = OrderStatusId.Open,
                     WorkflowDate = DateTime.Now
                 };
 
@@ -170,7 +170,7 @@ namespace PhoneStore.BLL.Services
 
             var currentOrder = await _applicationDbContext.Orders
                 .Include(o => o.PhoneOrder)
-                .SingleOrDefaultAsync(o => o.Status == OrderStatus.Open && o.CustomerId == request.CustomerId);
+                .SingleOrDefaultAsync(o => o.OrderStatusId == OrderStatusId.Open && o.CustomerId == request.CustomerId);
 
             if (currentOrder == null)
             {
@@ -194,7 +194,7 @@ namespace PhoneStore.BLL.Services
         {
             var currentOrder = await _applicationDbContext.Orders
             .Include(o => o.PhoneOrder)
-            .SingleOrDefaultAsync(o => o.Status == OrderStatus.Open && o.CustomerId == request.CustomerId);
+            .SingleOrDefaultAsync(o => o.OrderStatusId == OrderStatusId.Open && o.CustomerId == request.CustomerId);
 
             if (currentOrder == null)
                 throw new Exception("No order was found");

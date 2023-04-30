@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PhoneStore.DAL.Data;
 
 namespace PhoneStore.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230418222838_Created_Order_Status_Lookup_Table")]
+    partial class Created_Order_Status_Lookup_Table
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -93,7 +95,7 @@ namespace PhoneStore.DAL.Migrations
 
                     b.HasKey("OrderStatusId");
 
-                    b.ToTable("OrderStatusLookup");
+                    b.ToTable("OrderStatusesLookup");
 
                     b.HasData(
                         new

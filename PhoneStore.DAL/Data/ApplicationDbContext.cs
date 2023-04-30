@@ -24,5 +24,40 @@ namespace PhoneStore.DAL.Data
         public DbSet<Order> Orders { get; set; }
         public DbSet<PhoneOrder> PhoneOrders { get; set; }
         public DbSet<OrderStatusWorkflow> OrderStatusWorkflows { get; set; }
+        public DbSet<OrderStatus> OrderStatusLookup{ get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+
+            //modelBuilder
+            //    .Entity<OrderStatusWorkflow>()
+            //    .HasOne<OrderStatus>()
+            //    .WithMany();
+
+
+            //modelBuilder
+            //    .Entity<Order>()
+            //    .HasOne<OrderStatus>()
+            //    .WithMany();
+
+            //modelBuilder
+            //    .Entity<OrderStatus>()
+            //    .HasMany<OrderStatusWorkflow>()
+            //    .WithOne()
+            //    .OnDelete(DeleteBehavior.Restrict);
+
+
+            modelBuilder.Entity<OrderStatus>()
+                .HasData(
+                    Enum.GetValues(typeof(OrderStatusId))
+                    .Cast<OrderStatusId>()
+                    .Select(os => new OrderStatus()
+                    {
+                        OrderStatusId = os,
+                        Status = os.ToString()
+                    })
+            );
+
+        }
     }
 }

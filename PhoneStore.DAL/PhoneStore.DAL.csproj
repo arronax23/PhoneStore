@@ -15,6 +15,14 @@
     <Compile Remove="Migrations\20230130160424_Username_Required_And_PasswordHash_Introduced.Designer.cs" />
     <Compile Remove="Migrations\20230130160702_Username_nvarchar_256_And_PasswordHash_Introduced.cs" />
     <Compile Remove="Migrations\20230130160702_Username_nvarchar_256_And_PasswordHash_Introduced.Designer.cs" />
+    <Compile Remove="Migrations\20230418213257_Created_Order_Status_Lookup_Table.cs" />
+    <Compile Remove="Migrations\20230418213257_Created_Order_Status_Lookup_Table.Designer.cs" />
+    <Compile Remove="Migrations\20230418215238_Created_Order_Status_Lookup_Table.cs" />
+    <Compile Remove="Migrations\20230418215238_Created_Order_Status_Lookup_Table.Designer.cs" />
+    <Compile Remove="Migrations\20230418222503_Created_Order_Status_Lookup_Table.cs" />
+    <Compile Remove="Migrations\20230418222503_Created_Order_Status_Lookup_Table.Designer.cs" />
+    <Compile Remove="Migrations\20230418222619_Created_Order_Status_Lookup_Table.cs" />
+    <Compile Remove="Migrations\20230418222619_Created_Order_Status_Lookup_Table.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

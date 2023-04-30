@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PhoneStore.BLL", "PhoneStor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PhoneStore.DAL", "PhoneStore.DAL\PhoneStore.DAL.csproj", "{0790AC56-A39C-400A-9489-766D5F553F26}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhoneStore.UnitTests", "PhoneStore.UnitTests\PhoneStore.UnitTests.csproj", "{4CA138D8-4E2C-4F6C-8916-B785DDEFE501}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{0790AC56-A39C-400A-9489-766D5F553F26}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0790AC56-A39C-400A-9489-766D5F553F26}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0790AC56-A39C-400A-9489-766D5F553F26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CA138D8-4E2C-4F6C-8916-B785DDEFE501}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CA138D8-4E2C-4F6C-8916-B785DDEFE501}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CA138D8-4E2C-4F6C-8916-B785DDEFE501}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CA138D8-4E2C-4F6C-8916-B785DDEFE501}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

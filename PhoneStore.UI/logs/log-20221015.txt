@@ -1,8 +1,0 @@
-2022-10-15 13:07:30.882 +02:00 [INF] Starting up!
-2022-10-15 13:07:51.084 +02:00 [ERR] Browserslist: caniuse-lite is outdated. Please run next command `npm update`
-
-2022-10-15 13:08:55.843 +02:00 [INF] Succesufully logged in user: Arronax23
-2022-10-15 13:09:21.915 +02:00 [INF] Failed to log in user: Arronax24
-2022-10-15 13:09:24.422 +02:00 [INF] Failed to log in user: Arronax22
-2022-10-15 13:09:27.045 +02:00 [INF] Succesufully logged in user: Customer
-2022-10-15 13:10:39.883 +02:00 [INF] Succesufully logged in user: Arronax23

@@ -37,32 +37,32 @@ namespace PhoneStore.BLL.Services
             if (order == null)
                 throw new Exception("No order was found.");
 
-            var newStatus = OrderStatus.Open;
+            var newStatus = OrderStatusId.Open;
 
             switch (request.NewStatus)
             {
                 case "Open":
-                    newStatus = OrderStatus.Open;
+                    newStatus = OrderStatusId.Open;
                     break;
                 case "Closed":
-                    newStatus = OrderStatus.Closed;
+                    newStatus = OrderStatusId.Closed;
                     break;
                 case "Paid":
-                    newStatus = OrderStatus.Paid;
+                    newStatus = OrderStatusId.Paid;
                     break;
                 case "Delivered":
-                    newStatus = OrderStatus.Delivered;
+                    newStatus = OrderStatusId.Delivered;
                     break;
                 default:
-                    newStatus = OrderStatus.Open;
+                    newStatus = OrderStatusId.Open;
                     break;
             }
 
-            order.Status = newStatus;
+            order.OrderStatusId = newStatus;
             order.ModifiedDate = DateTime.Now;
             order.OrderStatusWorkflow.Add(new OrderStatusWorkflow()
             {
-                Status = newStatus,
+                OrderStatusId = newStatus,
                 WorkflowDate = DateTime.Now
             });
 
