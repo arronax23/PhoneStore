@@ -171,9 +171,9 @@ function Orders({username}) {
                 <TableCell component="th" scope="row">{order.orderId}</TableCell>
                 <TableCell>{new Date(order.createdDate).toLocaleString()}</TableCell>
                 <TableCell>{new Date(order.modifiedDate).toLocaleString()}</TableCell>
-                <TableCell>{orderStatus[order.status]}</TableCell>
+                <TableCell>{orderStatus[order.orderStatusId]}</TableCell>
                 <TableCell><Button className="btn-show" value={order.orderId} onClick={showPhones} variant="outlined" color="primary">Show</Button></TableCell>
-                {orderStatus[order.status] == "Open" ?
+                {orderStatus[order.orderStatusId] == "Open" ?
                 <TableCell>
                   <Button className="btn-close" aria-describedby="close" value={order.orderId} onClick={(e) => handlePopper("close",e)} variant="outlined" color="secondary">Close</Button>
                   <Popper  id="close" open={isPopperOpen} anchorEl={anchorEl} >
@@ -189,7 +189,7 @@ function Orders({username}) {
                   </Popper>
                 </TableCell>
                  :
-                 orderStatus[order.status] == "Closed" ? 
+                 orderStatus[order.orderStatusId] == "Closed" ? 
                  <TableCell>
                    <Button className="btn-pay" value={order.orderId} onClick={(e) => handlePopper("pay",e)} variant="outlined" color="secondary">Pay</Button>
                    <Popper  id="close" open={isPopperOpenPay} anchorEl={anchorElPay} >
@@ -205,7 +205,7 @@ function Orders({username}) {
                   </Popper>
                  </TableCell>
                 :
-                orderStatus[order.status] == "Paid" ? 
+                orderStatus[order.orderStatusId] == "Paid" ? 
                 <TableCell>
                   <Button value={order.orderId} variant="outlined" color="secondary" disabled>To be delivered</Button>
                 </TableCell>

@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PhoneStore.BLL.Interfaces;
 using PhoneStore.BLL.Messages;
+using PhoneStore.UI.VIewModels;
 
 namespace PhoneStore.UI.Controllers
 {
@@ -14,10 +16,12 @@ namespace PhoneStore.UI.Controllers
     public class OrdersController : ControllerBase
     {
         private readonly IOrdersService _ordersService;
+        private readonly IMapper _mapper;
 
-        public OrdersController(IOrdersService ordersService)
+        public OrdersController(IOrdersService ordersService, IMapper mapper)
         {
             _ordersService = ordersService;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -25,8 +29,15 @@ namespace PhoneStore.UI.Controllers
         [Authorize(Roles = "Customer")]
         public IActionResult GetOrdersByCustomerId(int id)
         {
-            var resposne = _ordersService.GetOrdersByCustomerId(new GetOrdersByCustomerIdRequest() { CustomerId = id });          
-            return Ok(resposne.Orders);
+            var resposne = _ordersService.GetOrdersByCustomerId(new GetOrdersByCustomerIdRequest() { CustomerId = id });
+            var orders = resposne.Orders;
+
+            if (orders == null)
+                return NotFound();
+
+            var ordersVM = _mapper.Map<IEnumerable<OrderVM>>(orders);
+
+            return Ok(ordersVM);
         }
 
         [HttpPost]

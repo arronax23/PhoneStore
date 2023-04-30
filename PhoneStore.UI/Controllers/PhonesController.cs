@@ -29,45 +29,61 @@ namespace PhoneStore.UI.Controllers
         [HttpGet]
         [Route("api/GetAllPhones")]
         [Authorize(Roles = "Admin,Customer")]
-        public IEnumerable<PhoneVM> GetAllPhones()
+        public IActionResult GetAllPhones()
         {
             var phones = _phonesService.GetAllPhones().Phones;
+
+            if (phones == null)
+                return NotFound();
+
             var phonesVM = _mapper.Map<IEnumerable<PhoneVM>>(phones);
 
-            return phonesVM;
+            return Ok(phonesVM);
         }
 
 
         [HttpGet]
         [Route("api/GetPhonesForOnePage")]
         [Authorize(Roles = "Admin,Customer")]
-        public IEnumerable<PhoneVM> GetPhonesForOnePage(int pageNumber)
+        public IActionResult GetPhonesForOnePage(int pageNumber)
         {
             var phones = _phonesService.GetPhonesForOnePage(new GetPhonesForOnePageRequest() { PageNumber = pageNumber }).Phones;
+
+            if (phones == null)
+                return NotFound();
+
             var phonesVM = _mapper.Map<IEnumerable<PhoneVM>>(phones);
 
-            return phonesVM;
+            return Ok(phonesVM);
         }
 
         [HttpGet]
         [Route("api/SearchPhones")]
         [Authorize(Roles = "Admin,Customer")]
-        public IEnumerable<PhoneVM> SearchPhones(string searchText)
+        public IActionResult SearchPhones(string searchText)
         {
             var phones = _phonesService.SearchPhones(new SearchPhonesRequest() { SearchText = searchText }).Phones;
-            var phonesVM = _mapper.Map<IEnumerable<PhoneVM>>(phones);
 
-            return phonesVM;
+            if (phones == null)
+                return NotFound();
+
+            var phonesVM = _mapper.Map<IEnumerable<PhoneVM>>(phones);
+            return Ok(phonesVM);
         }
 
         [HttpGet]
         [Route("api/GetPhoneById/{id}")]
         [Authorize(Roles = "Admin,Customer")]
-        public PhoneVM GetPhoneById(int id)
+        public IActionResult GetPhoneById(int id)
         {
             var getPhoneByIdRequest = new GetPhoneByIdRequest() { PhoneId = id };
-            var phoneVM = _mapper.Map<PhoneVM>(_phonesService.GetPhoneById(getPhoneByIdRequest).Phone);
-            return phoneVM;
+            var phone = _phonesService.GetPhoneById(getPhoneByIdRequest).Phone;
+            
+            if (phone == null)
+                return NotFound();
+
+            var phoneVM = _mapper.Map<PhoneVM>(phone);
+            return Ok(phoneVM);
         }
 
         [HttpGet]

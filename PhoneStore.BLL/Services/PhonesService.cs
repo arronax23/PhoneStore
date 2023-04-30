@@ -244,7 +244,6 @@ namespace PhoneStore.BLL.Services
             var isDeleted = _applicationDbContext.SaveChanges() > 0;
 
             return isDeleted;
-
         }
     }
 }
