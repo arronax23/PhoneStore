@@ -13,6 +13,7 @@ namespace PhoneStore.UI.AutoMapperProfiles
         public PhoneProfile()
         {
             CreateMap<Phone, PhoneVM>();
+            CreateMap<Phone, OverviewPhoneVM>();
             CreateMap<PhoneVM, Phone>();
             //CreateMap<PhoneInOrderVM, Phone>();
             CreateMap<Phone, PhoneInOrderVM>();

@@ -52,7 +52,7 @@ namespace PhoneStore.UI.Controllers
             if (phones == null)
                 return NotFound();
 
-            var phonesVM = _mapper.Map<IEnumerable<PhoneVM>>(phones);
+            var phonesVM = _mapper.Map<IEnumerable<OverviewPhoneVM>>(phones);
 
             return Ok(phonesVM);
         }

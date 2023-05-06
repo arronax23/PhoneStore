@@ -38,7 +38,8 @@ function PhoneList() {
         console.log(searchText);
         if (searchText === ""){
             setSearchPhones(null);
-        }else {
+        }
+        else {
             fetch('api/SearchPhones?searchText='+searchText)
             .then(response => response.json())
             .then(phones =>  {
@@ -63,11 +64,10 @@ function PhoneList() {
             >
                 {isPending && <div>Loading...</div>}
                 {error && httpResposne && (<div>Error: {error} Http Status: {httpResposne}</div>)}
-
                 {phones && !searchPhones &&
-                phones.map(phone => <PhoneCard key={phone.phoneId} phone={phone} />)}
+                    phones.map(phone => <PhoneCard key={phone.phoneId} phone={phone} />)}
                 {searchPhones &&
-                searchPhones.map(phone => <PhoneCard key={phone.phoneId} phone={phone} />)}
+                    searchPhones.map(phone => <PhoneCard key={phone.phoneId} phone={phone} />)}
             </Grid>
             <div className="pagination-container">
                 {isPendingPagination && <div>Loading...</div>}
