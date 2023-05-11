@@ -1,4 +1,5 @@
 ﻿using PhoneStore.BLL.Messages;
+using System;
 using System.Threading.Tasks;
 
 namespace PhoneStore.BLL.Interfaces
@@ -8,6 +9,7 @@ namespace PhoneStore.BLL.Interfaces
         Task<bool> AddPhoneToShoppingCart(AddPhoneToShoppingCardRequest request);
         Task<bool> CreatePhone(SavePhoneRequest request);
         Task<bool> DeletePhoneById(DeletePhoneByIdRequest request);
+        [Obsolete]
         GetAllPhonesResponse GetAllPhones();
         GetNumberOfPagesInPhoneListResponse GetNumberOfPagesInPhoneList();
         GetPhoneByIdResponse GetPhoneById(GetPhoneByIdRequest request);

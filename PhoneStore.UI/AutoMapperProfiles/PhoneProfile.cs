@@ -15,7 +15,6 @@ namespace PhoneStore.UI.AutoMapperProfiles
             CreateMap<Phone, PhoneVM>();
             CreateMap<Phone, OverviewPhoneVM>();
             CreateMap<PhoneVM, Phone>();
-            //CreateMap<PhoneInOrderVM, Phone>();
             CreateMap<Phone, PhoneInOrderVM>();
             CreateMap<Order, OrderVM>();
         }

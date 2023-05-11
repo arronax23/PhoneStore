@@ -29,6 +29,7 @@ namespace PhoneStore.UI.Controllers
         [HttpGet]
         [Route("api/GetAllPhones")]
         [Authorize(Roles = "Admin,Customer")]
+        [Obsolete]
         public IActionResult GetAllPhones()
         {
             var phones = _phonesService.GetAllPhones().Phones;

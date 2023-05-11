@@ -26,6 +26,7 @@ namespace PhoneStore.BLL.Services
             numberOfPhonesPerPage = int.Parse(_configuration["Config:NumberOfPhonesPerPage"]);
         }
 
+        [Obsolete]
         public GetAllPhonesResponse GetAllPhones()
         {
             var response = new GetAllPhonesResponse() { Phones = _applicationDbContext.Phones.AsEnumerable() };
