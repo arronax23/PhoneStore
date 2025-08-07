@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace PhoneStore.UI.Settings
+﻿namespace PhoneStore.UI.Settings
 {
     public class JwtSettings
     {

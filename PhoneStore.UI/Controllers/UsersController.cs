@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using PhoneStore.BLL.Interfaces;
 using PhoneStore.BLL.Messages;
-using PhoneStore.BLL.Services;
-using PhoneStore.DAL.Models;
 using PhoneStore.UI.VIewModels;
 
 namespace PhoneStore.UI.Controllers

@@ -3,7 +3,6 @@ using PhoneStore.BLL.Messages;
 using PhoneStore.BLL.Services;
 using PhoneStore.DAL.Data;
 using PhoneStore.DAL.Models;
-using System;
 using System.Threading.Tasks;
 using Xunit;
 using Microsoft.Extensions.Configuration;
@@ -23,7 +22,7 @@ namespace PhoneStore.UnitTests.BLL
             var dbContext = new ApplicationDbContext(dbOptions);
 
             var configuration = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json")
+                .AddJsonFile("appsettings.Development.json")
                 .Build();
 
             _phonesService = new PhonesService(dbContext, configuration);

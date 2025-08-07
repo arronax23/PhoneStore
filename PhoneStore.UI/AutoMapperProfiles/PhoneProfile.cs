@@ -1,10 +1,6 @@
 ﻿using AutoMapper;
 using PhoneStore.DAL.Models;
 using PhoneStore.UI.VIewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PhoneStore.UI.AutoMapperProfiles
 {
@@ -15,7 +11,6 @@ namespace PhoneStore.UI.AutoMapperProfiles
             CreateMap<Phone, PhoneVM>();
             CreateMap<Phone, OverviewPhoneVM>();
             CreateMap<PhoneVM, Phone>();
-            //CreateMap<PhoneInOrderVM, Phone>();
             CreateMap<Phone, PhoneInOrderVM>();
             CreateMap<Order, OrderVM>();
         }

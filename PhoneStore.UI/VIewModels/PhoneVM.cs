@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace PhoneStore.UI.VIewModels
+﻿namespace PhoneStore.UI.VIewModels
 {
     public enum PhoneColorVM { White, Black, Red, Blue, Pink }
     public class PhoneVM
