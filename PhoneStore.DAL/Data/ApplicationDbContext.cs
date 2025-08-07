@@ -1,13 +1,7 @@
-﻿using IdentityServer4.EntityFramework.Options;
-using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using PhoneStore.DAL.Models;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace PhoneStore.DAL.Data
 {
