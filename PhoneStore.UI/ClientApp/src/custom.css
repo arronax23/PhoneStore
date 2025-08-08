@@ -135,17 +135,15 @@ address {
   text-align: center;
   background-color: white;
   color: rgba(0, 0, 0, 0.54);
-  /* position: absolute;
-  bottom: 0; */
   width: 100%;
 }
 
-@media screen and (min-width: 960px) {
+/* @media screen and (min-width: 960px) {
   address {
     position: absolute;
-    bottom: 0;
+    bottom: -5rem;
   }
-}
+} */
 
 .MuiTypography-body1 {
   font-size: 0.75rem !important;
@@ -153,6 +151,7 @@ address {
 
 .phone-details {
   text-align: center;
+  margin-bottom: 1rem;
 }
 
 .phone-details-img {
@@ -217,18 +216,18 @@ address {
 }
 
 .pagination-container {
-  margin: 10px 0;
+  margin: 2rem 0;
   width: 100%;
   text-align: center;
 }
 
-@media screen and (min-width: 960px) {
+/* @media screen and (min-width: 960px) {
   .pagination-container {
     margin: 0;
     position: absolute;
     bottom: 30px;
   }
-}
+} */
 
 .phone-list-main {
   display: flex;
