@@ -14,15 +14,9 @@ using PhoneStore.DAL.Models;
 using System;
 using PhoneStore.BLL.Interfaces;
 using PhoneStore.BLL.Services;
-using Microsoft.AspNetCore.Authorization;
-using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Threading.Tasks;
 using Microsoft.OpenApi.Models;
-using PhoneStore.UI.Settings;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Http;
 
